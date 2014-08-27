@@ -32,9 +32,9 @@ int main()
 	}
 
 
-	// Grab the Image
-	cout << "Grab the Image" << endl;
-	Mat imgInput, imgHSV;
+	// Store Image to matrix
+	cout << "Store Image to matrix" << endl;
+	Mat imgInput;
 	capture >> imgInput;
 
 	// Write the image
