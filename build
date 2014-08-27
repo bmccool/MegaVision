@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo "Building imageGrabber.cpp"
+
+echo "Building..."
+g++ -O2 `pkg-config --cflags --libs opencv` imagegrabber.cpp -o BeagleVision
