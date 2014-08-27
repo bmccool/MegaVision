@@ -1,6 +1,10 @@
 #!/bin/bash
 
-echo "Building imageGrabber.cpp"
+echo "Pulling latest changes"
+hg pull
+
+echo "Merging latest changes"
+hg update
 
 echo "Building..."
 g++ -O2 `pkg-config --cflags --libs opencv` imagegrabber.cpp -o BeagleVision
