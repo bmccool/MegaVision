@@ -34,9 +34,11 @@ int main()
 	// Write the image
 	cout << "Writing Image" << endl;
 	imwrite("CameraFrame.png", frame);
+	
+	// Close the default camera
+	cap.release();
 
 	// DONE
 	return 0;
 
 }
-
