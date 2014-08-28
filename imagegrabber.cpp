@@ -7,39 +7,33 @@ using namespace std;
 using namespace cv;
 
 
-// These were the threshold values that were
-// used for image thresholding.  They are 
-// thresholds for blue.
-int low [3] =  {0, 21, 66};
-int high[3] = {61, 50, 95};
-
 double width = 176;
 double height = 144;
 
 int main()
 {
 
-	cout << "VideoCapture capture(0);" << endl;
-	VideoCapture capture(0);
-	cout << "capture.set(CV_CAP_PROP_FRAME_WIDTH, width);" << endl;
-	capture.set(CV_CAP_PROP_FRAME_WIDTH, width);
-	cout << "capture.set(CV_CAP_PROP_FRAME_HEIGHT, height);" << endl;
-	capture.set(CV_CAP_PROP_FRAME_HEIGHT, height);
+    // Open the default camera
+	cout << "Open the default camera" << endl;
+	VideoCapture cap(0);
 
-	if (!capture.isOpened())
+	// Check that we succeeded
+	cout << "Check that we succeeded" << endl;
+	if (!cap.isOpened())
 	{
 		cout << "The camera is not working!" << endl;
+		return -1;
 	}
 
 
-	// Store Image to matrix
-	cout << "Store Image to matrix" << endl;
-	Mat imgInput;
-	capture >> imgInput;
+	// Get a new frame from the camera
+	cout << "Get a new frame from the camera" << endl;
+	Mat frame;
+	cap >> frame;
 
 	// Write the image
 	cout << "Writing Image" << endl;
-	imwrite("imgInput.png", imgInput);
+	imwrite("CameraFrame.png", frame);
 
 	// DONE
 	return 0;
