@@ -32,7 +32,7 @@ int main()
 	cout << "Writing Image" << endl;
 	imwrite("CameraFrame.png", frame);
 	
-	string OutString = CameraFrameX.png;
+	string OutString = "CameraFrameX.png";
 	for (char c = '1'; c <= '9'; c++)
 	{
 	    cout << "Getting new frame..." << endl;
