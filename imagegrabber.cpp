@@ -3,6 +3,7 @@
 
 #include<iostream>
 #include<opencv2/opencv.hpp>
+#include <string>
 using namespace std;
 using namespace cv;
 
@@ -30,6 +31,17 @@ int main()
 	// Write the image
 	cout << "Writing Image" << endl;
 	imwrite("CameraFrame.png", frame);
+	
+	string OutString;
+	for (int i = 1; i <= 10; i++)
+	{
+	    cout << "Getting new frame..." << endl;
+	    cap >> frame;
+		
+		cout << "Writing Image..." << endl;
+		OutString = "CameraFrame" + std::to_string(i) + ".png";
+		imwrite(OutString, frame);
+	}	
 	
 	// Close the default camera
 	cap.release();
