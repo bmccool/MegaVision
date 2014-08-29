@@ -6,10 +6,6 @@
 using namespace std;
 using namespace cv;
 
-
-double width = 176;
-double height = 144;
-
 int main()
 {
 
