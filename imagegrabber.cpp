@@ -33,7 +33,7 @@ int main()
 	imwrite("CameraFrame.png", frame);
 	
 	string OutString;
-	for (char c = '1'; c <= '9'; i++)
+	for (char c = '1'; c <= '9'; c++)
 	{
 	    cout << "Getting new frame..." << endl;
 	    cap >> frame;
