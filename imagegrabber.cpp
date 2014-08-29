@@ -33,13 +33,13 @@ int main()
 	imwrite("CameraFrame.png", frame);
 	
 	string OutString;
-	for (int i = 1; i <= 10; i++)
+	for (char c = '1'; i <= '9'; i++)
 	{
 	    cout << "Getting new frame..." << endl;
 	    cap >> frame;
 		
 		cout << "Writing Image..." << endl;
-		OutString = "CameraFrame" + to_string(i) + ".png";
+		OutString = "CameraFrame" + c + ".png";
 		imwrite(OutString, frame);
 	}	
 	
