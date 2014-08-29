@@ -39,7 +39,7 @@ int main()
 	    cap >> frame;
 		
 		cout << "Writing Image..." << endl;
-		OutString = "CameraFrame" + std::to_string(i) + ".png";
+		OutString = "CameraFrame" + to_string(i) + ".png";
 		imwrite(OutString, frame);
 	}	
 	
