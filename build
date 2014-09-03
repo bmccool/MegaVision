@@ -1,13 +1,18 @@
 #!/bin/bash
 
-echo "Pulling latest changes"
+echo "Clearing all files..."
+hg revert -all
+
+echo "Pulling latest changes..."
 hg pull
 
-echo "Merging latest changes"
+echo "Merging latest changes..."
 hg update
 
 echo "Building..."
 g++ -O2 `pkg-config --cflags --libs opencv` imagegrabber.cpp -o BeagleVision
+
+chmod 777 build
 
 echo "Running..."
 ./BeagleVision
