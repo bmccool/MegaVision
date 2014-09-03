@@ -4,8 +4,12 @@
 #include<iostream>
 #include<opencv2/opencv.hpp>
 #include <string>
+#include <time.h>
 using namespace std;
 using namespace cv;
+
+#define CAM_WIDTH 640
+#define CAM_HEIGHT 480
 
 int main()
 {
@@ -14,6 +18,14 @@ int main()
 	cout << "Open the default camera" << endl;
 	VideoCapture cap(0);
 
+	// Set the width
+	cout << "Set the width" << endl;
+	cap.set(CV_CAP_PROP_FRAME_WIDTH, CAM_WIDTH);
+	
+	// Set the height
+	cout << "Set the height" << endl;
+	cap.set(CV_CAP_PROP_FRAME_HEIGHT, CAM_HEIGHT);
+	
 	// Check that we succeeded
 	cout << "Check that we succeeded" << endl;
 	if (!cap.isOpened())
@@ -32,6 +44,10 @@ int main()
 	cout << "Writing Image" << endl;
 	imwrite("CameraFrame.png", frame);
 	
+	// Start timing the camera.  We want to see
+	// how quickly we can grab images from the camera
+	// in quick succession.
+	const clock_t begin_time = clock();
 	string OutString = "CameraFrameX.png";
 	for (char c = '1'; c <= '9'; c++)
 	{
@@ -42,7 +58,7 @@ int main()
 		cout << "Writing Image:" << OutString << endl;
 		imwrite(OutString, frame);
 	}	
-	
+	cout << float( clock() - begin_time) / CLOCKS_PER_SEC;
 	// Close the default camera
 	cap.release();
 
