@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Clearing all files..."
-hg revert -all
+hg revert --all
 
 echo "Pulling latest changes..."
 hg pull
