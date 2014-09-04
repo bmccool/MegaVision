@@ -8,9 +8,6 @@
 using namespace std;
 using namespace cv;
 
-#define CAM_WIDTH 640
-#define CAM_HEIGHT 480
-
 int main()
 {
 
@@ -18,16 +15,16 @@ int main()
 	cout << "Open the default camera" << endl;
 	VideoCapture cap(0);
 
-	// Set the width
-	cout << "Set the width" << endl;
-	cap.set(CV_CAP_PROP_FRAME_WIDTH, CAM_WIDTH);
+	// Check the width
+	cout << "Check the width" << endl;
+	double width = cap.get(CV_CAP_PROP_FRAME_WIDTH);
 	
-	// Set the height
-	cout << "Set the height" << endl;
-	cap.set(CV_CAP_PROP_FRAME_HEIGHT, CAM_HEIGHT);
+	// Check the height
+	cout << "Check the height" << endl;
+	double height = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
 	
-	// Check that we succeeded
-	cout << "Check that we succeeded" << endl;
+	// Check that the camera was opened
+	cout << "Check that the camera was opened" << endl;
 	if (!cap.isOpened())
 	{
 		cout << "The camera is not working!" << endl;
@@ -44,21 +41,25 @@ int main()
 	cout << "Writing Image" << endl;
 	imwrite("CameraFrame.png", frame);
 	
+#if 0 // TIME CAMERA
 	// Start timing the camera.  We want to see
 	// how quickly we can grab images from the camera
-	// in quick succession.
+	// in quick succession.  This will grab ten frames
+	// from the camera and print the amount of time it
+	// took.  Take the number of frames (10) divided by
+	// the time to get frames per second.
 	const clock_t begin_time = clock();
 	string OutString = "CameraFrameX.png";
 	for (char c = '1'; c <= '9'; c++)
 	{
-	    cout << "Getting new frame..." << endl;
 	    cap >> frame;
-		
 		OutString[11] = c;
-		cout << "Writing Image:" << OutString << endl;
 		imwrite(OutString, frame);
 	}	
 	cout << float( clock() - begin_time) / CLOCKS_PER_SEC;
+	
+#endif	// TIME CAMERA
+	
 	// Close the default camera
 	cap.release();
 
