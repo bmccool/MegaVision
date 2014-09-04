@@ -18,10 +18,12 @@ int main()
 	// Check the width
 	cout << "Check the width" << endl;
 	double width = cap.get(CV_CAP_PROP_FRAME_WIDTH);
+	cout << "Width = " << width << endl;
 	
 	// Check the height
 	cout << "Check the height" << endl;
 	double height = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
+	cout << "Height = " << height << endl;
 	
 	// Check that the camera was opened
 	cout << "Check that the camera was opened" << endl;
