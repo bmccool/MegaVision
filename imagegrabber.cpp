@@ -16,22 +16,25 @@ int main()
 	VideoCapture cap(0);
 
 	// Check the width
-	cout << "Check the width" << endl;
+	cout << "Check the width... ";
 	double width = cap.get(CV_CAP_PROP_FRAME_WIDTH);
 	cout << "Width = " << width << endl;
 	
 	// Check the height
-	cout << "Check the height" << endl;
+	cout << "Check the height... ";
 	double height = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
 	cout << "Height = " << height << endl;
 	
 	// Check that the camera was opened
-	cout << "Check that the camera was opened" << endl;
+	cout << "Check that the camera was opened... ";
 	if (!cap.isOpened())
 	{
 		cout << "The camera is not working!" << endl;
 		return -1;
 	}
+	else
+	{
+	    cout << "Success!" << endl;
 
 
 	// Get a new frame from the camera
