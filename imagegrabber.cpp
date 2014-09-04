@@ -35,7 +35,8 @@ int main()
 	else
 	{
 	    cout << "Success!" << endl;
-
+	}
+		
 
 	// Get a new frame from the camera
 	cout << "Get a new frame from the camera" << endl;
