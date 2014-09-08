@@ -47,19 +47,18 @@ int main(int argc, char* argv[])
 			// frames that we can use when designing the
 			// processing component of the project.
 			int num_frames = 0;
-			string OutString = "CameraFrameX.png";
+			char OutString[30];
 			int i;
-			char c;
 			Mat frame;
 			do
 			{
-			    cout << "Select number of frames between 1 and 9: ";
+			    cout << "Select number of frames: ";
 				cin  >> num_frames;
 				
-	            for (i = 1, c = '1'; i < num_frames; i++, c++)
+	            for (i = 1; i < num_frames; i++)
 	            {
 	                cap >> frame;
-		            OutString[11] = c;
+		            sprintf(OutString, "FrameGrab_%d.png", i);
 		            imwrite(OutString, frame);
 				}
 			}while(num_frames > 0);
