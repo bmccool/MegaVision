@@ -8,37 +8,20 @@
 using namespace std;
 using namespace cv;
 
-int main()
+#define ERR_NONE				0
+#define ERR_CAMERA_OPEN_FAILED 	1
+
+int HW_camera_open(VideoCapture *capture);
+int HW_camera_close(VideoCapture *capture);
+
+int main(int argc, char**)
 {
-
-    // Open the default camera
-	cout << "Open the default camera" << endl;
-	VideoCapture cap(0);
-
-	// Check the width
-	cout << "Check the width... ";
-	double width = cap.get(CV_CAP_PROP_FRAME_WIDTH);
-	cout << "Width = " << width << endl;
+    VideoCapture cap;
 	
-	// Check the height
-	cout << "Check the height... ";
-	double height = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
-	cout << "Height = " << height << endl;
-	
-	// Check that the camera was opened
-	cout << "Check that the camera was opened... ";
-	if (!cap.isOpened())
-	{
-		cout << "The camera is not working!" << endl;
-		return -1;
-	}
-	else
-	{
-	    cout << "Success!" << endl;
-	}
-		
+    // Open the camera
+	HW_camera_open(&cap);
 
-	// Get a new frame from the camera
+    // Get a new frame from the camera
 	cout << "Get a new frame from the camera" << endl;
 	Mat frame;
 	cap >> frame;
@@ -67,9 +50,54 @@ int main()
 #endif	// TIME CAMERA
 	
 	// Close the default camera
-	cap.release();
+    HW_camera_close(&cap);
 
 	// DONE
 	return 0;
 
+}
+/******************************************************************************
+* Function Name: HW_camera_open
+* 
+*
+******************************************************************************/
+int HW_camera_open(VideoCapture *capture)
+{
+    // Open the default camera
+	cout << "Open the default camera" << endl;
+	capture(camera_index);
+
+	// Check the width
+	cout << "Check the width... ";
+	double width = capture.get(CV_CAP_PROP_FRAME_WIDTH);
+	cout << "Width = " << width << endl;
+	
+	// Check the height
+	cout << "Check the height... ";
+	double height = capture.get(CV_CAP_PROP_FRAME_HEIGHT);
+	cout << "Height = " << height << endl;
+	
+	// Check that the camera was opened
+	cout << "Check that the camera was opened... ";
+	if (!capture.isOpened())
+	{
+		cout << "The camera is not working!" << endl;
+		return ERR_CAMERA_OPEN_FAILED;
+	}
+	else
+	{
+	    cout << "Success!" << endl;
+		return ERR_NONE
+	} 
+}
+
+/******************************************************************************
+* Function Name: HW_camera_close
+* 
+*
+******************************************************************************/
+int HW_camera_close(VideoCapture *capture)
+{
+	cap.release();
+	return ERR_NONE;
 }
