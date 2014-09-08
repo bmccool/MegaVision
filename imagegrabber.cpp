@@ -56,7 +56,7 @@ int main(int argc, char* argv[])
                 cout << "Select number of frames: ";
                 cin  >> num_frames;
                 
-                for (i = 1; i < num_frames; i++)
+                for (i = 0; i < num_frames; i++)
                 {
                     cap >> frame;
                     sprintf(OutString, "FrameGrab_%d.png", i);
