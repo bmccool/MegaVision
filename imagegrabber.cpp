@@ -48,12 +48,14 @@ int main(int argc, char* argv[])
 			// processing component of the project.
 			int num_frames = 0;
 			string OutString = "CameraFrameX.png";
+			int i;
+			char c;
 			do
 			{
 			    cout << "Select number of frames between 1 and 9: ";
 				cin  >> num_frames;
 				
-	            for (int i = 1, char c = '1'; i < num_frames; i++, c++)
+	            for (i = 1, c = '1'; i < num_frames; i++, c++)
 	            {
 	                cap >> frame;
 		            OutString[11] = c;
