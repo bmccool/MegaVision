@@ -14,21 +14,58 @@ using namespace cv;
 int HW_camera_open(VideoCapture *capture);
 int HW_camera_close(VideoCapture *capture);
 
-int main(int argc, char**)
+int main(int argc, char* argv[])
 {
-    VideoCapture cap;
+    VideoCapture cap;  // Capture Object
 	
     // Open the camera
 	HW_camera_open(&cap);
 
-    // Get a new frame from the camera
-	cout << "Get a new frame from the camera" << endl;
-	Mat frame;
-	cap >> frame;
+	// Check the incoming arguments
+	if (argc < 2)
+	{
+	    // No arguments were passed
+		// Grab an image and exit
+	    
+		// Get a new frame from the camera
+	    cout << "Get a new frame from the camera" << endl;
+	    Mat frame;
+	    cap >> frame;
 
-	// Write the image
-	cout << "Writing Image" << endl;
-	imwrite("CameraFrame.png", frame);
+	    // Write the image
+	    cout << "Writing Image" << endl;
+	    imwrite("CameraFrame.png", frame);
+    }
+	else
+	{
+	    if (argv[1] == "p")
+		{
+		    // Polling mode
+			// This mode will poll the user for a number
+			// then take that many number of pictures.
+			// This mode is intended to get samples of
+			// frames that we can use when designing the
+			// processing component of the project.
+			int num_frames = 0;
+			string OutString = "CameraFrameX.png";
+			do
+			{
+			    cout << "Select number of frames between 1 and 9: ";
+				cin  >> num_frames;
+				
+	            for (int i = 1, char c = '1'; i < num_frames; i++, c++)
+	            {
+	                cap >> frame;
+		            OutString[11] = c;
+		            imwrite(OutString, frame);
+				}
+			}while(num_frames > 0);
+		}
+	}	
+			
+	
+	
+	
 	
 #if 0 // TIME CAMERA
 	// Start timing the camera.  We want to see
