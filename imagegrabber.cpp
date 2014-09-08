@@ -65,21 +65,21 @@ int HW_camera_open(VideoCapture *capture)
 {
     // Open the default camera
 	cout << "Open the default camera" << endl;
-	capture(camera_index);
+	capture->open(0);
 
 	// Check the width
 	cout << "Check the width... ";
-	double width = capture.get(CV_CAP_PROP_FRAME_WIDTH);
+	double width = capture->get(CV_CAP_PROP_FRAME_WIDTH);
 	cout << "Width = " << width << endl;
 	
 	// Check the height
 	cout << "Check the height... ";
-	double height = capture.get(CV_CAP_PROP_FRAME_HEIGHT);
+	double height = capture->get(CV_CAP_PROP_FRAME_HEIGHT);
 	cout << "Height = " << height << endl;
 	
 	// Check that the camera was opened
 	cout << "Check that the camera was opened... ";
-	if (!capture.isOpened())
+	if (!capture->isOpened())
 	{
 		cout << "The camera is not working!" << endl;
 		return ERR_CAMERA_OPEN_FAILED;
@@ -87,7 +87,7 @@ int HW_camera_open(VideoCapture *capture)
 	else
 	{
 	    cout << "Success!" << endl;
-		return ERR_NONE
+		return ERR_NONE;
 	} 
 }
 
@@ -98,6 +98,6 @@ int HW_camera_open(VideoCapture *capture)
 ******************************************************************************/
 int HW_camera_close(VideoCapture *capture)
 {
-	cap.release();
+	capture->release();
 	return ERR_NONE;
 }
