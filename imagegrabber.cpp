@@ -50,6 +50,7 @@ int main(int argc, char* argv[])
 			string OutString = "CameraFrameX.png";
 			int i;
 			char c;
+			Mat frame;
 			do
 			{
 			    cout << "Select number of frames between 1 and 9: ";
