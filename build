@@ -10,7 +10,7 @@ echo "Merging latest changes..."
 hg update
 
 echo "Building..."
-g++ -O2 `pkg-config --cflags --libs opencv` imagegrabber.cpp -o BeagleVision
+g++ `pkg-config --cflags --libs opencv` -o BeagleVision main.cpp HW_camera.cpp 
 
 chmod 777 build
 
