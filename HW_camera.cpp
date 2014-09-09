@@ -3,13 +3,12 @@
 * This file contains functions that deal with operating the physical camera.
 *
 ******************************************************************************/
-#include<iostream>
-#include<opencv2/opencv.hpp>
-#include <string>
-#include <time.h>
-#include <stdio.h>
 
+/////////////////////////// STANDARD INCLUDES  ////////////////////////////////
+/////////////////////////// PROJECT INCLUDES   ////////////////////////////////
 #include "HW_camera.hpp"
+
+/////////////////////////// EXPORTED FUNCTIONS ////////////////////////////////
 /******************************************************************************
 * Function Name: HW_camera_open
 * 

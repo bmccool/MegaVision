@@ -7,6 +7,15 @@
 // Make sure this is only included once
 #ifndef HW_CAMERA_HPP
 #define HW_CAMERA_HPP
+
+/////////////////////////// STANDARD INCLUDES  ////////////////////////////////
+#include<iostream>
+#include<opencv2/opencv.hpp>
+#include <string>
+#include <time.h>
+#include <stdio.h>
+/////////////////////////// PROJECT INCLUDES   ////////////////////////////////
+
 // Definitions
 #define ERR_NONE               0
 #define ERR_CAMERA_OPEN_FAILED 1
