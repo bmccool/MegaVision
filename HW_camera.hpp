@@ -21,7 +21,7 @@
 #define ERR_CAMERA_OPEN_FAILED 1
 
 // Exported function prototypes
-int HW_camera_open(VideoCapture *capture);
-int HW_camera_close(VideoCapture *capture);
+int HW_camera_open(cv:VideoCapture *capture);
+int HW_camera_close(cv:VideoCapture *capture);
 
 #endif
