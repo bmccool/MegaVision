@@ -14,7 +14,7 @@
 * 
 *
 ******************************************************************************/
-int HW_camera_open(VideoCapture *capture)
+int HW_camera_open(cv::VideoCapture *capture)
 {
     // Open the default camera
     cout << "Open the default camera" << endl;
@@ -49,7 +49,7 @@ int HW_camera_open(VideoCapture *capture)
 * 
 *
 ******************************************************************************/
-int HW_camera_close(VideoCapture *capture)
+int HW_camera_close(cv::VideoCapture *capture)
 {
     capture->release();
     return ERR_NONE;
