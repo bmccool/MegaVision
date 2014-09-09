@@ -17,29 +17,29 @@
 int HW_camera_open(cv::VideoCapture *capture)
 {
     // Open the default camera
-    cout << "Open the default camera" << endl;
+    std::cout << "Open the default camera" << std::endl;
     capture->open(0);
 
     // Check the width
-    cout << "Check the width... ";
+    std::cout << "Check the width... ";
     double width = capture->get(CV_CAP_PROP_FRAME_WIDTH);
-    cout << "Width = " << width << endl;
+    std::cout << "Width = " << width << std::endl;
     
     // Check the height
-    cout << "Check the height... ";
+    std::cout << "Check the height... ";
     double height = capture->get(CV_CAP_PROP_FRAME_HEIGHT);
-    cout << "Height = " << height << endl;
+    std::cout << "Height = " << height << std::endl;
     
     // Check that the camera was opened
-    cout << "Check that the camera was opened... ";
+    std::cout << "Check that the camera was opened... ";
     if (!capture->isOpened())
     {
-        cout << "The camera is not working!" << endl;
+        std::cout << "The camera is not working!" << std::endl;
         return ERR_CAMERA_OPEN_FAILED;
     }
     else
     {
-        cout << "Success!" << endl;
+        std::cout << "Success!" << std::endl;
         return ERR_NONE;
     }
 }
