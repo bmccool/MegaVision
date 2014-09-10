@@ -64,7 +64,7 @@ int detect_lines(Mat src)
     //imshow("source", src);
 	imwrite("source", src);
 	//imshow("detected lines", cdst);
-	imwriite("detected lines", cdst);
+	imwrite("detected lines", cdst);
 
     return 0;
 }
