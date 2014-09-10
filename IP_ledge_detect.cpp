@@ -62,7 +62,7 @@ int detect_lines(Mat src)
     }
 #endif
 	imwrite("source.png", src);
-    imwrite("canny edge.png", dst)
+    imwrite("canny edge.png", dst);
 	imwrite("detected lines.png", cdst);
 
     return 0;
