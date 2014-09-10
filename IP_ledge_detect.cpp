@@ -58,13 +58,12 @@ int detect_lines(Mat src)
     for( size_t i = 0; i < lines.size(); i++ )
     {
         Vec4i l = lines[i];
-        line( cdst, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,0,255), 3, CV_AA);
+        line( cdst, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,255,0), 1, CV_AA);
     }
 #endif
-    //imshow("source", src);
-	imwrite("source", src);
-	//imshow("detected lines", cdst);
-	imwrite("detected lines", cdst);
+	imwrite("source.png", src);
+    imwrite("canny edge.png", dst)
+	imwrite("detected lines.png", cdst);
 
     return 0;
 }
