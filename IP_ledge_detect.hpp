@@ -20,6 +20,6 @@
 
 
 // Exported function prototypes
-int detect_lines(Mat src);
+int detect_lines(cv::Mat src);
 
 #endif
