@@ -8,6 +8,7 @@
 #include <stdio.h>
 
 #include "HW_camera.hpp"
+#include "IP_ledge_detect.hpp"
 using namespace std;
 using namespace cv;
 
