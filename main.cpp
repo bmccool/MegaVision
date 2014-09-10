@@ -36,8 +36,8 @@ int main(int argc, char* argv[])
     else
     {
         if (string(argv[1]) == "p")
-    {
-        // Polling mode
+        {
+            // Polling mode
             // This mode will poll the user for a number
             // then take that many number of pictures.
             // This mode is intended to get samples of
@@ -59,6 +59,11 @@ int main(int argc, char* argv[])
                     imwrite(OutString, frame);
                 }
             }while(num_frames > 0);
+        }
+        else if (string(argv[1]) == "l")
+        {
+            Mat frame = imread(string(argv[2]), 0);
+            detect_lines(frame);
         }
     }
 
