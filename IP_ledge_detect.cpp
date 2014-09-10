@@ -58,7 +58,7 @@ int detect_lines(Mat src)
     for( size_t i = 0; i < lines.size(); i++ )
     {
         Vec4i l = lines[i];
-        if ((l[0] - l[2] == 0) || // If the line is purely vertical or...
+        if (!(l[0] - l[2] == 0) && // If the line is NOT purely vertical and...
            (((l[1] - l[3]) / (l[0] - l[2])) < .5)) // If the slope of the line is less than 1/2.
         {
             // only draw lines with slope less than 1/2
