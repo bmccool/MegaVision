@@ -17,6 +17,10 @@
 * 
 *
 ******************************************************************************/
+#define PHOUGH_THRESHOLD 50
+#define PHOUGH_MIN_LENGTH 20
+#define PHOUGH_MAX_LINE_GAP 10
+
 
 using namespace cv;
 using namespace std;
@@ -52,7 +56,7 @@ int detect_lines(Mat src)
 #else // Probabilistic Hough Line Transform
     // First, apply the transform
     vector<Vec4i> lines;
-    HoughLinesP(dst, lines, 1, CV_PI/180, 50, 50, 10 );
+    HoughLinesP(dst, lines, 1, CV_PI/180, PHOUGH_THRESHOLD, PHOUGH_MIN_LENGTH, PHOUGH_MAX_LINE_GAP );
 	
 	// Display the result by drawing the lines
     for( size_t i = 0; i < lines.size(); i++ )
