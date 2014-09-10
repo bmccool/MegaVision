@@ -8,3 +8,5 @@ hg update --clean
 
 echo "Building..."
 make
+
+chmod 777 build
