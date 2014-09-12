@@ -20,8 +20,7 @@ int max_line_gap = 5;
 int threshold_var = 5;
 Mat ReadFrame;
 
-void trackbar_callback(void);
-void trackbar_callback(void)
+void trackbar_callback( int, void* )
 {
     Mat dst;
     detect_lines(ReadFrame, max_line_length, max_line_gap, threshold, dst);
