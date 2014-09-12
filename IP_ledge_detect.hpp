@@ -20,6 +20,6 @@
 
 
 // Exported function prototypes
-int detect_lines(cv::Mat src, int max_line_length, int max_line_gap, int threshold, cv::Mat dst);
+int detect_lines(cv::Mat src, int max_line_length, int max_line_gap, int threshold_var, cv::Mat dst);
 
 #endif
