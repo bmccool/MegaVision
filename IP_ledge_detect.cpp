@@ -34,7 +34,7 @@ int detect_lines(Mat src, int max_line_length, int max_line_gap, int threshold_v
         return -1;
     }
 
-    Mat dst, cdst;
+    Mat cdst;
     Canny(src, dst, 50, 200, 3);
     cvtColor(dst, cdst, CV_GRAY2BGR);
 
