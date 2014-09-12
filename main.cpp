@@ -89,6 +89,12 @@ int main(int argc, char* argv[])
             createTrackbar("Max Line Length", "Line Transform", &max_line_length, SLIDER_MAX, trackbar_callback);
             createTrackbar("Max Line Gap", "Line Transform", &max_line_gap, SLIDER_MAX, trackbar_callback);
             createTrackbar("Threshold", "Line Transform", &threshold_var, SLIDER_MAX, trackbar_callback);
+            
+            // Show some stuff?? IDK what this is but it was in the tut...
+            trackbar_callback(max_line_length, 0);
+            
+            // Wait for keypress
+            waitKey(0);
         }
     }
 
