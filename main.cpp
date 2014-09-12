@@ -12,6 +12,22 @@
 using namespace std;
 using namespace cv;
 
+#define SLIDER_MAX 100
+
+// Global Variables
+int max_line_length = 10;
+int max_line_gap = 5;
+int threshold = 5;
+Mat ReadFrame
+
+void trackbar_callback(void)
+{
+    Mat dst;
+    detect_lines(ReadFrame, max_line_length, max_line_gap, threshold, dst);
+    imshow("Line Transform", dst);
+}
+
+
 int main(int argc, char* argv[])
 {
     VideoCapture cap;  // Capture Object
@@ -63,8 +79,16 @@ int main(int argc, char* argv[])
         }
         else if (string(argv[1]) == "l")
         {
-            Mat frame = imread(string(argv[2]), 0);
-            detect_lines(frame);
+            ReadFrame = imread(string(argv[2]), 0);
+
+
+            // Create Window
+            namedWindow("Line Transform", 1);
+            
+            // Create Trackbars
+            createTrackbar("Max Line Length", "Line Transform", &max_line_length, SLIDER_MAX, trackbar_callback);
+            createTrackbar("Max Line Gap", "Line Transform", &max_line_gap, SLIDER_MAX, trackbar_callback);
+            createTrackbar("Threshold", "Line Transform", &threshold, SLIDER_MAX, trackbar_callback);
         }
     }
 
