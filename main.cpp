@@ -23,7 +23,7 @@ Mat ReadFrame;
 void trackbar_callback( int, void* )
 {
     Mat dst;
-    detect_lines(ReadFrame, max_line_length, max_line_gap, threshold, dst);
+    detect_lines(ReadFrame, max_line_length, max_line_gap, threshold_var, dst);
     imshow("Line Transform", dst);
 }
 
