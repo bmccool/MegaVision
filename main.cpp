@@ -17,9 +17,10 @@ using namespace cv;
 // Global Variables
 int max_line_length = 10;
 int max_line_gap = 5;
-int threshold = 5;
-Mat ReadFrame
+int threshold_var = 5;
+Mat ReadFrame;
 
+void trackbar_callback(void);
 void trackbar_callback(void)
 {
     Mat dst;
@@ -88,7 +89,7 @@ int main(int argc, char* argv[])
             // Create Trackbars
             createTrackbar("Max Line Length", "Line Transform", &max_line_length, SLIDER_MAX, trackbar_callback);
             createTrackbar("Max Line Gap", "Line Transform", &max_line_gap, SLIDER_MAX, trackbar_callback);
-            createTrackbar("Threshold", "Line Transform", &threshold, SLIDER_MAX, trackbar_callback);
+            createTrackbar("Threshold", "Line Transform", &threshold_var, SLIDER_MAX, trackbar_callback);
         }
     }
 
