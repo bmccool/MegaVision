@@ -26,7 +26,7 @@
 using namespace cv;
 using namespace std;
 
-int detect_lines(Mat src, int max_line_length, int max_line_gap, int threshold_var, Mat dst)
+int detect_lines(Mat src, int max_line_length, int max_line_gap, int threshold_var, Mat output_mat)
 {
     if(src.empty())
     {
@@ -35,12 +35,12 @@ int detect_lines(Mat src, int max_line_length, int max_line_gap, int threshold_v
     }
 
     Mat cdst;
-    Canny(src, dst, 50, 200, 3);
-    cvtColor(dst, cdst, CV_GRAY2BGR);
+    Canny(src, output_mat, 50, 200, 3);
+    cvtColor(output_mat, cdst, CV_GRAY2BGR);
 
 #if 0 // Standard Hough Line Transform
     vector<Vec2f> lines;
-    HoughLines(dst, lines, 1, CV_PI/180, 100, 0, 0 );
+    HoughLines(output_mat, lines, 1, CV_PI/180, 100, 0, 0 );
 
     for( size_t i = 0; i < lines.size(); i++ )
     {
@@ -57,7 +57,7 @@ int detect_lines(Mat src, int max_line_length, int max_line_gap, int threshold_v
 #else // Probabilistic Hough Line Transform
     // First, apply the transform
     vector<Vec4i> lines;
-    HoughLinesP(dst, lines, 1, CV_PI/180, threshold, max_line_length, max_line_gap );
+    HoughLinesP(output_mat, lines, 1, CV_PI/180, threshold, max_line_length, max_line_gap );
 	
 	// Display the result by drawing the lines
     for( size_t i = 0; i < lines.size(); i++ )
@@ -76,7 +76,7 @@ int detect_lines(Mat src, int max_line_length, int max_line_gap, int threshold_v
     }
 #endif
 	imwrite("source.png", src);
-    imwrite("canny edge.png", dst);
+    imwrite("canny edge.png", output_mat);
 	imwrite("detected lines.png", cdst);
 
     return 0;
