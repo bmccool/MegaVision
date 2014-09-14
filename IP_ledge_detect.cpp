@@ -26,17 +26,17 @@
 using namespace cv;
 using namespace std;
 
-int detect_lines(Mat src, int max_line_length, int max_line_gap, int threshold_var, Mat output_mat)
+int detect_lines(Mat input_mat, int max_line_length, int max_line_gap, int threshold_var, Mat output_mat)
 {
-    if(src.empty())
+    if(input_mat.empty())
     {
         cout << "Matrix is empty!" << endl;
         return -1;
     }
 
-    Mat cdst;
-    Canny(src, output_mat, 50, 200, 3);
-    cvtColor(output_mat, cdst, CV_GRAY2BGR);
+    Mat intermediate_mat;
+    Canny(input_mat, intermediate_mat, 50, 200, 3);
+    cvtColor(intermediate_mat, output_mat, CV_GRAY2BGR);
 
 #if 0 // Standard Hough Line Transform
     vector<Vec2f> lines;
@@ -52,7 +52,7 @@ int detect_lines(Mat src, int max_line_length, int max_line_gap, int threshold_v
         pt1.y = cvRound(y0 + 1000*(a));
         pt2.x = cvRound(x0 - 1000*(-b));
         pt2.y = cvRound(y0 - 1000*(a));
-        line( cdst, pt1, pt2, Scalar(0,0,255), 3, CV_AA);
+        line( output_mat, pt1, pt2, Scalar(0,0,255), 3, CV_AA);
     }
 #else // Probabilistic Hough Line Transform
     // First, apply the transform
@@ -71,13 +71,13 @@ int detect_lines(Mat src, int max_line_length, int max_line_gap, int threshold_v
             cout << "(" << l[0] << ", " << l[1] << "), (" << l[2] << ", " << l[3] << ") Slope = " << ((float)(l[1] - l[3]) / (float)(l[0] - l[2])) << endl;
             #endif
             // only draw lines with slope less than 1/2
-            line( cdst, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,255,0), 1, CV_AA);
+            line( output_mat, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,255,0), 1, CV_AA);
         }
     }
 #endif
-	imwrite("source.png", src);
-    imwrite("canny edge.png", output_mat);
-	imwrite("detected lines.png", cdst);
+	//imwrite("source.png", input_mat);
+    //imwrite("canny edge.png", intermediate_mat);
+	//imwrite("detected lines.png", output_mat);
 
     return 0;
 }
