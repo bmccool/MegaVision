@@ -14,20 +14,6 @@ using namespace cv;
 
 #define SLIDER_MAX 100
 
-// Global Variables
-int max_line_length = 10;
-int max_line_gap = 5;
-int threshold_var = 5;
-Mat ReadFrame;
-
-void trackbar_callback( int, void* )
-{
-    Mat dst;
-    detect_lines(ReadFrame, max_line_length, max_line_gap, threshold_var, dst);
-    imshow("Line Transform", dst);
-}
-
-
 int main(int argc, char* argv[])
 {
     VideoCapture cap;  // Capture Object
@@ -79,22 +65,32 @@ int main(int argc, char* argv[])
         }
         else if (string(argv[1]) == "l")
         {
+            // Read the input image from file
             ReadFrame = imread(string(argv[2]), 0);
+            // Var mat to hold the output image
+            Mat output;
+            // Buffer for output filename
+            char OutString[50];
 
-
-            // Create Window
-            namedWindow("Line Transform", 1);
-            
-            // Create Trackbars
-            createTrackbar("Max Line Length", "Line Transform", &max_line_length, SLIDER_MAX, trackbar_callback);
-            createTrackbar("Max Line Gap", "Line Transform", &max_line_gap, SLIDER_MAX, trackbar_callback);
-            createTrackbar("Threshold", "Line Transform", &threshold_var, SLIDER_MAX, trackbar_callback);
-            
-            // Show some stuff?? IDK what this is but it was in the tut...
-            trackbar_callback(max_line_length, 0);
-            
-            // Wait for keypress
-            waitKey(0);
+            // Global Variables
+            int max_line_length = 10;
+            int max_line_gap = 5;
+            int threshold_var = 5;
+            for (max_line_length = 10; max_line_length < 100; max_line_length += 10)
+            {
+                for (max_line_gap = 5; max_line_gap < 100; max_line_gap += 10)
+                {
+                    for (threshold_var = 5; threshold_var < 100; threshold_var += 10)
+                    {
+                        // Detect the lines in this frame
+                        detect_lines(ReadFrame, max_line_length, max_line_gap, threshold_var, output);
+                        // Create the output filename
+                        sprintf(OutString, "length %d gap %d thresh %d.png", max_line_length, max_line_gap, threshold_var);
+                        // Write the image
+                        imwrite(OutString, output);
+                    }
+                }
+            }
         }
     }
 
