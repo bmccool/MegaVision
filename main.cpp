@@ -84,6 +84,8 @@ int main(int argc, char* argv[])
             int max_line_length = 10;
             int max_line_gap = 5;
             int threshold_var = 5;
+            imwrite("ReadFrame.png", ReadFrame);
+            
             for (max_line_length = 10; max_line_length < 100; max_line_length += 10)
             {
                 for (max_line_gap = 5; max_line_gap < 100; max_line_gap += 10)
