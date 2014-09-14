@@ -40,7 +40,7 @@ int detect_lines(Mat input_mat, int max_line_length, int max_line_gap, int thres
 
 #if 0 // Standard Hough Line Transform
     vector<Vec2f> lines;
-    HoughLines(output_mat, lines, 1, CV_PI/180, 100, 0, 0 );
+    HoughLines(intermediate_mat, lines, 1, CV_PI/180, 100, 0, 0 );
 
     for( size_t i = 0; i < lines.size(); i++ )
     {
@@ -57,7 +57,7 @@ int detect_lines(Mat input_mat, int max_line_length, int max_line_gap, int thres
 #else // Probabilistic Hough Line Transform
     // First, apply the transform
     vector<Vec4i> lines;
-    HoughLinesP(output_mat, lines, 1, CV_PI/180, threshold_var, max_line_length, max_line_gap );
+    HoughLinesP(intermediate_mat, lines, 1, CV_PI/180, threshold_var, max_line_length, max_line_gap );
 	
 	// Display the result by drawing the lines
     for( size_t i = 0; i < lines.size(); i++ )
