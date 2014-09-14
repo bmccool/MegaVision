@@ -33,7 +33,7 @@ int detect_lines(Mat input_mat, int max_line_length, int max_line_gap, int thres
         cout << "Matrix is empty!" << endl;
         return -1;
     }
-    cout << "total = " << imput_mat.total();
+    cout << "total = " << input_mat.total();
     imwrite("input_mat.png", input_mat);
 
     Mat intermediate_mat;
