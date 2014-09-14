@@ -66,7 +66,7 @@ int main(int argc, char* argv[])
         else if (string(argv[1]) == "l")
         {
             // Read the input image from file
-            ReadFrame = imread(string(argv[2]), 0);
+            Mat ReadFrame = imread(string(argv[2]), 0);
             // Var mat to hold the output image
             Mat output;
             // Buffer for output filename
