@@ -65,8 +65,16 @@ int main(int argc, char* argv[])
         }
         else if (string(argv[1]) == "l")
         {
+            
             // Read the input image from file
             Mat ReadFrame = imread(string(argv[2]), 0);
+            // Verify imread is successful
+            if (!ReadFrame.data)
+            {
+                cout <<  "Could not open or find the image" << endl;
+                return -1;
+            }
+            
             // Var mat to hold the output image
             Mat output;
             // Buffer for output filename
