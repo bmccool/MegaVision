@@ -33,23 +33,10 @@ int detect_lines(Mat input_mat, int max_line_length, int max_line_gap, int thres
         cout << "Matrix is empty!" << endl;
         return -1;
     }
-    cout << "input_mat total = " << input_mat.total() << endl;
-    cout << "write input_mat.png to show that the input made it through ok" << endl;
-    imwrite("input_mat.png", input_mat);
 
     Mat intermediate_mat;
-    
-    cout << "Canny(input_mat, intermediate_mat, 50, 200, 3); " << endl;
     Canny(input_mat, intermediate_mat, 50, 200, 3);
-    
-    cout << "cvtColor(intermediate_mat, output_mat, CV_GRAY2BGR);" << endl;
-    cout << "intermediate_mat total = " << intermediate_mat.total() << endl;
-    imwrite("intermediate_before_cvt.png", intermediate_mat);
     cvtColor(intermediate_mat, output_mat, CV_GRAY2BGR);
-    
-    cout << "output_mat total = " << output_mat.total() << endl;
-    imwrite("intermediate_after_cvt.png", intermediate_mat);
-    imwrite("output_mat_on_create.png", output_mat);
 
 #if 0 // Standard Hough Line Transform
     vector<Vec2f> lines;
@@ -69,11 +56,8 @@ int detect_lines(Mat input_mat, int max_line_length, int max_line_gap, int thres
     }
 #else // Probabilistic Hough Line Transform
     // First, apply the transform
-    cout << "vector<Vec4i> lines;" << endl;
     vector<Vec4i> lines;
-    cout << "HoughLinesP(intermediate_mat, lines, 1, CV_PI/180, threshold_var, max_line_length, max_line_gap );" << endl;
     HoughLinesP(intermediate_mat, lines, 1, CV_PI/180, threshold_var, max_line_length, max_line_gap );
-    cout << "Done with hough" << endl;
 	
 	// Display the result by drawing the lines
     for( size_t i = 0; i < lines.size(); i++ )
@@ -86,17 +70,10 @@ int detect_lines(Mat input_mat, int max_line_length, int max_line_gap, int thres
             #if (DEBUG)
             cout << "(" << l[0] << ", " << l[1] << "), (" << l[2] << ", " << l[3] << ") Slope = " << ((float)(l[1] - l[3]) / (float)(l[0] - l[2])) << endl;
             #endif
-            cout << "Draw a line on the output" << endl;
             // only draw lines with slope less than 1/2
             line( output_mat, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,255,0), 1, CV_AA);
-            cout << "Drew a line on the output" << endl;
         }
     }
-    imwrite("output_mat_done.png", output_mat);
 #endif
-	//imwrite("source.png", input_mat);
-    //imwrite("canny edge.png", intermediate_mat);
-	//imwrite("detected lines.png", output_mat);
-
     return 0;
 }

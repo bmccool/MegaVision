@@ -85,34 +85,23 @@ int main(int argc, char* argv[])
             int max_line_length = 10;
             int max_line_gap = 5;
             int threshold_var = 5;
-            imwrite("ReadFrame.png", ReadFrame);
+
             
-            cout << "output_mat total before detection =" << output_mat.total() << endl;
-            // Detect the lines in this frame
-            cout << "Detect the lines in this frame" << endl;
-            detect_lines(ReadFrame, max_line_length, max_line_gap, threshold_var, output_mat);
-            // Create the output filename
-            sprintf(OutString, "length %d gap %d thresh %d.png", max_line_length, max_line_gap, threshold_var);
-            // Write the image
-            cout << "output_mat total = " << output_mat.total() << endl;
-            cout << "imwrite(OutString, output_mat);" << endl;
-            imwrite(OutString, output_mat);
-            
-//            for (max_line_length = 10; max_line_length < 100; max_line_length += 10)
-//            {
-//                for (max_line_gap = 5; max_line_gap < 100; max_line_gap += 10)
-//                {
-//                    for (threshold_var = 5; threshold_var < 100; threshold_var += 10)
-//                    {
-//                        // Detect the lines in this frame
-//                        detect_lines(ReadFrame, max_line_length, max_line_gap, threshold_var, output);
-//                        // Create the output filename
-//                        sprintf(OutString, "length %d gap %d thresh %d.png", max_line_length, max_line_gap, threshold_var);
-//                        // Write the image
-//                        imwrite(OutString, output);
-//                    }
-//                }
-//            }
+            for (max_line_length = 10; max_line_length < 100; max_line_length += 10)
+            {
+                for (max_line_gap = 5; max_line_gap < 100; max_line_gap += 10)
+                {
+                    for (threshold_var = 5; threshold_var < 100; threshold_var += 10)
+                    {
+                        // Detect the lines in this frame
+                        detect_lines(ReadFrame, max_line_length, max_line_gap, threshold_var, output);
+                        // Create the output filename
+                        sprintf(OutString, "length %d gap %d thresh %d.png", max_line_length, max_line_gap, threshold_var);
+                        // Write the image
+                        imwrite(OutString, output);
+                    }
+                }
+            }
         }
     }
 
