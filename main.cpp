@@ -67,6 +67,7 @@ int main(int argc, char* argv[])
         {
             
             // Read the input image from file
+            cout << "Read the input image from file" << endl;
             Mat ReadFrame = imread(string(argv[2]), 0);
             // Verify imread is successful
             if (!ReadFrame.data)
@@ -76,7 +77,7 @@ int main(int argc, char* argv[])
             }
             
             // Var mat to hold the output image
-            Mat output;
+            Mat output_mat;
             // Buffer for output filename
             char OutString[50];
 
@@ -86,13 +87,16 @@ int main(int argc, char* argv[])
             int threshold_var = 5;
             imwrite("ReadFrame.png", ReadFrame);
             
-            
+            cout << "output_mat total before detection =" << output_mat.total() << endl;
             // Detect the lines in this frame
-            detect_lines(ReadFrame, max_line_length, max_line_gap, threshold_var, output);
+            cout << "Detect the lines in this frame" << endl;
+            detect_lines(ReadFrame, max_line_length, max_line_gap, threshold_var, output_mat);
             // Create the output filename
             sprintf(OutString, "length %d gap %d thresh %d.png", max_line_length, max_line_gap, threshold_var);
             // Write the image
-            imwrite(OutString, output);
+            cout << "output_mat total = " << output_mat.total() << endl;
+            cout << "imwrite(OutString, output_mat);" << endl;
+            imwrite(OutString, output_mat);
             
 //            for (max_line_length = 10; max_line_length < 100; max_line_length += 10)
 //            {
