@@ -41,10 +41,10 @@ int detect_lines(Mat input_mat, int max_line_length, int max_line_gap, int thres
     cout << "Canny(input_mat, intermediate_mat, 50, 200, 3); " << endl;
     Canny(input_mat, intermediate_mat, 50, 200, 3);
     cout << "cvtColor(intermediate_mat, output_mat, CV_GRAY2BGR);" << endl;
-    cout << "total = " << intermediate_mat.total(); << endl;
+    cout << "total = " << intermediate_mat.total() << endl;
     imwrite("intermediate_before_cvt.png" intermediate_mat);
     cvtColor(intermediate_mat, output_mat, CV_GRAY2BGR);
-    cout << "total = " << intermediate_mat.total(); << endl;
+    cout << "total = " << intermediate_mat.total() << endl;
     imwrite("intermediate_after_cvt.png" intermediate_mat);
 
 #if 0 // Standard Hough Line Transform
