@@ -26,7 +26,7 @@
 using namespace cv;
 using namespace std;
 
-int detect_lines(Mat input_mat, int max_line_length, int max_line_gap, int threshold_var, Mat output_mat)
+int detect_lines(Mat input_mat, int max_line_length, int max_line_gap, int threshold_var, Mat& output_mat)
 {
     if(input_mat.empty())
     {
