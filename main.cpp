@@ -98,7 +98,7 @@ int main(int argc, char* argv[])
                         // Create the output filename
                         sprintf(OutString, "length %d gap %d thresh %d.png", max_line_length, max_line_gap, threshold_var);
                         // Write the image
-                        imwrite(OutString, output);
+                        imwrite(OutString, output_mat);
                     }
                 }
             }
