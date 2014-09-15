@@ -33,7 +33,7 @@ int detect_lines(Mat input_mat, int max_line_length, int max_line_gap, int thres
         cout << "Matrix is empty!" << endl;
         return -1;
     }
-    cout << "total = " << input_mat.total();
+    cout << "input_mat total = " << input_mat.total() << endl;
     cout << "write input_mat.png to show that the input made it through ok" << endl;
     imwrite("input_mat.png", input_mat);
 
@@ -43,11 +43,11 @@ int detect_lines(Mat input_mat, int max_line_length, int max_line_gap, int thres
     Canny(input_mat, intermediate_mat, 50, 200, 3);
     
     cout << "cvtColor(intermediate_mat, output_mat, CV_GRAY2BGR);" << endl;
-    cout << "total = " << intermediate_mat.total() << endl;
+    cout << "intermediate_mat total = " << intermediate_mat.total() << endl;
     imwrite("intermediate_before_cvt.png", intermediate_mat);
     cvtColor(intermediate_mat, output_mat, CV_GRAY2BGR);
     
-    cout << "total = " << intermediate_mat.total() << endl;
+    cout << "output_mat total = " << output_mat.total() << endl;
     imwrite("intermediate_after_cvt.png", intermediate_mat);
     imwrite("output_mat_on_create.png", output_mat);
 
@@ -86,8 +86,10 @@ int detect_lines(Mat input_mat, int max_line_length, int max_line_gap, int thres
             #if (DEBUG)
             cout << "(" << l[0] << ", " << l[1] << "), (" << l[2] << ", " << l[3] << ") Slope = " << ((float)(l[1] - l[3]) / (float)(l[0] - l[2])) << endl;
             #endif
+            cout << "Draw a line on the output" << endl;
             // only draw lines with slope less than 1/2
             line( output_mat, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,255,0), 1, CV_AA);
+            cout << "Drew a line on the output" << endl;
         }
     }
 #endif
