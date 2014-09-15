@@ -34,10 +34,13 @@ int detect_lines(Mat input_mat, int max_line_length, int max_line_gap, int thres
         return -1;
     }
     cout << "total = " << input_mat.total();
+    cout << "write input_mat.png to show that the input made it through ok" << endl;
     imwrite("input_mat.png", input_mat);
 
     Mat intermediate_mat;
+    cout << "Canny(input_mat, intermediate_mat, 50, 200, 3); " << endl;
     Canny(input_mat, intermediate_mat, 50, 200, 3);
+    cout << "cvtColor(intermediate_mat, output_mat, CV_GRAY2BGR);" << endl;
     cvtColor(intermediate_mat, output_mat, CV_GRAY2BGR);
 
 #if 0 // Standard Hough Line Transform
@@ -58,7 +61,9 @@ int detect_lines(Mat input_mat, int max_line_length, int max_line_gap, int thres
     }
 #else // Probabilistic Hough Line Transform
     // First, apply the transform
+    cout << "vector<Vec4i> lines;" << endl;
     vector<Vec4i> lines;
+    cout << "HoughLinesP(intermediate_mat, lines, 1, CV_PI/180, threshold_var, max_line_length, max_line_gap );"
     HoughLinesP(intermediate_mat, lines, 1, CV_PI/180, threshold_var, max_line_length, max_line_gap );
 	
 	// Display the result by drawing the lines
