@@ -63,7 +63,7 @@ int detect_lines(Mat input_mat, int max_line_length, int max_line_gap, int thres
     // First, apply the transform
     cout << "vector<Vec4i> lines;" << endl;
     vector<Vec4i> lines;
-    cout << "HoughLinesP(intermediate_mat, lines, 1, CV_PI/180, threshold_var, max_line_length, max_line_gap );"
+    cout << "HoughLinesP(intermediate_mat, lines, 1, CV_PI/180, threshold_var, max_line_length, max_line_gap );" << endl;
     HoughLinesP(intermediate_mat, lines, 1, CV_PI/180, threshold_var, max_line_length, max_line_gap );
 	
 	// Display the result by drawing the lines
