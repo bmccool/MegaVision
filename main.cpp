@@ -86,21 +86,29 @@ int main(int argc, char* argv[])
             int threshold_var = 5;
             imwrite("ReadFrame.png", ReadFrame);
             
-            for (max_line_length = 10; max_line_length < 100; max_line_length += 10)
-            {
-                for (max_line_gap = 5; max_line_gap < 100; max_line_gap += 10)
-                {
-                    for (threshold_var = 5; threshold_var < 100; threshold_var += 10)
-                    {
-                        // Detect the lines in this frame
-                        detect_lines(ReadFrame, max_line_length, max_line_gap, threshold_var, output);
-                        // Create the output filename
-                        sprintf(OutString, "length %d gap %d thresh %d.png", max_line_length, max_line_gap, threshold_var);
-                        // Write the image
-                        imwrite(OutString, output);
-                    }
-                }
-            }
+            
+            // Detect the lines in this frame
+            detect_lines(ReadFrame, max_line_length, max_line_gap, threshold_var, output);
+            // Create the output filename
+            sprintf(OutString, "length %d gap %d thresh %d.png", max_line_length, max_line_gap, threshold_var);
+            // Write the image
+            imwrite(OutString, output);
+            
+//            for (max_line_length = 10; max_line_length < 100; max_line_length += 10)
+//            {
+//                for (max_line_gap = 5; max_line_gap < 100; max_line_gap += 10)
+//                {
+//                    for (threshold_var = 5; threshold_var < 100; threshold_var += 10)
+//                    {
+//                        // Detect the lines in this frame
+//                        detect_lines(ReadFrame, max_line_length, max_line_gap, threshold_var, output);
+//                        // Create the output filename
+//                        sprintf(OutString, "length %d gap %d thresh %d.png", max_line_length, max_line_gap, threshold_var);
+//                        // Write the image
+//                        imwrite(OutString, output);
+//                    }
+//                }
+//            }
         }
     }
 
