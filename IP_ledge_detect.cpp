@@ -92,6 +92,7 @@ int detect_lines(Mat input_mat, int max_line_length, int max_line_gap, int thres
             cout << "Drew a line on the output" << endl;
         }
     }
+    imwrite("output_mat_done.png", output_mat);
 #endif
 	//imwrite("source.png", input_mat);
     //imwrite("canny edge.png", intermediate_mat);
