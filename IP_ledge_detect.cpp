@@ -49,6 +49,7 @@ int detect_lines(Mat input_mat, int max_line_length, int max_line_gap, int thres
     
     cout << "total = " << intermediate_mat.total() << endl;
     imwrite("intermediate_after_cvt.png", intermediate_mat);
+    imwrite("output_mat_on_create.png", output_mat);
 
 #if 0 // Standard Hough Line Transform
     vector<Vec2f> lines;
@@ -72,6 +73,7 @@ int detect_lines(Mat input_mat, int max_line_length, int max_line_gap, int thres
     vector<Vec4i> lines;
     cout << "HoughLinesP(intermediate_mat, lines, 1, CV_PI/180, threshold_var, max_line_length, max_line_gap );" << endl;
     HoughLinesP(intermediate_mat, lines, 1, CV_PI/180, threshold_var, max_line_length, max_line_gap );
+    cout << "Done with hough" << endl;
 	
 	// Display the result by drawing the lines
     for( size_t i = 0; i < lines.size(); i++ )
