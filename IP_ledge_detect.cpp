@@ -26,7 +26,7 @@
 using namespace cv;
 using namespace std;
 
-int detect_lines(Mat input_mat, int max_line_length, int max_line_gap, int threshold_var, Mat& output_mat)
+int detect_lines_hough_prob(Mat input_mat, int max_line_length, int max_line_gap, int threshold_var, Mat& output_mat)
 {
     if(input_mat.empty())
     {
@@ -38,23 +38,7 @@ int detect_lines(Mat input_mat, int max_line_length, int max_line_gap, int thres
     Canny(input_mat, intermediate_mat, 50, 200, 3);
     cvtColor(intermediate_mat, output_mat, CV_GRAY2BGR);
 
-#if 0 // Standard Hough Line Transform
-    vector<Vec2f> lines;
-    HoughLines(intermediate_mat, lines, 1, CV_PI/180, 100, 0, 0 );
-
-    for( size_t i = 0; i < lines.size(); i++ )
-    {
-        float rho = lines[i][0], theta = lines[i][1];
-        Point pt1, pt2;
-        double a = cos(theta), b = sin(theta);
-        double x0 = a*rho, y0 = b*rho;
-        pt1.x = cvRound(x0 + 1000*(-b));
-        pt1.y = cvRound(y0 + 1000*(a));
-        pt2.x = cvRound(x0 - 1000*(-b));
-        pt2.y = cvRound(y0 - 1000*(a));
-        line( output_mat, pt1, pt2, Scalar(0,0,255), 3, CV_AA);
-    }
-#else // Probabilistic Hough Line Transform
+    // Probabilistic Hough Line Transform
     // First, apply the transform
     vector<Vec4i> lines;
     HoughLinesP(intermediate_mat, lines, 1, CV_PI/180, threshold_var, max_line_length, max_line_gap );
@@ -74,6 +58,37 @@ int detect_lines(Mat input_mat, int max_line_length, int max_line_gap, int thres
             line( output_mat, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,255,0), 1, CV_AA);
         }
     }
-#endif
+    return 0;
+}
+
+int detect_lines_hough(Mat input_mat, int max_line_length, int max_line_gap, int threshold_var, Mat& output_mat)
+{
+    if(input_mat.empty())
+    {
+        cout << "Matrix is empty!" << endl;
+        return -1;
+    }
+
+    Mat intermediate_mat;
+    Canny(input_mat, intermediate_mat, 50, 200, 3);
+    cvtColor(intermediate_mat, output_mat, CV_GRAY2BGR);
+
+    // Standard Hough Line Transform
+    vector<Vec2f> lines;
+    HoughLines(intermediate_mat, lines, 1, CV_PI/180, 100, 0, 0 );
+
+    for( size_t i = 0; i < lines.size(); i++ )
+    {
+        float rho = lines[i][0], theta = lines[i][1];
+        Point pt1, pt2;
+        double a = cos(theta), b = sin(theta);
+        double x0 = a*rho, y0 = b*rho;
+        pt1.x = cvRound(x0 + 1000*(-b));
+        pt1.y = cvRound(y0 + 1000*(a));
+        pt2.x = cvRound(x0 - 1000*(-b));
+        pt2.y = cvRound(y0 - 1000*(a));
+        line( output_mat, pt1, pt2, Scalar(0,0,255), 3, CV_AA);
+    }
+
     return 0;
 }
