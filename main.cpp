@@ -105,29 +105,6 @@ int main(int argc, char* argv[])
         }
     }
 
-
-
-
-
-#if 0 // TIME CAMERA
-    // Start timing the camera.  We want to see
-    // how quickly we can grab images from the camera
-    // in quick succession.  This will grab ten frames
-    // from the camera and print the amount of time it
-    // took.  Take the number of frames (10) divided by
-    // the time to get frames per second.
-    const clock_t begin_time = clock();
-    string OutString = "CameraFrameX.png";
-    for (char c = '1'; c <= '9'; c++)
-    {
-        cap >> frame;
-        OutString[11] = c;
-        imwrite(OutString, frame);
-    }
-    cout << float( clock() - begin_time) / CLOCKS_PER_SEC;
-    
-#endif // TIME CAMERA
-
     // Close the default camera
     HW_camera_close(&cap);
 
