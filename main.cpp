@@ -94,7 +94,7 @@ int main(int argc, char* argv[])
                     for (threshold_var = 5; threshold_var < 100; threshold_var += 10)
                     {
                         // Detect the lines in this frame
-                        detect_lines(ReadFrame, max_line_length, max_line_gap, threshold_var, output_mat);
+                        detect_lines_hough_prob(ReadFrame, max_line_length, max_line_gap, threshold_var, output_mat);
                         // Create the output filename
                         sprintf(OutString, "length %d gap %d thresh %d.png", max_line_length, max_line_gap, threshold_var);
                         // Write the image
