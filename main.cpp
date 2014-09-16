@@ -12,6 +12,8 @@
 using namespace std;
 using namespace cv;
 
+#define SLIDER_MAX 100
+
 int main(int argc, char* argv[])
 {
     VideoCapture cap;  // Capture Object
@@ -63,8 +65,43 @@ int main(int argc, char* argv[])
         }
         else if (string(argv[1]) == "l")
         {
-            Mat frame = imread(string(argv[2]), 0);
-            detect_lines(frame);
+            
+            // Read the input image from file
+            cout << "Read the input image from file" << endl;
+            Mat ReadFrame = imread(string(argv[2]), 0);
+            // Verify imread is successful
+            if (!ReadFrame.data)
+            {
+                cout <<  "Could not open or find the image" << endl;
+                return -1;
+            }
+            
+            // Var mat to hold the output image
+            Mat output_mat;
+            // Buffer for output filename
+            char OutString[50];
+
+            // Global Variables
+            int max_line_length = 10;
+            int max_line_gap = 5;
+            int threshold_var = 5;
+
+            
+            for (max_line_length = 10; max_line_length < 100; max_line_length += 10)
+            {
+                for (max_line_gap = 5; max_line_gap < 100; max_line_gap += 10)
+                {
+                    for (threshold_var = 5; threshold_var < 100; threshold_var += 10)
+                    {
+                        // Detect the lines in this frame
+                        detect_lines(ReadFrame, max_line_length, max_line_gap, threshold_var, output_mat);
+                        // Create the output filename
+                        sprintf(OutString, "length %d gap %d thresh %d.png", max_line_length, max_line_gap, threshold_var);
+                        // Write the image
+                        imwrite(OutString, output_mat);
+                    }
+                }
+            }
         }
     }
 
