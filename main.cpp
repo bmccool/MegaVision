@@ -4,7 +4,6 @@
 #include<iostream>
 #include<opencv2/opencv.hpp>
 #include <string>
-#include <time.h>
 #include <stdio.h>
 
 #include "HW_camera.hpp"
