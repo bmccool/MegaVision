@@ -14,7 +14,7 @@ using namespace cv;
 #define SLIDER_MAX 100
 
 // Local Function Prototypes
-int main_polling(VideoCapture *capture);
+void main_polling(VideoCapture *capture);
 int main_looping(VideoCapture *capture, string);
 
 int main(int argc, char* argv[])
@@ -59,7 +59,7 @@ int main(int argc, char* argv[])
 
 }
 
-int main_polling(VideoCapture *capture)
+void main_polling(VideoCapture *capture)
 {
     // Polling mode
     // This mode will poll the user for a number
@@ -78,7 +78,7 @@ int main_polling(VideoCapture *capture)
                 
         for (i = 0; i < num_frames; i++)
         {
-            cap >> frame;
+            capture >> frame;
             sprintf(OutString, "FrameGrab_%d.png", i);
             imwrite(OutString, frame);
         }
@@ -122,4 +122,5 @@ int main_looping(VideoCapture *capture, string)
             }
         }
     }
+    return 0;
 }
