@@ -21,6 +21,7 @@ using namespace cv;
 // Local Function Prototypes
 void main_polling(VideoCapture & capture);
 int main_looping(VideoCapture & capture, string filename);
+void main_continuous(VideoCapture & capture);
 
 int main(int argc, char* argv[])
 {
