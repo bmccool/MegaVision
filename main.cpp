@@ -12,7 +12,11 @@
 using namespace std;
 using namespace cv;
 
-#define SLIDER_MAX 100
+#define MIN_LINE_LENGTH 10
+#define MAX_LINE_GAP 5
+#define THRESHOLD_VAR 35
+
+
 
 // Local Function Prototypes
 void main_polling(VideoCapture & capture);
@@ -52,7 +56,7 @@ int main(int argc, char* argv[])
         }
         else if (string(argv[1]) == "c")
         {
-            main_continuous(cap)
+            main_continuous(cap);
         }
     }
 
@@ -135,7 +139,7 @@ void main_continuous(VideoCapture & capture)
     start_timer();
     Mat frame, output_mat;
     char window_name[60];
-    sprintf(window_name, "len %d, gap %d, thresh %d", MAX_LINE_LENGTH, MAX_LINE_GAP, THRESHOLD_VAR);
+    sprintf(window_name, "len %d, gap %d, thresh %d", MIN_LINE_LENGTH, MAX_LINE_GAP, THRESHOLD_VAR);
     namedWindow(window_name, WINDOW_AUTOSIZE);
     
     while (get_elapsed_time() < 600)
@@ -144,7 +148,7 @@ void main_continuous(VideoCapture & capture)
         capture >> frame;
     
         // Find ledges
-        detect_lines_hough_prob(frame, MAX_LINE_LENGTH, MAX_LINE_GAP, THRESHOLD_VAR, output_mat);
+        detect_lines_hough_prob(frame, MIN_LINE_LENGTH, MAX_LINE_GAP, THRESHOLD_VAR, output_mat);
     
         // Create draw the output to screen
         imshow(window_name, output_mat);
