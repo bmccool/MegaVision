@@ -153,5 +153,8 @@ void main_continuous(VideoCapture & capture)
     
         // Create draw the output to screen
         imshow(window_name, output_mat);
+        
+        // Wait for 1 ms (not waiting will cause the image to not be displayed, known imshow issue)
+        waitKey(1);
     }
 }
