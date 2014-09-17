@@ -8,6 +8,7 @@
 
 #include "HW_camera.hpp"
 #include "IP_ledge_detect.hpp"
+#include "CS_time.hpp"
 using namespace std;
 using namespace cv;
 
@@ -48,6 +49,10 @@ int main(int argc, char* argv[])
         else if (string(argv[1]) == "l")
         {
             main_looping(cap, string(argv[2]));
+        }
+        else if (string(argv[1]) == "c")
+        {
+            main_continuous(cap)
         }
     }
 
@@ -123,4 +128,25 @@ int main_looping(VideoCapture & capture, string filename)
         }
     }
     return 0;
+}
+
+void main_continuous(VideoCapture & capture)
+{
+    start_timer();
+    Mat frame, output_mat;
+    char window_name[60];
+    sprintf(window_name, "len %d, gap %d, thresh %d", MAX_LINE_LENGTH, MAX_LINE_GAP, THRESHOLD_VAR);
+    namedWindow(window_name, WINDOW_AUTOSIZE);
+    
+    while (get_elapsed_time() < 600)
+    {
+        // Get a new frame
+        capture >> frame;
+    
+        // Find ledges
+        detect_lines_hough_prob(frame, MAX_LINE_LENGTH, MAX_LINE_GAP, THRESHOLD_VAR, output_mat);
+    
+        // Create draw the output to screen
+        imshow(window_name, output_mat);
+    }
 }

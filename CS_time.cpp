@@ -20,7 +20,7 @@ void start_timer(void)
     return;
 }
 
-float stop_timer(void)
+float get_elapsed_time(void)
 {
     return (float(clock() - begin_time) / CLOCKS_PER_SEC);
 }
