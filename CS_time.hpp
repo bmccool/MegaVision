@@ -13,6 +13,6 @@
 /////////////////////////// PROJECT INCLUDES   ////////////////////////////////
 // Exported function prototypes
 void start_timer(void);
-float stop_timer(void);
+float get_elapsed_time(void);
 
 #endif
