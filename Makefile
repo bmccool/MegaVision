@@ -1,14 +1,14 @@
 CC = g++
 CFLAGS = -c -Wall `pkg-config --cflags opencv`
 LDFLAGS = `pkg-config --libs opencv`
-SOURCES = main.cpp HW_camera.cpp IP_ledge_detect.cpp
+SOURCES = main.cpp HW_camera.cpp IP_ledge_detect.cpp CS_time.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 EXECUTABLE = BeagleVision
 
 all: $(SOURCES) $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
-	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
+	$(CC) -o $@ $(OBJECTS) $(LDFLAGS)
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) $< -o $@
