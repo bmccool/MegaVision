@@ -14,8 +14,8 @@ using namespace cv;
 #define SLIDER_MAX 100
 
 // Local Function Prototypes
-void main_polling(VideoCapture *capture);
-int main_looping(VideoCapture *capture, string filename);
+void main_polling(VideoCapture & capture);
+int main_looping(VideoCapture & capture, string filename);
 
 int main(int argc, char* argv[])
 {
@@ -43,11 +43,11 @@ int main(int argc, char* argv[])
     {
         if (string(argv[1]) == "p")
         {
-            main_polling(&cap);
+            main_polling(cap);
         }
         else if (string(argv[1]) == "l")
         {
-            main_looping(&cap, string(argv[2]));
+            main_looping(cap, string(argv[2]));
         }
     }
 
@@ -59,7 +59,7 @@ int main(int argc, char* argv[])
 
 }
 
-void main_polling(VideoCapture *capture)
+void main_polling(VideoCapture & capture)
 {
     // Polling mode
     // This mode will poll the user for a number
@@ -85,7 +85,7 @@ void main_polling(VideoCapture *capture)
     }while(num_frames > 0);
 }
 
-int main_looping(VideoCapture *capture, string filename)
+int main_looping(VideoCapture & capture, string filename)
 {
     // Read the input image from file
     cout << "Read the input image from file" << endl;
