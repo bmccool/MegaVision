@@ -15,7 +15,7 @@ using namespace cv;
 
 // Local Function Prototypes
 void main_polling(VideoCapture *capture);
-int main_looping(VideoCapture *capture, string);
+int main_looping(VideoCapture *capture, string filename);
 
 int main(int argc, char* argv[])
 {
@@ -85,7 +85,7 @@ void main_polling(VideoCapture *capture)
     }while(num_frames > 0);
 }
 
-int main_looping(VideoCapture *capture, string)
+int main_looping(VideoCapture *capture, string filename)
 {
     // Read the input image from file
     cout << "Read the input image from file" << endl;
