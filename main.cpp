@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
         {
             main_continuous(cap);
         }
-        else if (string(argv[1] == "w")
+        else if (string(argv[1]) == "w")
         {
             main_wiggle();
         }
