@@ -11,7 +11,6 @@
 
 
 /////////////////////////// STANDARD INCLUDES  ////////////////////////////////
-#include <string>
 /////////////////////////// PROJECT INCLUDES   ////////////////////////////////
 // Exported function prototypes
 int send_key_down(char* keycode, unsigned long int window_id);

@@ -9,7 +9,6 @@
 
 // The Keycode to be sent.
 // A full list of available codes can be found in /usr/inclucde/X11/keysymdef.h
-#define KEYCODE XK_Left
 
 using namespace std;
 

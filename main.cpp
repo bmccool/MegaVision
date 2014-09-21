@@ -10,6 +10,7 @@
 #include "IP_ledge_detect.hpp"
 #include "CS_time.hpp"
 #include "CT_window_manager.hpp"
+
 using namespace std;
 using namespace cv;
 
