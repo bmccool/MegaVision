@@ -171,8 +171,11 @@ void main_wiggle(void)
 {
     char Right[10] = "Right";
     char Left[10] = "Left";
+    cout << "Getting nes window" << endl;
     unsigned long int nes_window = get_nes_window();
-    while (true)
+    cout << "Got nes window" << endl;
+    cout << "it is: " << nes_window << endl;
+    while (false)
     {
         
         send_key_down(Left, nes_window);
