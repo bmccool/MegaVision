@@ -14,5 +14,6 @@
 // Exported function prototypes
 void start_timer(void);
 float get_elapsed_time(void);
+void sleep_for_milliseconds(int sleep_milli);
 
 #endif

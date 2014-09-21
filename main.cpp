@@ -5,8 +5,6 @@
 #include<opencv2/opencv.hpp>
 #include <string>
 #include <stdio.h>
-#include <chrono>
-#include <thread>
 
 #include "HW_camera.hpp"
 #include "IP_ledge_detect.hpp"
@@ -175,10 +173,10 @@ void main_wiggle(void)
     {
         
         send_key_down("Left", nes_window);
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        sleep_for_milliseconds(10);
         send_key_up("Left", nes_window);
         send_key_down("Right", nes_window);
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        sleep_for_milliseconds(10);
         send_key_up("Right", nes_window);
     }
 }
