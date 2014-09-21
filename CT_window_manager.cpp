@@ -10,6 +10,8 @@
 // A full list of available codes can be found in /usr/inclucde/X11/keysymdef.h
 #define KEYCODE XK_Left
 
+using namespace std;
+
 XKeyEvent createKeyEvent(Display *display,
                         Window &win,
                         Window &winRoot,
@@ -76,13 +78,8 @@ unsigned long int get_nes_window(void)
     Window *wlist;
     unsigned long len;
     char *wname;
-    Window winFocus;
-    int revert;
     
     disp = XOpenDisplay(NULL);
-    Window winRoot = XDefaultRootWindow(disp);
-
-
     wlist = (Window*)list(disp, &len);
 
 
