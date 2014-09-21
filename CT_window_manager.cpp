@@ -2,6 +2,7 @@
 #include <X11/Xatom.h>
 #include <X11/keysym.h>
 #include <stdio.h>
+#include <iostream>
 #include <stdlib.h>
 
 
@@ -68,7 +69,8 @@ char *name(Display *disp, Window window)
                             &type, &form, &len, &remain, &list);
     return (char*)list;
 }
-int main(int argc, char *argv[])
+
+unsigned long int get_nes_window(void)
 {
     Display *disp;
     Window *wlist;
@@ -83,49 +85,61 @@ int main(int argc, char *argv[])
 
     wlist = (Window*)list(disp, &len);
 
-    //sleep( 3 ); // <-- inserted to give me time to close an open window
 
     XSetErrorHandler( catcher ); // <-- inserted to set error handler
 
     int i;
-    int nes_index;
+    unsigned long int nes_index;
     for(i = 0; i < (int)len; i++){
-    //        if(wlist[i] != 0){    // <-- apparently futile?
                     wname = name(disp, wlist[i]);
                     if (wname[0] == 'F')
                     {
-			printf("here!\n");
                         nes_index = i;
                     }
-                    printf("%d: %s %x\n", i, wname, (int)wlist[i]);
                     free(wname);
-    //        }
     }
-    printf("Nes index is %d, and window is %x\n", nes_index, (int)wlist[nes_index]);
-  //XSetInputFocus(Display *display, Window focus, int revert_to, Time time);
-    XSetInputFocus(disp, wlist[nes_index], RevertToNone, CurrentTime);
-    XGetInputFocus(disp, &winFocus, &revert);
-    printf("I set the focus to be %x, and the focus is %x\n", (int)wlist[nes_index], (int)winFocus);
-    XKeyEvent event = createKeyEvent(disp, wlist[nes_index], winRoot, true, KEYCODE, 0);
-    XSendEvent(event.display, event.window, True, KeyPressMask, (XEvent *)&event);
-    ////
-    XSetInputFocus(disp, wlist[nes_index], RevertToNone, CurrentTime);
-    XGetInputFocus(disp, &winFocus, &revert);
-    event = createKeyEvent(disp, wlist[nes_index], winRoot, false, KEYCODE, 0);
-//    XSendEvent(event.display, event.window, True, KeyPressMask, (XEvent *)&event);
-
-    XSetInputFocus(disp, wlist[nes_index], RevertToNone, CurrentTime);
-    XGetInputFocus(disp, &winFocus, &revert);
-    printf("I set the focus to be %x, and the focus is %x\n", (int)wlist[nes_index], (int)winFocus);
-    event = createKeyEvent(disp, wlist[nes_index], winRoot, true, KEYCODE, 0);
-    XSendEvent(event.display, event.window, True, KeyPressMask, (XEvent *)&event);
-    ////
-    XSetInputFocus(disp, wlist[nes_index], RevertToNone, CurrentTime);
-    XGetInputFocus(disp, &winFocus, &revert);
-    event = createKeyEvent(disp, wlist[nes_index], winRoot, false, KEYCODE, 0);
-//    XSendEvent(event.display, event.window, True, KeyPressMask, (XEvent *)&event);
-
+    //printf("Nes index is %d, and window is %x\n", nes_index, (int)wlist[nes_index]);
 
     XSetErrorHandler( NULL ); // <-- restore the default error handler
-    return 0;
+    return nes_index;
 }
+
+int send_key_down(string keycode, unsigned long int window_id)
+{
+    char buffer[50];
+    
+    // Grab focus of the window
+    sprintf(buffer, "xdotool windowfocus --sync %d" window_id);
+    system(buffer);
+    
+    // Send the keypress
+    sprintf(buffer, "xdotool keydown %s" keycode);
+    system(buffer);
+}
+
+int send_key_up(string keycode, unsigned long int window_id)
+{
+    char buffer[50];
+    
+    // Grab focus of the window
+    sprintf(buffer, "xdotool windowfocus --sync %d" window_id);
+    system(buffer);
+    
+    // Send the key release
+    sprintf(buffer, "xdotool keyup %s" keycode);
+    system(buffer);
+}
+
+int send_key(string keycode, unsigned long int window_id)
+{
+    char buffer[50];
+    
+    // Grab focus of the window
+    sprintf(buffer, "xdotool windowfocus --sync %d" window_id);
+    system(buffer);
+    
+    // Send the key release
+    sprintf(buffer, "xdotool key %s" keycode);
+    system(buffer);
+}
+
