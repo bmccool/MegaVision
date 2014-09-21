@@ -169,16 +169,18 @@ void main_continuous(VideoCapture & capture)
 
 void main_wiggle(void)
 {
+    char Right[10] = "Right";
+    char Left[10] = "Left";
     unsigned long int nes_window = get_nes_window();
     while (true)
     {
         
-        send_key_down("Left", nes_window);
+        send_key_down(Left, nes_window);
         sleep_for_milliseconds(10);
-        send_key_up("Left", nes_window);
-        send_key_down("Right", nes_window);
+        send_key_up(Left, nes_window);
+        send_key_down(Right, nes_window);
         sleep_for_milliseconds(10);
-        send_key_up("Right", nes_window);
+        send_key_up(Right, nes_window);
     }
 }
     
