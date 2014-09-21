@@ -101,7 +101,7 @@ unsigned long int get_nes_window(void)
     return nes_index;
 }
 
-int send_key_down(string keycode, unsigned long int window_id)
+int send_key_down(char* keycode, unsigned long int window_id)
 {
     char buffer[50];
     
@@ -114,7 +114,7 @@ int send_key_down(string keycode, unsigned long int window_id)
     system(buffer);
 }
 
-int send_key_up(string keycode, unsigned long int window_id)
+int send_key_up(char* keycode, unsigned long int window_id)
 {
     char buffer[50];
     
@@ -127,7 +127,7 @@ int send_key_up(string keycode, unsigned long int window_id)
     system(buffer);
 }
 
-int send_key(string keycode, unsigned long int window_id)
+int send_key(char* keycode, unsigned long int window_id)
 {
     char buffer[50];
     

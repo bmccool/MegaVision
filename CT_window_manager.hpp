@@ -14,9 +14,9 @@
 #include <string>
 /////////////////////////// PROJECT INCLUDES   ////////////////////////////////
 // Exported function prototypes
-int send_key_down(std::string keycode, unsigned long int window_id);
-int send_key_up(std::string keycode, unsigned long int window_id);
-int send_key(std::string keycode, unsigned long int window_id);
+int send_key_down(char* keycode, unsigned long int window_id);
+int send_key_up(char* keycode, unsigned long int window_id);
+int send_key(char* keycode, unsigned long int window_id);
 unsigned long int get_nes_window(void);
 
 #endif
