@@ -98,7 +98,7 @@ unsigned long int get_nes_window(void)
     //printf("Nes index is %d, and window is %x\n", nes_index, (int)wlist[nes_index]);
 
     XSetErrorHandler( NULL ); // <-- restore the default error handler
-    return nes_index;
+    return wlist[nes_index];
 }
 
 int send_key_down(char* keycode, unsigned long int window_id)
