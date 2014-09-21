@@ -5,6 +5,8 @@
 #include<opencv2/opencv.hpp>
 #include <string>
 #include <stdio.h>
+#include <chrono>
+#include <thread>
 
 #include "HW_camera.hpp"
 #include "IP_ledge_detect.hpp"
@@ -22,6 +24,8 @@ using namespace cv;
 void main_polling(VideoCapture & capture);
 int main_looping(VideoCapture & capture, string filename);
 void main_continuous(VideoCapture & capture);
+void main_wiggle(void);
+
 
 int main(int argc, char* argv[])
 {
@@ -58,6 +62,10 @@ int main(int argc, char* argv[])
         else if (string(argv[1]) == "c")
         {
             main_continuous(cap);
+        }
+        else if (string(argv[1] == "w")
+        {
+            main_wiggle();
         }
     }
 
@@ -158,3 +166,19 @@ void main_continuous(VideoCapture & capture)
         waitKey(1);
     }
 }
+
+void main_wiggle(void)
+{
+    unsigned long int nes_window = get_nes_window();
+    while (true)
+    {
+        
+        send_key_down("Left", nes_window);
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        send_key_up("Left", nes_window);
+        send_key_down("Right", nes_window);
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        send_key_up("Right", nes_window);
+    }
+}
+    
