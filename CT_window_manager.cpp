@@ -112,6 +112,8 @@ int send_key_down(char* keycode, unsigned long int window_id)
     // Send the keypress
     sprintf(buffer, "xdotool keydown %s", keycode);
     system(buffer);
+    
+    return 0;
 }
 
 int send_key_up(char* keycode, unsigned long int window_id)
@@ -125,6 +127,8 @@ int send_key_up(char* keycode, unsigned long int window_id)
     // Send the key release
     sprintf(buffer, "xdotool keyup %s", keycode);
     system(buffer);
+    
+    return 0;
 }
 
 int send_key(char* keycode, unsigned long int window_id)
@@ -138,5 +142,7 @@ int send_key(char* keycode, unsigned long int window_id)
     // Send the key release
     sprintf(buffer, "xdotool key %s", keycode);
     system(buffer);
+    
+    return 0;
 }
 
