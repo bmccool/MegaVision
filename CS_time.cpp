@@ -25,4 +25,17 @@ float get_elapsed_time(void)
     return (float(clock() - begin_time) / CLOCKS_PER_SEC);
 }
 
+void sleep_for_milliseconds(int sleep_milli)
+{
+    // We were passed the time in milliseconds
+    // Convert this time to nanoseconds (*1000000)
+    // Also, this needs to be packed into the timespec struct
     
+    struct timespec time1, time2;  //Time2 will return the remaining time if we are interrupted.
+    // For now, Time2 is unused.
+    
+    time1.tv_sec = 0;
+    time1.tv_nsec = sleep_milli * 1000000;
+    
+    nanosleep(&time1, &time2);
+}
