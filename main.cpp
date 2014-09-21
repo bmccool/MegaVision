@@ -175,7 +175,7 @@ void main_wiggle(void)
     unsigned long int nes_window = get_nes_window();
     cout << "Got nes window" << endl;
     cout << "it is: " << nes_window << endl;
-    while (false)
+    while (true)
     {
         
         send_key_down(Left, nes_window);
