@@ -106,11 +106,11 @@ int send_key_down(string keycode, unsigned long int window_id)
     char buffer[50];
     
     // Grab focus of the window
-    sprintf(buffer, "xdotool windowfocus --sync %d" window_id);
+    sprintf(buffer, "xdotool windowfocus --sync %d", window_id);
     system(buffer);
     
     // Send the keypress
-    sprintf(buffer, "xdotool keydown %s" keycode);
+    sprintf(buffer, "xdotool keydown %s", keycode);
     system(buffer);
 }
 
@@ -119,11 +119,11 @@ int send_key_up(string keycode, unsigned long int window_id)
     char buffer[50];
     
     // Grab focus of the window
-    sprintf(buffer, "xdotool windowfocus --sync %d" window_id);
+    sprintf(buffer, "xdotool windowfocus --sync %d", window_id);
     system(buffer);
     
     // Send the key release
-    sprintf(buffer, "xdotool keyup %s" keycode);
+    sprintf(buffer, "xdotool keyup %s", keycode);
     system(buffer);
 }
 
@@ -132,11 +132,11 @@ int send_key(string keycode, unsigned long int window_id)
     char buffer[50];
     
     // Grab focus of the window
-    sprintf(buffer, "xdotool windowfocus --sync %d" window_id);
+    sprintf(buffer, "xdotool windowfocus --sync %d", window_id);
     system(buffer);
     
     // Send the key release
-    sprintf(buffer, "xdotool key %s" keycode);
+    sprintf(buffer, "xdotool key %s", keycode);
     system(buffer);
 }
 
