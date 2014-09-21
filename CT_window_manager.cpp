@@ -5,6 +5,7 @@
 #include <iostream>
 #include <stdlib.h>
 
+#include "CT_window_manager.hpp"
 
 // The Keycode to be sent.
 // A full list of available codes can be found in /usr/inclucde/X11/keysymdef.h
