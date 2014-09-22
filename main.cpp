@@ -190,6 +190,8 @@ void main_wiggle(VideoCapture & capture)
         // Show a frame
         capture >> frame;
         imshow("window 1", frame);
+        // Wait for 1 ms (not waiting will cause the image to not be displayed, known imshow issue)
+        waitKey(1);
         
         // Press right for 20 mils
         send_key_down(Right, nes_window);
@@ -199,6 +201,8 @@ void main_wiggle(VideoCapture & capture)
         // Show a frame
         capture >> frame;
         imshow("window 1", frame);
+        // Wait for 1 ms (not waiting will cause the image to not be displayed, known imshow issue)
+        waitKey(1);
     }
 }
     
