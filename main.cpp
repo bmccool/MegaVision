@@ -24,7 +24,7 @@ using namespace cv;
 void main_polling(VideoCapture & capture);
 int main_looping(VideoCapture & capture, string filename);
 void main_continuous(VideoCapture & capture);
-void main_wiggle(void);
+void main_wiggle(VideoCapture & capture);
 
 
 int main(int argc, char* argv[])
@@ -65,7 +65,7 @@ int main(int argc, char* argv[])
         }
         else if (string(argv[1]) == "w")
         {
-            main_wiggle();
+            main_wiggle(cap);
         }
     }
 
@@ -167,23 +167,38 @@ void main_continuous(VideoCapture & capture)
     }
 }
 
-void main_wiggle(void)
+void main_wiggle(VideoCapture & capture)
 {
     char Right[10] = "Right";
     char Left[10] = "Left";
-    cout << "Getting nes window" << endl;
+    Mat frame;
+    
+    // Grab the id of the nes widow
     unsigned long int nes_window = get_nes_window();
-    cout << "Got nes window" << endl;
-    cout << "it is: " << nes_window << endl;
+    
+    // Create a window
+    namedWindow("window 1", WINDOW_AUTOSIZE);
+    
+    // Loop
     while (true)
     {
-        
+        // Press left for 20 mils
         send_key_down(Left, nes_window);
-        sleep_for_milliseconds(10);
+        sleep_for_milliseconds(20);
         send_key_up(Left, nes_window);
+        
+        // Show a frame
+        capture >> frame;
+        imshow("window 1", frame);
+        
+        // Press right for 20 mils
         send_key_down(Right, nes_window);
-        sleep_for_milliseconds(10);
+        sleep_for_milliseconds(20);
         send_key_up(Right, nes_window);
+        
+        // Show a frame
+        capture >> frame;
+        imshow("window 1", frame);
     }
 }
     
