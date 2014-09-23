@@ -175,6 +175,7 @@ void main_wiggle(VideoCapture & capture)
     Mat frame, output_frame;
     Mat blank_frame = Mat::zeros(HW_camera_get_height(&capture), HW_camera_get_width(&capture), CV_8UC3 );
     contours_t contours_left, contours_right;
+    string last_pressed_button;
     
     // Grab the id of the nes widow
     unsigned long int nes_window = get_nes_window();
@@ -182,37 +183,57 @@ void main_wiggle(VideoCapture & capture)
     // Create a window
     namedWindow("window 1", WINDOW_AUTOSIZE);
     
+    // Get a base contour to compare to
+    capture >> frame;
+    contours_old = find_contours(frame);
+    
     // Loop
     start_timer();
+    last_pressed_button = "Right";
     while (get_elapsed_time() < 999)
     {
-        // Press left 
-        send_key_down(Left, nes_window);
-        sleep_for_milliseconds(test_length);
-        send_key_up(Left, nes_window);
+        if (last_pressed_button == "Right")
+        {
+            // Press left 
+            send_key_down(Left, nes_window);
+            sleep_for_milliseconds(test_length);
+            send_key_up(Left, nes_window);
         
-        // Pause
-        sleep_for_milliseconds(test_length);
+            // Pause
+            sleep_for_milliseconds(test_length);
+         
+            // Show a frame
+            capture >> frame;
+            contours_new = find_countours(frame);
+            contours_new = remove_duplicate_contours(contours_old, contours_new);
+            draw_contours(frame, output_frame, contours_new);
+            imshow("window 1", output_frame);
+            waitKey(1);
+            
+            // Set last pressed button
+            last_pressed_button = "Left";
+        }
+        else if (last_pressed_button == "Left")
+        {
+            // Press right for 20 mils
+            send_key_down(Right, nes_window);
+            sleep_for_milliseconds(test_length);
+            send_key_up(Right, nes_window);
         
-        // Show a frame
-        capture >> frame;
-        contours_left = find_countours(frame, output_frame);
-        imshow("window 1", output_frame);
-        waitKey(1);
+            // Pause
+            sleep_for_milliseconds(test_length);
         
-        // Press right for 20 mils
-        send_key_down(Right, nes_window);
-        sleep_for_milliseconds(test_length);
-        send_key_up(Right, nes_window);
-        
-        // Pause
-        sleep_for_milliseconds(test_length);
-        
-        // Show a frame
-        capture >> frame;
-        contours_right = find_countours(frame, output_frame);
-        imshow("window 1", output_frame);
-        waitKey(1);
+            // Show a frame
+            capture >> frame;
+            contours_new = find_countours(frame);
+            contours_new = remove_duplicate_contours(contours_old, contours_new);
+            draw_contours(frame, output_frame, contours_new);
+            imshow("window 1", output_frame);
+            waitKey(1);
+            
+            // Set last pressed button
+            last_pressed_button = "Right";            
+        }
     }
 }
     
