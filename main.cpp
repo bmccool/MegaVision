@@ -189,10 +189,6 @@ void main_wiggle(VideoCapture & capture)
         sleep_for_milliseconds(test_length);
         send_key_up(Left, nes_window);
         
-        // Blank screen
-        imshow("window 1", blank_frame);
-        waitKey(1);
-        
         // Pause
         sleep_for_milliseconds(test_length);
         
@@ -205,10 +201,6 @@ void main_wiggle(VideoCapture & capture)
         send_key_down(Right, nes_window);
         sleep_for_milliseconds(test_length);
         send_key_up(Right, nes_window);
-        
-        // Blank screen
-        imshow("window 1", blank_frame);
-        waitKey(1);        
         
         // Pause
         sleep_for_milliseconds(test_length);
