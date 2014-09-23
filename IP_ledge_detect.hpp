@@ -23,6 +23,6 @@ typedef std::vector<std::vector<cv::Point> > contours_t;
 // Exported function prototypes
 int detect_lines_hough_prob(cv::Mat src, int max_line_length, int max_line_gap, int threshold_var, cv::Mat& output_mat);
 int detect_lines_hough(cv::Mat src, int max_line_length, int max_line_gap, int threshold_var, cv::Mat& output_mat);
-int find_countours(cv::Mat input_mat, cv::Mat & output_mat);
+contours_t find_countours(cv::Mat input_mat, cv::Mat & output_mat);
 
 #endif
