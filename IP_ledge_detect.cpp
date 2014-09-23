@@ -100,7 +100,6 @@ int find_countours(Mat input_mat, Mat & output_mat)
     vector<Vec4i> hierarchy;
     
     int thresh = 100;
-    int max_thresh = 255;
     RNG rng(12345);
     
     /// Convert image to gray and blur it
@@ -115,7 +114,7 @@ int find_countours(Mat input_mat, Mat & output_mat)
 
     /// Draw contours
     output_mat = Mat::zeros(canny_output.size(), CV_8UC3 );
-    for( int i = 0; i< contours.size(); i++ )
+    for(unsigned int i = 0; i< contours.size(); i++ )
     {
         Scalar color = Scalar(rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
         drawContours(output_mat, contours, i, color, 2, 8, hierarchy, 0, Point() );
