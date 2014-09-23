@@ -114,7 +114,9 @@ contours_t find_contours(Mat input_mat)
 
 contours_t remove_duplicate_contours(contours_t contours_old, contours_t contours_new)
 {
-    contours_t output;
+    contours_t output; // The output vector can at most be size of the new contours
+    output.resize(contours_new.size());
+    
     int k = 0;
     for (unsigned int i = 0; i < contours_new.size(); i++)
     {
