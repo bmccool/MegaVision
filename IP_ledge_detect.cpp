@@ -130,7 +130,7 @@ contours_t remove_duplicate_contours(contours_t contours_old, contours_t contour
             if (contour_match(contours_new[i], contours_old[j]))
             {
                 // This contour is not actually new; exclude it
-                j = contours_old.size() + 5;
+                j = contours_old.size() + 4;
             }    
         }
         // Add this contour to the output array if it is truly new (j !+ 5)
@@ -188,3 +188,14 @@ void draw_contours(Mat input_mat, Mat & output_mat, contours_t contours)
         drawContours(output_mat, contours, i, color, 2, 8, noArray(), 0, Point() );
     }
 }
+
+
+
+
+
+
+
+
+
+
+
