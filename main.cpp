@@ -171,6 +171,7 @@ void main_wiggle(VideoCapture & capture)
 {
     char Right[10] = "Right";
     char Left[10] = "Left";
+    int test_length = 50
     Mat frame;
     
     // Grab the id of the nes widow
@@ -182,10 +183,13 @@ void main_wiggle(VideoCapture & capture)
     // Loop
     while (true)
     {
-        // Press left for 20 mils
+        // Press left 
         send_key_down(Left, nes_window);
-        sleep_for_milliseconds(20);
+        sleep_for_milliseconds(test_length);
         send_key_up(Left, nes_window);
+        
+        // Pause
+        slee_for_milliseconds(test_length);
         
         // Show a frame
         capture >> frame;
@@ -195,8 +199,11 @@ void main_wiggle(VideoCapture & capture)
         
         // Press right for 20 mils
         send_key_down(Right, nes_window);
-        sleep_for_milliseconds(20);
+        sleep_for_milliseconds(test_length);
         send_key_up(Right, nes_window);
+        
+        // Pause
+        slee_for_milliseconds(test_length);
         
         // Show a frame
         capture >> frame;
