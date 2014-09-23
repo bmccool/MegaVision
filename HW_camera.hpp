@@ -23,5 +23,6 @@
 // Exported function prototypes
 int HW_camera_open(cv::VideoCapture *capture);
 int HW_camera_close(cv::VideoCapture *capture);
-
+double HW_camera_get_height(cv::VideoCapture *capture)
+double HW_camera_get_width(cv::VideoCapture *capture)
 #endif

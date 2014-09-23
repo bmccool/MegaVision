@@ -54,3 +54,23 @@ int HW_camera_close(cv::VideoCapture *capture)
     capture->release();
     return ERR_NONE;
 }
+
+/******************************************************************************
+* Function Name: HW_camera_get_height
+* 
+*
+******************************************************************************/
+double HW_camera_get_height(cv::VideoCapture *capture)
+{
+    return capture->get(CV_CAP_PROP_FRAME_HEIGHT);
+}
+
+/******************************************************************************
+* Function Name: HW_camera_get_height
+* 
+*
+******************************************************************************/
+double HW_camera_get_width(cv::VideoCapture *capture)
+{
+    return capture->get(CV_CAP_PROP_FRAME_WIDTH);
+}
