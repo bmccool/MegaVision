@@ -182,7 +182,8 @@ void main_wiggle(VideoCapture & capture)
     namedWindow("window 1", WINDOW_AUTOSIZE);
     
     // Loop
-    while (true)
+    start_timer()
+    while (get_elapsed_time() < 1000)
     {
         // Press left 
         send_key_down(Left, nes_window);
