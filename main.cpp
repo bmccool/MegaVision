@@ -173,7 +173,7 @@ void main_wiggle(VideoCapture & capture)
     char Left[10] = "Left";
     int test_length = 50;
     Mat frame;
-    Mat blank_frame = Mat::zeros(HW_camera_get_width(&capture), HW_camera_get_height(&capture), CV_8UC3 );
+    Mat blank_frame = Mat::zeros(HW_camera_get_height(&capture), HW_camera_get_width(&capture), CV_8UC3 );
     
     // Grab the id of the nes widow
     unsigned long int nes_window = get_nes_window();
