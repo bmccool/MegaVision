@@ -172,7 +172,7 @@ void main_wiggle(VideoCapture & capture)
     char Right[10] = "Right";
     char Left[10] = "Left";
     int test_length = 50;
-    Mat frame;
+    Mat frame, output_frame;
     Mat blank_frame = Mat::zeros(HW_camera_get_height(&capture), HW_camera_get_width(&capture), CV_8UC3 );
     
     // Grab the id of the nes widow
@@ -194,7 +194,8 @@ void main_wiggle(VideoCapture & capture)
         
         // Show a frame
         capture >> frame;
-        imshow("window 1", frame);
+        find_countours(Mat frame, Mat & output_frame);
+        imshow("window 1", output_frame);
         waitKey(1);
         
         // Press right for 20 mils
@@ -207,7 +208,8 @@ void main_wiggle(VideoCapture & capture)
         
         // Show a frame
         capture >> frame;
-        imshow("window 1", frame);
+        find_countours(Mat frame, Mat & output_frame);
+        imshow("window 1", output_frame);
         waitKey(1);
     }
 }
