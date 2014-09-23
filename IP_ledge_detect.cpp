@@ -129,7 +129,6 @@ contours_t remove_duplicate_contours(contours_t contours_old, contours_t contour
         {
             if (contour_match(contours_new[i], contours_old[j]))
             {
-                cout << "This contour is the same!" << endl;
                 // This contour is not actually new; exclude it
                 j = contours_old.size() + 5;
             }    
