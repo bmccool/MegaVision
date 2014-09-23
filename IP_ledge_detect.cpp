@@ -169,7 +169,6 @@ bool contour_match(contour_t c1, contour_t c2)
             // The points are not equal
             return false;
         }
-        cout << "(" << c1[i].x << ", " << c1[i].y << ") == (" << c2[i].x << ", " << c2[i].y << ")" << endl;
     }
     
     // If we have made it this far and the points all agree, then the contours are equal.
