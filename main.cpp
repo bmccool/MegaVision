@@ -174,7 +174,7 @@ void main_wiggle(VideoCapture & capture)
     int test_length = 50;
     Mat frame, output_frame;
     Mat blank_frame = Mat::zeros(HW_camera_get_height(&capture), HW_camera_get_width(&capture), CV_8UC3 );
-    contours_t contours_left, contours_right;
+    contours_t contours_new, contours_old;
     string last_pressed_button;
     
     // Grab the id of the nes widow
