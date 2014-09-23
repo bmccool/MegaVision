@@ -120,3 +120,27 @@ contours_t find_countours(Mat input_mat, Mat & output_mat)
     }
     return contours;
 }
+
+contours_t removed_duplicate_contours(contours_t contours_old, contours_t contours_new)
+{
+    contours_t output;
+    int k = 0;
+    for (unsigned int i = 0; i < contours_new.size(); i++)
+    {
+        // For each new contour, check if it matches any old contours.
+        // If there is a match, set the index to bound + 5
+        for (unsigned int j = 0; j < contours_old.size(); j++)
+        {
+            if (contours_new[i] == contours_old[j])
+            {
+                // This contour is not actually new; exclude it
+                j = contours_old.size() + 5;
+            }    
+        }
+        // Add this contour to the output array if it is truly new (j !+ 5)
+        output[k++] = contours_new[i];
+        
+    }
+
+    return output;
+}
