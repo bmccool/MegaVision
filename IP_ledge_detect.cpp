@@ -131,10 +131,17 @@ contours_t remove_duplicate_contours(contours_t contours_old, contours_t contour
             }    
         }
         // Add this contour to the output array if it is truly new (j !+ 5)
-        output[k++] = contours_new[i];
+        if (j == contours_old.size() + 5)
+        {
+            output[k++] = contours_new[i];
+        }
+        
         
     }
 
+    // Resize the output vector since hopefully the "new" contours are smaller in
+    // number than all contours.
+    output.resize(k+1);
     return output;
 }
 
