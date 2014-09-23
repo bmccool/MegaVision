@@ -99,7 +99,6 @@ contours_t find_countours(Mat input_mat, Mat & output_mat)
     contours_t contours;
     vector<Vec4i> hierarchy;
     
-    int thresh = 100;
     RNG rng(12345);
     
     /// Convert image to gray and blur it
