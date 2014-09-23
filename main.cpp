@@ -171,7 +171,7 @@ void main_wiggle(VideoCapture & capture)
 {
     char Right[10] = "Right";
     char Left[10] = "Left";
-    int test_length = 50
+    int test_length = 50;
     Mat frame;
     
     // Grab the id of the nes widow
