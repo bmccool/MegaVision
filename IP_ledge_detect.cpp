@@ -93,31 +93,22 @@ int detect_lines_hough(Mat input_mat, int max_line_length, int max_line_gap, int
     return 0;
 }
 
-contours_t find_countours(Mat input_mat, Mat & output_mat)
+contours_t find_countours(Mat input_mat)
 {
     Mat canny_output, src_gray;
     contours_t contours;
     vector<Vec4i> hierarchy;
     
-    RNG rng(12345);
-    
-    /// Convert image to gray and blur it
+    // Convert image to gray and blur it
     cvtColor(input_mat, src_gray, CV_BGR2GRAY);
     blur(src_gray, src_gray, Size(3,3) );
 
-    /// Detect edges using canny
+    // Detect edges using canny
     Canny(src_gray, canny_output, 50, 200, 3 );
     
-    /// Find contours
+    // Find contours
     findContours(canny_output, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
 
-    /// Draw contours
-    output_mat = Mat::zeros(canny_output.size(), CV_8UC3 );
-    for(unsigned int i = 0; i< contours.size(); i++ )
-    {
-        Scalar color = Scalar(rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
-        drawContours(output_mat, contours, i, color, 2, 8, hierarchy, 0, Point() );
-    }
     return contours;
 }
 
@@ -143,4 +134,19 @@ contours_t remove_duplicate_contours(contours_t contours_old, contours_t contour
     }
 
     return output;
+}
+
+// This function does NOT use hierarchy, if it is to use hierarchy, we need
+// to take a look at find contours so that we are returning hierarchy somehow.
+void draw_contours(Mat input_mat, Mat & output_mat, contours_t contours)
+{
+    RNG rng(12345);
+    
+    // Draw contours
+    output_mat = Mat::zeros(input_mat.size(), CV_8UC3 );
+    for(unsigned int i = 0; i< contours.size(); i++ )
+    {
+        Scalar color = Scalar(rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255));
+        drawContours(output_mat, contours, i, color, 2, 8, noArray(), 0, Point() );
+    }
 }
