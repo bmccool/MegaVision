@@ -173,6 +173,7 @@ void main_wiggle(VideoCapture & capture)
     char Left[10] = "Left";
     int test_length = 50;
     Mat frame;
+    Mat blank_frame = Mat::zeros(HW_camera_get_width(&capture), HW_camera_get_height(&capture), CV_8UC3 );
     
     // Grab the id of the nes widow
     unsigned long int nes_window = get_nes_window();
@@ -188,13 +189,16 @@ void main_wiggle(VideoCapture & capture)
         sleep_for_milliseconds(test_length);
         send_key_up(Left, nes_window);
         
+        // Blank screen
+        imshow("window 1", blank_frame);
+        waitKey(1);
+        
         // Pause
         sleep_for_milliseconds(test_length);
         
         // Show a frame
         capture >> frame;
         imshow("window 1", frame);
-        // Wait for 1 ms (not waiting will cause the image to not be displayed, known imshow issue)
         waitKey(1);
         
         // Press right for 20 mils
@@ -202,13 +206,16 @@ void main_wiggle(VideoCapture & capture)
         sleep_for_milliseconds(test_length);
         send_key_up(Right, nes_window);
         
+        // Blank screen
+        imshow("window 1", blank_frame);
+        waitKey(1);        
+        
         // Pause
         sleep_for_milliseconds(test_length);
         
         // Show a frame
         capture >> frame;
         imshow("window 1", frame);
-        // Wait for 1 ms (not waiting will cause the image to not be displayed, known imshow issue)
         waitKey(1);
     }
 }
