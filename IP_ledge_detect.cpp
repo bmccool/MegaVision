@@ -117,12 +117,14 @@ contours_t remove_duplicate_contours(contours_t contours_old, contours_t contour
     contours_t output; // The output vector can at most be size of the new contours
     output.resize(contours_new.size());
     
-    int k = 0;
-    for (unsigned int i = 0; i < contours_new.size(); i++)
+    unsigned int i = 0;
+    unsigned int j = 0;
+    unsigned int k = 0;
+    for (i = 0; i < contours_new.size(); i++)
     {
         // For each new contour, check if it matches any old contours.
         // If there is a match, set the index to bound + 5
-        for (unsigned int j = 0; j < contours_old.size(); j++)
+        for (j = 0; j < contours_old.size(); j++)
         {
             if (contours_new[i] == contours_old[j])
             {
