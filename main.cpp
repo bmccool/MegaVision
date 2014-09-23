@@ -204,7 +204,7 @@ void main_wiggle(VideoCapture & capture)
          
             // Show a frame
             capture >> frame;
-            contours_new = find_countours(frame);
+            contours_new = find_contours(frame);
             contours_new = remove_duplicate_contours(contours_old, contours_new);
             draw_contours(frame, output_frame, contours_new);
             imshow("window 1", output_frame);
@@ -225,7 +225,7 @@ void main_wiggle(VideoCapture & capture)
         
             // Show a frame
             capture >> frame;
-            contours_new = find_countours(frame);
+            contours_new = find_contours(frame);
             contours_new = remove_duplicate_contours(contours_old, contours_new);
             draw_contours(frame, output_frame, contours_new);
             imshow("window 1", output_frame);
