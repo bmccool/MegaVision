@@ -22,5 +22,6 @@
 // Exported function prototypes
 int detect_lines_hough_prob(cv::Mat src, int max_line_length, int max_line_gap, int threshold_var, cv::Mat& output_mat);
 int detect_lines_hough(cv::Mat src, int max_line_length, int max_line_gap, int threshold_var, cv::Mat& output_mat);
+int find_countours(Mat input_mat, Mat & output_mat);
 
 #endif
