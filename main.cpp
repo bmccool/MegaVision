@@ -182,7 +182,7 @@ void main_wiggle(VideoCapture & capture)
     namedWindow("window 1", WINDOW_AUTOSIZE);
     
     // Loop
-    start_timer()
+    start_timer();
     while (get_elapsed_time() < 1000)
     {
         // Press left 
