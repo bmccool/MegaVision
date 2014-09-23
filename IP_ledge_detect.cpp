@@ -93,10 +93,10 @@ int detect_lines_hough(Mat input_mat, int max_line_length, int max_line_gap, int
     return 0;
 }
 
-int find_countours(Mat input_mat, Mat & output_mat)
+contours_t find_countours(Mat input_mat, Mat & output_mat)
 {
     Mat canny_output, src_gray;
-    vector<vector<Point> > contours;
+    contours_t contours;
     vector<Vec4i> hierarchy;
     
     int thresh = 100;
@@ -107,7 +107,7 @@ int find_countours(Mat input_mat, Mat & output_mat)
     blur(src_gray, src_gray, Size(3,3) );
 
     /// Detect edges using canny
-    Canny(src_gray, canny_output, thresh, thresh*2, 3 );
+    Canny(src_gray, canny_output, 50, 200, 3 );
     
     /// Find contours
     findContours(canny_output, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
@@ -119,5 +119,5 @@ int find_countours(Mat input_mat, Mat & output_mat)
         Scalar color = Scalar(rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
         drawContours(output_mat, contours, i, color, 2, 8, hierarchy, 0, Point() );
     }
-    return 0;
+    return contours;
 }
