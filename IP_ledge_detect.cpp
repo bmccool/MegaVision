@@ -93,7 +93,7 @@ int detect_lines_hough(Mat input_mat, int max_line_length, int max_line_gap, int
     return 0;
 }
 
-contours_t find_countours(Mat input_mat)
+contours_t find_contours(Mat input_mat)
 {
     Mat canny_output, src_gray;
     contours_t contours;
