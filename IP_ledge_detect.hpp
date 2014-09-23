@@ -18,7 +18,9 @@
 
 // Definitions
 // Types
-typedef std::vector<std::vector<cv::Point> > contours_t;
+typedef std::veector<cv::Point> contour_t;
+typedef std::vector<contour_t> contours_t;
+
 
 // Exported function prototypes
 int detect_lines_hough_prob(cv::Mat src, int max_line_length, int max_line_gap, int threshold_var, cv::Mat& output_mat);
