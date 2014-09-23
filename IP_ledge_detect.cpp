@@ -10,7 +10,8 @@
 
 /////////////////////////// PROJECT INCLUDES   ////////////////////////////////
 #include "IP_ledge_detect.hpp"
-
+/////////////////////////// LOCAL FUNCTION PROTOTYPES /////////////////////////
+bool contour_match(contour_t c1, contour_t c2);
 /////////////////////////// EXPORTED FUNCTIONS ////////////////////////////////
 /******************************************************************************
 * Function Name: detect_lines
@@ -126,8 +127,9 @@ contours_t remove_duplicate_contours(contours_t contours_old, contours_t contour
         // If there is a match, set the index to bound + 5
         for (j = 0; j < contours_old.size(); j++)
         {
-            if (contours_new[i] == contours_old[j])
+            if (contour_match(contours_new[i], contours_old[j]))
             {
+                cout << "This contour is the same!" << endl;
                 // This contour is not actually new; exclude it
                 j = contours_old.size() + 5;
             }    
@@ -145,6 +147,33 @@ contours_t remove_duplicate_contours(contours_t contours_old, contours_t contour
     // number than all contours.
     output.resize(k+1);
     return output;
+}
+
+bool contour_match(contour_t c1, contour_t c2)
+{
+    // contours are vectors containing points, so to check that they are the same,
+    // we first need to check if the size of the two contours are the same.
+    if (c1.size() != c2.size())
+    {
+        // The sizes are not the same, return false
+        return false;
+    }
+    // If the sizes are the same, then we need to walk down the contours and compare
+    // each point.  If at any time, the points are not the same, then the contour is
+    // not the same, and we can exit early.
+    for (unsigned int i = 0; i < c1.size(); i++)
+    {
+        // check if the points are equal to each other
+        if (c1[i] != c2[i])
+        {
+            // The points are not equal
+            return false;
+        }
+        cout << "(" << c1[i].x << ", " << c1[i].y << ") == (" << c2[i].x << ", " << c2[i].y << ")" << endl;
+    }
+    
+    // If we have made it this far and the points all agree, then the contours are equal.
+    return true;
 }
 
 // This function does NOT use hierarchy, if it is to use hierarchy, we need
