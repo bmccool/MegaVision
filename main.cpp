@@ -189,7 +189,7 @@ void main_wiggle(VideoCapture & capture)
         send_key_up(Left, nes_window);
         
         // Pause
-        slee_for_milliseconds(test_length);
+        sleep_for_milliseconds(test_length);
         
         // Show a frame
         capture >> frame;
@@ -203,7 +203,7 @@ void main_wiggle(VideoCapture & capture)
         send_key_up(Right, nes_window);
         
         // Pause
-        slee_for_milliseconds(test_length);
+        sleep_for_milliseconds(test_length);
         
         // Show a frame
         capture >> frame;
