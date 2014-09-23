@@ -121,7 +121,7 @@ contours_t find_countours(Mat input_mat, Mat & output_mat)
     return contours;
 }
 
-contours_t removed_duplicate_contours(contours_t contours_old, contours_t contours_new)
+contours_t remove_duplicate_contours(contours_t contours_old, contours_t contours_new)
 {
     contours_t output;
     int k = 0;
