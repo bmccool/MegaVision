@@ -195,7 +195,7 @@ void main_wiggle(VideoCapture & capture)
         
         // Show a frame
         capture >> frame;
-        find_countours(Mat frame, Mat & output_frame);
+        find_countours(frame, output_frame);
         imshow("window 1", output_frame);
         waitKey(1);
         
@@ -209,7 +209,7 @@ void main_wiggle(VideoCapture & capture)
         
         // Show a frame
         capture >> frame;
-        find_countours(Mat frame, Mat & output_frame);
+        find_countours(frame, output_frame);
         imshow("window 1", output_frame);
         waitKey(1);
     }
