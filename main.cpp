@@ -267,5 +267,6 @@ void main_wobble(VideoCapture & capture)
         //findContours(fore,contours,CV_RETR_EXTERNAL,CV_CHAIN_APPROX_NONE);
         //drawContours(frame,contours,-1,cv::Scalar(0,0,255),2);
         imshow("Background",back);
+        waitKey(1);
     }
 }   
