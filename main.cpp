@@ -244,9 +244,6 @@ void main_wiggle(VideoCapture & capture)
     
 void main_wobble(VideoCapture & capture)
 {
-    char Right[10] = "Right";
-    char Left[10] = "Left";
-    int test_length = 50;
     Mat frame, back, fore;
     string last_pressed_button;
     
@@ -255,10 +252,6 @@ void main_wobble(VideoCapture & capture)
     bg.bShadowDetection = false;
     contours_t contours;
 
-    
-    // Grab the id of the nes widow
-    unsigned long int nes_window = get_nes_window();
-    
     // Create a window
     namedWindow("Background", WINDOW_AUTOSIZE);
     
