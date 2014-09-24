@@ -248,8 +248,8 @@ void main_wobble(VideoCapture & capture)
     string last_pressed_button;
     
     BackgroundSubtractorMOG2 bg;
-    bg.nmixtures = 3;
-    bg.bShadowDetection = false;
+    //bg.nmixtures = 3;
+    //bg.bShadowDetection = false;
     contours_t contours;
 
     // Create a window
