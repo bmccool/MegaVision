@@ -244,8 +244,8 @@ void main_wiggle(VideoCapture & capture)
     
 void main_wobble(VideoCapture & capture)
 {
+    cout << "main_wobble" << endl;
     Mat frame, back, fore;
-    string last_pressed_button;
     
     BackgroundSubtractorMOG2 bg;
     //bg.nmixtures = 3;
@@ -256,9 +256,7 @@ void main_wobble(VideoCapture & capture)
     namedWindow("Background", WINDOW_AUTOSIZE);
     
     // Loop
-    start_timer();
-    last_pressed_button = "Right";
-    while (get_elapsed_time() < 999)
+    while (true)
     {
 
         capture >> frame;
