@@ -16,7 +16,12 @@
 #include <stdio.h>
 /////////////////////////// PROJECT INCLUDES   ////////////////////////////////
 
-// Definitions
+/////////////////////////// DEFINITIONS        ////////////////////////////////
+#define IMSHOW(WindowName, MatName) \  // Note, this macro needs a semicolon
+{\
+    imshow((WindowName),(MatName));\
+    waitKey(1)
+
 // Types
 typedef std::vector<cv::Point> contour_t;
 typedef std::vector<contour_t> contours_t;
