@@ -1,8 +1,9 @@
 // Build with:
 // g++ -O2 `pkg-config --cflags --libs opencv` imagegrabber.cpp -o imagegrabber
 
-#include<iostream>
-#include<opencv2/opencv.hpp>
+#include <iostream>
+#include <opencv2/opencv.hpp>
+#include <opencv2/video/background_segm.hpp>
 #include <string>
 #include <stdio.h>
 
@@ -25,7 +26,7 @@ void main_polling(VideoCapture & capture);
 int main_looping(VideoCapture & capture, string filename);
 void main_continuous(VideoCapture & capture);
 void main_wiggle(VideoCapture & capture);
-
+void main_wobble(VideoCapture & capture, string method);
 
 int main(int argc, char* argv[])
 {
