@@ -262,10 +262,6 @@ void main_wobble(VideoCapture & capture)
     // Create a window
     namedWindow("Background", WINDOW_AUTOSIZE);
     
-    //create Background Subtractor objects
-    pMOG = createBackgroundSubtractorMOG(); //MOG approach
-    pMOG2 = createBackgroundSubtractorMOG2(); //MOG2 approach 
-    
     // Loop
     start_timer();
     last_pressed_button = "Right";
