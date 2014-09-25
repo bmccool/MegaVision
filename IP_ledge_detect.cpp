@@ -275,7 +275,7 @@ unsigned long int score_column_likeness(Mat & m1, Mat & m2, int error)
     
     for (int i = 0; i < m1.rows; i++)
     {
-        score += (abs(m1.at<uchar>(i,1) - m2.at<uchar>(i,1)) < 0);
+        score += (abs(m1.at<uchar>(i,1) - m2.at<uchar>(i,1)));
     }
     return score;
 }
