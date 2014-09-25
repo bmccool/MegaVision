@@ -322,8 +322,8 @@ Mat get_fore(Mat & old_mat, Mat & new_mat)
     Mat fore; // Foreground Mat
     BackgroundSubtractorMOG2 bg; // BG subtractor
     
-    bg.operator ()(frame_old, fore); // Feed the first frame
-    bg.operator ()(frame_new, fore); // Feed the second frame
+    bg.operator ()(old_mat, fore); // Feed the first frame
+    bg.operator ()(new_mat, fore); // Feed the second frame
     
     return fore; // Return the foreground calculated.
 }
