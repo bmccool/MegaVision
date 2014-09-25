@@ -11,7 +11,7 @@
 /////////////////////////// PROJECT INCLUDES   ////////////////////////////////
 #include "IP_ledge_detect.hpp"
 
-#define EQAULISH 100
+#define EQAULISH 60
 #define FREEBIE_PERCENT .2
 
 using namespace cv;
