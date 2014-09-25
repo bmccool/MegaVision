@@ -10,6 +10,9 @@
 
 /////////////////////////// PROJECT INCLUDES   ////////////////////////////////
 #include "IP_ledge_detect.hpp"
+
+using namespace cv;
+using namespace std;
 /////////////////////////// LOCAL FUNCTION PROTOTYPES /////////////////////////
 bool contour_match(contour_t c1, contour_t c2);
 bool are_columns_equalish(Mat & m1, Mat & m2, int error);
@@ -25,8 +28,7 @@ bool are_columns_equalish(Mat & m1, Mat & m2, int error);
 #define ABS_MAX_LEDGE_SLOPE 0.1
 #define DEBUG 0
 
-using namespace cv;
-using namespace std;
+
 
 int detect_lines_hough_prob(Mat input_mat, int max_line_length, int max_line_gap, int threshold_var, Mat& output_mat)
 {
