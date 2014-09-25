@@ -211,7 +211,7 @@ int sidescroll_right_gray(Mat & old_image, Mat & new_image)
     Mat new_gray;
     cvtColor(old_image, old_gray, CV_BGR2GRAY);
     cvtColor(new_image, new_gray, CV_BGR2GRAY);
-    int min_equalish_index, debug_equalish. min_equalish = 0;
+    int min_equalish_index, debug_equalish, min_equalish = 0;
     
     for (int i = 0; i < new_gray.cols; i++)
     {
