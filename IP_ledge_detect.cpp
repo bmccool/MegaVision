@@ -229,11 +229,11 @@ int sidescroll_right_gray(Mat & old_image, Mat & new_image)
         }
         
         // Shift the frame one to the right so we can try again.
-        frame =  shiftFrame(frame, 3, ShiftLeft);
+        new_gray =  shiftFrame(new_gray, 1, ShiftLeft);
             
     }
     // no matches were found
-    printf("The best match was %lu at %d  ", min_equalish, min_equalish_index);
+    printf("The best match was %d at %d  ", min_equalish, min_equalish_index);
     return -1;
 }
 
