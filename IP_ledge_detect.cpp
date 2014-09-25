@@ -11,11 +11,13 @@
 /////////////////////////// PROJECT INCLUDES   ////////////////////////////////
 #include "IP_ledge_detect.hpp"
 
+#define EQAULISH 50
+
 using namespace cv;
 using namespace std;
 /////////////////////////// LOCAL FUNCTION PROTOTYPES /////////////////////////
 bool contour_match(contour_t c1, contour_t c2);
-bool are_columns_equalish(Mat & m1, Mat & m2, int error);
+int are_columns_equalish(Mat & m1, Mat & m2, int error);
 /////////////////////////// EXPORTED FUNCTIONS ////////////////////////////////
 /******************************************************************************
 * Function Name: detect_lines
@@ -207,22 +209,29 @@ int sidescroll_right_gray(Mat & old_image, Mat & new_image)
     Mat new_gray;
     cvtColor(old_image, old_gray, CV_BGR2GRAY);
     cvtColor(new_image, new_gray, CV_BGR2GRAY);
+    int debug_equalish, max_equalish = 0;
     
     for (int i = 0; i < new_gray.cols; i++)
     {
-        if (are_columns_equalish(new_gray, old_gray, 10))
+        debug_equalish = are_columns_equalish(new_gray, old_gray, EQAULISH)
+        if (debug_equalish == -1)
         {
             // These columns are relatively equal
             // Return their index
             return i;
         }
+        if (debug_equalish > max_equalish)
+        {
+            max_equalish = debug_equalish;
+        }
             
     }
     // no matches were found
+    cout << "best match was " << max_equalish;
     return -1;
 }
 
-bool are_columns_equalish(Mat & m1, Mat & m2, int error)
+int are_columns_equalish(Mat & m1, Mat & m2, int error)
 {
     // NOTE: THIS FUNCTION ASSUMES MATS ARE OF TYPE CV_8UC1.
     // OTHER TYPES OF MATS WILL PRODUCE UNRELIABL RESULTS
@@ -237,10 +246,10 @@ bool are_columns_equalish(Mat & m1, Mat & m2, int error)
         if ((abs(m1.at<uchar>(i,1) - m2.at<uchar>(i,1)) > error) ||
             (abs(m1.at<uchar>(i,1) - m2.at<uchar>(i,1)) < 0))
         {
-            return false;
+            return i;
         }
     }
-    return true;
+    return -1;
 }
 
 
