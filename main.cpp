@@ -280,7 +280,7 @@ void main_wobble(VideoCapture & capture)
         //bg.operator ()(frame_old, fore);
         //bg.operator ()(frame,fore);
         //bg.getBackgroundImage(back);
-        fore = get_fore(fame_old, frame)
+        fore = get_fore(frame_old, frame);
         erode(fore,fore,Mat());
         dilate(fore,fore,Mat());
         //findContours(fore,contours,CV_RETR_EXTERNAL,CV_CHAIN_APPROX_NONE);
