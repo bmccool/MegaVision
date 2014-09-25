@@ -241,12 +241,24 @@ int are_columns_equalish(Mat & m1, Mat & m2, int error)
     // If two elements are not within "error" of each other, return false
     // If we get to the end and thus haven't returned false, return true.
     
+    // Note: Adding in a percent "freebies" so that a certain percentage
+    // of pixels are allowed to completely mismatch.
+    
+    int mismatch = m1.rows / 10;
+    
     for (int i = 0; i < m1.rows; i++)
     {
         if ((abs(m1.at<uchar>(i,1) - m2.at<uchar>(i,1)) > error) ||
             (abs(m1.at<uchar>(i,1) - m2.at<uchar>(i,1)) < 0))
         {
-            return i;
+            if (mismatch > 0)
+            {
+                mismatch--;
+            }
+            else
+            {
+                return i;
+            }
         }
     }
     return -1;
