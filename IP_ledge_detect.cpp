@@ -19,7 +19,7 @@ using namespace std;
 /////////////////////////// LOCAL FUNCTION PROTOTYPES /////////////////////////
 bool contour_match(contour_t c1, contour_t c2);
 int are_columns_equalish(Mat & m1, Mat & m2, int error);
-int score_column_likeness(Mat & m1, Mat & m2, int error);
+unsigned long int score_column_likeness(Mat & m1, Mat & m2, int error);
 /////////////////////////// EXPORTED FUNCTIONS ////////////////////////////////
 /******************************************************************************
 * Function Name: detect_lines
