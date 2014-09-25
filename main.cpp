@@ -253,7 +253,7 @@ void main_wobble(VideoCapture & capture)
     contours_t contours;
 
     // Create a window
-    namedWindow("Background", WINDOW_AUTOSIZE);
+    namedWindow("Foreground", WINDOW_AUTOSIZE);
     
     capture >> frame_old;
     int pixels;
@@ -270,6 +270,6 @@ void main_wobble(VideoCapture & capture)
         dilate(fore,fore,Mat());
         //findContours(fore,contours,CV_RETR_EXTERNAL,CV_CHAIN_APPROX_NONE);
         //drawContours(frame,contours,-1,cv::Scalar(0,0,255),2);
-        IMSHOW("Background",back);
+        IMSHOW("Foreground",fore);
     }
 }   
