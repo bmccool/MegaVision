@@ -234,7 +234,7 @@ bool are_columns_equalish(Mat & m1, Mat & m2, int error)
     
     for (int i = 0; i < m1.rows; i++)
     {
-        if ((abs(m1.at<uchar>(i,1) - m2.at<uchar>(i,1)) > error) &&
+        if ((abs(m1.at<uchar>(i,1) - m2.at<uchar>(i,1)) > error) ||
             (abs(m1.at<uchar>(i,1) - m2.at<uchar>(i,1)) < 0))
         {
             return false;
