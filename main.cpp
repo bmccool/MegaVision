@@ -267,18 +267,23 @@ void main_wobble(VideoCapture & capture)
         if (pixels > 0)
         {
             cout << "The image has advanced " << pixels << " pixels." << endl;
+            frame_old = shiftFrame(frame_old, pixels, ShiftLeft);
         }
         else if (pixels == -1)
         {
             cout << "no matches found." << endl;
         }
+        else if (pixels < -1)
+        {
+            cout << "something went wrong." << endl;
+        }
+        bg.operator ()(frame_old, fore);
         bg.operator ()(frame,fore);
         bg.getBackgroundImage(back);
         erode(fore,fore,Mat());
         dilate(fore,fore,Mat());
         //findContours(fore,contours,CV_RETR_EXTERNAL,CV_CHAIN_APPROX_NONE);
         //drawContours(frame,contours,-1,cv::Scalar(0,0,255),2);
-        mark_line(fore, 255);
         IMSHOW("Foreground",fore);
     }
 }   
