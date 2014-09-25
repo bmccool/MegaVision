@@ -255,13 +255,13 @@ void main_wobble(VideoCapture & capture)
     // Create a window
     namedWindow("Foreground", WINDOW_AUTOSIZE);
     
-    capture >> frame_old;
+    capture >> frame;
     int pixels;
     // Loop
     while (true)
     {
 
-        capture >> frame;
+        frame.copyTo(old_frame);
         pixels = sidescroll_right_gray(frame_old, frame);
         cout << "The image has advanced " << pixels << " pixels." << endl;
         bg.operator ()(frame,fore);
