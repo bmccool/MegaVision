@@ -203,10 +203,12 @@ int sidescroll_right_gray(Mat & old_image, Mat & new_image)
 
 
     // Convert image to gray
-    cvtColor(old_image, Mat old_gray, CV_BGR2GRAY);
-    cvtColor(new_image, Mat new_gray, CV_BGR2GRAY);
+    Mat old_gray;
+    Mat new_gray;
+    cvtColor(old_image, old_gray, CV_BGR2GRAY);
+    cvtColor(new_image, new_gray, CV_BGR2GRAY);
     
-    for (int i = 0; i < new_gray.cols, i++)
+    for (int i = 0; i < new_gray.cols; i++)
     {
         if (are_columns_equalish(new_gray, old_gray, 10))
         {
@@ -230,7 +232,7 @@ bool are_columns_equalish(Mat & m1, Mat & m2, int error)
     // If two elements are not within "error" of each other, return false
     // If we get to the end and thus haven't returned false, return true.
     
-    for (unsigned int i = 0; i < m1.rows; i++)
+    for (int i = 0; i < m1.rows; i++)
     {
         if ((abs(m1.at<uchar>(i,1) - m2.at<uchar>(i,1)) > error) &&
             (abs(m1.at<uchar>(i,1) - m2.at<uchar>(i,1)) < 0))
