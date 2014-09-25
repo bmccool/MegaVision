@@ -18,7 +18,7 @@
 /////////////////////////// PROJECT INCLUDES   ////////////////////////////////
 
 /////////////////////////// DEFINITIONS        ////////////////////////////////
-#define IMSHOW(WindowName, MatName) \  // Note, this macro needs a semicolon
+#define IMSHOW(WindowName, MatName) \
 {\
     imshow((WindowName),(MatName));\
     waitKey(1)
