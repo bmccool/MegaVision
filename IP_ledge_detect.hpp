@@ -24,6 +24,10 @@
     waitKey(1);\
 }
 
+enum Direction{
+    ShiftUp=1, ShiftRight, ShiftDown, ShiftLeft
+   };
+
 // Types
 typedef std::vector<cv::Point> contour_t;
 typedef std::vector<contour_t> contours_t;
@@ -36,5 +40,6 @@ contours_t find_contours(cv::Mat input_mat);
 contours_t remove_duplicate_contours(contours_t contours_old, contours_t contours_new);
 void draw_contours(cv::Mat input_mat, cv::Mat & output_mat, contours_t contours);
 int sidescroll_right_gray(cv::Mat & old_image, cv::Mat & new_image);
+cv::Mat shiftFrame(cv::Mat frame, int pixels, Direction direction);
 
 #endif
