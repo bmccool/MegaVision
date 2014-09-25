@@ -262,6 +262,7 @@ void main_wobble(VideoCapture & capture)
     {
 
         frame.copyTo(frame_old);
+        capture >> frame;
         pixels = sidescroll_right_gray(frame_old, frame);
         cout << "The image has advanced " << pixels << " pixels." << endl;
         bg.operator ()(frame,fore);
