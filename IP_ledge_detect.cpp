@@ -209,7 +209,7 @@ int sidescroll_right_gray(Mat & old_image, Mat & new_image)
     Mat new_gray;
     cvtColor(old_image, old_gray, CV_BGR2GRAY);
     cvtColor(new_image, new_gray, CV_BGR2GRAY);
-    int debug_equalish, max_equalish = 0;
+    int debug_equalish, max_equalish_index, max_equalish = 0;
     
     for (int i = 0; i < new_gray.cols; i++)
     {
@@ -223,6 +223,7 @@ int sidescroll_right_gray(Mat & old_image, Mat & new_image)
         if (debug_equalish > max_equalish)
         {
             max_equalish = debug_equalish;
+            max_equalish_index = i;
         }
             
     }
