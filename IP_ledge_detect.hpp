@@ -21,7 +21,8 @@
 #define IMSHOW(WindowName, MatName) \
 {\
     imshow((WindowName),(MatName));\
-    waitKey(1)
+    waitKey(1);\
+}
 
 // Types
 typedef std::vector<cv::Point> contour_t;
