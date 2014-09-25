@@ -216,6 +216,7 @@ int sidescroll_right_gray(Mat & old_image, Mat & new_image)
     for (int i = 0; i < new_gray.cols; i++)
     {
         debug_equalish = score_column_likeness(new_gray, old_gray, EQAULISH);
+        cout << debug_equalish << endl;
         if (debug_equalish < 100)
         {
             // These columns are relatively equal
@@ -279,7 +280,30 @@ unsigned long int score_column_likeness(Mat & m1, Mat & m2, int error)
     return score;
 }
 
+Mat shiftFrame(Mat frame, int pixels, Direction direction)
+{
+    //create a same sized temporary Mat with all the pixels flagged as invalid (-1)
+    Mat temp = Mat::zeros(frame.size(), frame.type());
 
+    switch (direction)
+    {
+    case(ShiftUp) :
+        frame(Rect(0, pixels, frame.cols, frame.rows - pixels)).copyTo(temp(cv::Rect(0, 0, temp.cols, temp.rows - pixels)));
+        break;
+    case(ShiftRight) :
+        frame(Rect(0, 0, frame.cols - pixels, frame.rows)).copyTo(temp(cv::Rect(pixels, 0, frame.cols - pixels, frame.rows)));
+        break;
+    case(ShiftDown) :
+        frame(Rect(0, 0, frame.cols, frame.rows - pixels)).copyTo(temp(cv::Rect(0, pixels, frame.cols, frame.rows - pixels)));
+        break;
+    case(ShiftLeft) :
+        frame(Rect(pixels, 0, frame.cols - pixels, frame.rows)).copyTo(temp(cv::Rect(0, 0, frame.cols - pixels, frame.rows)));
+        break;
+    default:
+        cout << "Shift direction is not set properly" << endl;
+    }
 
+    return temp;
+}
 
 
