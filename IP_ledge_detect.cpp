@@ -19,6 +19,7 @@ using namespace std;
 /////////////////////////// LOCAL FUNCTION PROTOTYPES /////////////////////////
 bool contour_match(contour_t c1, contour_t c2);
 int are_columns_equalish(Mat & m1, Mat & m2, int error);
+int score_column_likeness(Mat & m1, Mat & m2, int error);
 /////////////////////////// EXPORTED FUNCTIONS ////////////////////////////////
 /******************************************************************************
 * Function Name: detect_lines
@@ -210,26 +211,26 @@ int sidescroll_right_gray(Mat & old_image, Mat & new_image)
     Mat new_gray;
     cvtColor(old_image, old_gray, CV_BGR2GRAY);
     cvtColor(new_image, new_gray, CV_BGR2GRAY);
-    int debug_equalish, max_equalish_index, max_equalish = 0;
+    int debug_equalish, min_equalish_index, min_equalish = new_gray.rows * 255;
     
     for (int i = 0; i < new_gray.cols; i++)
     {
-        debug_equalish = are_columns_equalish(new_gray, old_gray, EQAULISH);
-        if (debug_equalish == -1)
+        debug_equalish = score_column_likeness(new_gray, old_gray, EQAULISH);
+        if (debug_equalish < 100)
         {
             // These columns are relatively equal
             // Return their index
             return i;
         }
-        if (debug_equalish > max_equalish)
+        if (debug_equalish < min_equalish)
         {
-            max_equalish = debug_equalish;
-            max_equalish_index = i;
+            min_equalish = debug_equalish;
+            min_equalish_index = i;
         }
             
     }
     // no matches were found
-    printf("The best match was %2.1f at %d  ", ((float)max_equalish/new_gray.rows) * 100, max_equalish_index);
+    printf("The best match was %d at %d  ", (min_equalish, min_equalish_index);
     return -1;
 }
 
@@ -266,7 +267,17 @@ int are_columns_equalish(Mat & m1, Mat & m2, int error)
     return -1;
 }
 
+int score_column_likeness(Mat & m1, Mat & m2, int error)
+{
 
+    int score = 0;
+    
+    for (int i = 0; i < m1.rows; i++)
+    {
+        score += (abs(m1.at<uchar>(i,1) - m2.at<uchar>(i,1)) < 0)
+    }
+    return score;
+}
 
 
 
