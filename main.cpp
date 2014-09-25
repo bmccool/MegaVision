@@ -271,7 +271,7 @@ void main_wobble(VideoCapture & capture)
         else if (pixels == -1)
         {
             cout << "no matches found, attempting roll" << endl;
-            imwwite("Oldframe.png", frame);
+            imwrite("Oldframe.png", frame);
             frame =  shiftFrame(frame, 3, ShiftLeft);
             imwrite("Shiftframe.png", frame);
         }
