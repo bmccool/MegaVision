@@ -12,6 +12,7 @@
 #include "IP_ledge_detect.hpp"
 /////////////////////////// LOCAL FUNCTION PROTOTYPES /////////////////////////
 bool contour_match(contour_t c1, contour_t c2);
+bool are_columns_equalish(Mat & m1, Mat & m2, int error);
 /////////////////////////// EXPORTED FUNCTIONS ////////////////////////////////
 /******************************************************************************
 * Function Name: detect_lines

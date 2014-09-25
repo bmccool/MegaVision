@@ -34,5 +34,6 @@ int detect_lines_hough(cv::Mat src, int max_line_length, int max_line_gap, int t
 contours_t find_contours(cv::Mat input_mat);
 contours_t remove_duplicate_contours(contours_t contours_old, contours_t contours_new);
 void draw_contours(cv::Mat input_mat, cv::Mat & output_mat, contours_t contours);
+int sidescroll_right_gray(Mat & old_image, Mat & new_image);
 
 #endif
