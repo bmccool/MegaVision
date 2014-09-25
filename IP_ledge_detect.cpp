@@ -230,7 +230,7 @@ int sidescroll_right_gray(Mat & old_image, Mat & new_image)
             
     }
     // no matches were found
-    printf("The best match was %ul at %d  ", min_equalish, min_equalish_index);
+    printf("The best match was %lu at %d  ", min_equalish, min_equalish_index);
     return -1;
 }
 
