@@ -189,9 +189,54 @@ void draw_contours(Mat input_mat, Mat & output_mat, contours_t contours)
     }
 }
 
+int sidescroll_right_gray(Mat & old_image, Mat & new_image)
+{
+// 1. Convert both images to grayscale
+// 2. Check if the first column of the two images is the same
+//    if so return 0
+// 3. Check if the first column of the old image is equal to the next column of the new image
+//    if so return the index of the new image column that matches the first column of the old image
+//    repeat step 3 until max size has been reached.
 
 
+    // Convert image to gray
+    cvtColor(old_image, Mat old_gray, CV_BGR2GRAY);
+    cvtColor(new_image, Mat new_gray, CV_BGR2GRAY);
+    
+    for (int i = 0; i < new_gray.cols, i++)
+    {
+        if (are_columns_equalish(new_gray, old_gray, 10))
+        {
+            // These columns are relatively equal
+            // Return their index
+            return i;
+        }
+            
+    }
+    // no matches were found
+    return -1;
+}
 
+bool are_columns_equalish(Mat & m1, Mat & m2, int error)
+{
+    // NOTE: THIS FUNCTION ASSUMES MATS ARE OF TYPE CV_8UC1.
+    // OTHER TYPES OF MATS WILL PRODUCE UNRELIABL RESULTS
+    
+    // Return false if the matrices are not of equal size or if error is negative.
+    // Go through the first column of each mat and compare each element.
+    // If two elements are not within "error" of each other, return false
+    // If we get to the end and thus haven't returned false, return true.
+    
+    for (unsigned int i = 0; i < m1.rows; i++)
+    {
+        if ((abs(m1.at<uchar>(i,1) - m2.at<uchar>(i,1)) > error) &&
+            (abs(m1.at<uchar>(i,1) - m2.at<uchar>(i,1)) < 0))
+        {
+            return false;
+        }
+    }
+    return true;
+}
 
 
 
