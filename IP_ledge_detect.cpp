@@ -211,8 +211,8 @@ int sidescroll_right_gray(Mat & old_image, Mat & new_image)
     Mat new_gray;
     cvtColor(old_image, old_gray, CV_BGR2GRAY);
     cvtColor(new_image, new_gray, CV_BGR2GRAY);
-    int debug_equalish, min_equalish_index, min_equalish = new_gray.rows * 255;
-    
+    int min_equalish_index;
+    unsigned long int debug_equalish, min_equalish = new_gray.rows * 255;
     for (int i = 0; i < new_gray.cols; i++)
     {
         debug_equalish = score_column_likeness(new_gray, old_gray, EQAULISH);
@@ -230,7 +230,7 @@ int sidescroll_right_gray(Mat & old_image, Mat & new_image)
             
     }
     // no matches were found
-    printf("The best match was %d at %d  ", min_equalish, min_equalish_index);
+    printf("The best match was %ul at %d  ", min_equalish, min_equalish_index);
     return -1;
 }
 
@@ -267,10 +267,10 @@ int are_columns_equalish(Mat & m1, Mat & m2, int error)
     return -1;
 }
 
-int score_column_likeness(Mat & m1, Mat & m2, int error)
+unsigned long int score_column_likeness(Mat & m1, Mat & m2, int error)
 {
 
-    int score = 0;
+    unsigned long int score = 0;
     
     for (int i = 0; i < m1.rows; i++)
     {
