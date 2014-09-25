@@ -278,6 +278,7 @@ void main_wobble(VideoCapture & capture)
         dilate(fore,fore,Mat());
         //findContours(fore,contours,CV_RETR_EXTERNAL,CV_CHAIN_APPROX_NONE);
         //drawContours(frame,contours,-1,cv::Scalar(0,0,255),2);
+        mark_line(fore, 255);
         IMSHOW("Foreground",fore);
     }
 }   
