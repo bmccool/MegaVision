@@ -227,7 +227,7 @@ int sidescroll_right_gray(Mat & old_image, Mat & new_image)
             
     }
     // no matches were found
-    cout << "best match was " << max_equalish;
+    printf("The best match was %d ", (max_equalish/new_gray.rows) * 100);
     return -1;
 }
 
