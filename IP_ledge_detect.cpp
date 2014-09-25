@@ -229,7 +229,7 @@ int sidescroll_right_gray(Mat & old_image, Mat & new_image)
         }
         
         // Shift the frame one to the right so we can try again.
-        new_gray =  shiftFrame(new_gray, 1, ShiftLeft);
+        old_gray =  shiftFrame(old_gray, 1, ShiftLeft);
             
     }
     // no matches were found
