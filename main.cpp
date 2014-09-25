@@ -247,7 +247,7 @@ void main_wobble(VideoCapture & capture)
     cout << "main_wobble" << endl;
     Mat frame, frame_old, back, fore;
     
-    BackgroundSubtractorMOG2 bg;
+    //BackgroundSubtractorMOG2 bg;
     //bg.nmixtures = 3;
     //bg.bShadowDetection = false;
     contours_t contours;
@@ -277,9 +277,10 @@ void main_wobble(VideoCapture & capture)
         {
             cout << "something went wrong." << endl;
         }
-        bg.operator ()(frame_old, fore);
-        bg.operator ()(frame,fore);
-        bg.getBackgroundImage(back);
+        //bg.operator ()(frame_old, fore);
+        //bg.operator ()(frame,fore);
+        //bg.getBackgroundImage(back);
+        fore = get_fore(fame_old, frame)
         erode(fore,fore,Mat());
         dilate(fore,fore,Mat());
         //findContours(fore,contours,CV_RETR_EXTERNAL,CV_CHAIN_APPROX_NONE);
