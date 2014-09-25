@@ -211,13 +211,12 @@ int sidescroll_right_gray(Mat & old_image, Mat & new_image)
     Mat new_gray;
     cvtColor(old_image, old_gray, CV_BGR2GRAY);
     cvtColor(new_image, new_gray, CV_BGR2GRAY);
-    int min_equalish_index;
-    unsigned long int debug_equalish, min_equalish = new_gray.rows * 255;
+    int min_equalish_index, debug_equalish. min_equalish = 0;
+    
     for (int i = 0; i < new_gray.cols; i++)
     {
-        debug_equalish = score_column_likeness(new_gray, old_gray, EQAULISH);
-        cout << debug_equalish << endl;
-        if (debug_equalish < 100)
+        debug_equalish = are_columns_equalish(new_gray, old_gray, EQAULISH);
+        if (debug_equalish == -1)
         {
             // These columns are relatively equal
             // Return their index
@@ -228,6 +227,9 @@ int sidescroll_right_gray(Mat & old_image, Mat & new_image)
             min_equalish = debug_equalish;
             min_equalish_index = i;
         }
+        
+        // Shift the frame one to the right so we can try again.
+        frame =  shiftFrame(frame, 3, ShiftLeft);
             
     }
     // no matches were found
