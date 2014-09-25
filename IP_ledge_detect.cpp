@@ -230,7 +230,7 @@ int sidescroll_right_gray(Mat & old_image, Mat & new_image)
             
     }
     // no matches were found
-    printf("The best match was %d at %d  ", (min_equalish, min_equalish_index);
+    printf("The best match was %d at %d  ", min_equalish, min_equalish_index);
     return -1;
 }
 
@@ -274,7 +274,7 @@ int score_column_likeness(Mat & m1, Mat & m2, int error)
     
     for (int i = 0; i < m1.rows; i++)
     {
-        score += (abs(m1.at<uchar>(i,1) - m2.at<uchar>(i,1)) < 0)
+        score += (abs(m1.at<uchar>(i,1) - m2.at<uchar>(i,1)) < 0);
     }
     return score;
 }
