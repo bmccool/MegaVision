@@ -228,7 +228,7 @@ int sidescroll_right_gray(Mat & old_image, Mat & new_image)
             
     }
     // no matches were found
-    printf("The best match was %2.1f ", ((float)max_equalish/new_gray.rows) * 100);
+    printf("The best match was %2.1f at %d", ((float)max_equalish/new_gray.rows) * 100, max_equalish_index);
     return -1;
 }
 
