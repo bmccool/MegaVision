@@ -11,7 +11,8 @@
 /////////////////////////// PROJECT INCLUDES   ////////////////////////////////
 #include "IP_ledge_detect.hpp"
 
-#define EQAULISH 50
+#define EQAULISH 100
+#define FREEBIE_PERCENT .2
 
 using namespace cv;
 using namespace std;
@@ -228,7 +229,7 @@ int sidescroll_right_gray(Mat & old_image, Mat & new_image)
             
     }
     // no matches were found
-    printf("The best match was %2.1f at %d", ((float)max_equalish/new_gray.rows) * 100, max_equalish_index);
+    printf("The best match was %2.1f at %d  ", ((float)max_equalish/new_gray.rows) * 100, max_equalish_index);
     return -1;
 }
 
@@ -245,7 +246,7 @@ int are_columns_equalish(Mat & m1, Mat & m2, int error)
     // Note: Adding in a percent "freebies" so that a certain percentage
     // of pixels are allowed to completely mismatch.
     
-    int mismatch = m1.rows / 10;
+    int mismatch = m1.rows * FREEBIE_PERCENT;
     
     for (int i = 0; i < m1.rows; i++)
     {
