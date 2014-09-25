@@ -308,4 +308,11 @@ Mat shiftFrame(Mat frame, int pixels, Direction direction)
     return temp;
 }
 
+void mark_line(Mat & input, int value)
+{
 
+    for (int i = 0; i < input.rows; i++)
+    {
+        input.at<uchar>(i,1) = value;
+    }
+}
