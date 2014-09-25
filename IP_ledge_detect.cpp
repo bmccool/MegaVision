@@ -213,7 +213,7 @@ int sidescroll_right_gray(Mat & old_image, Mat & new_image)
     
     for (int i = 0; i < new_gray.cols; i++)
     {
-        debug_equalish = are_columns_equalish(new_gray, old_gray, EQAULISH)
+        debug_equalish = are_columns_equalish(new_gray, old_gray, EQAULISH);
         if (debug_equalish == -1)
         {
             // These columns are relatively equal
