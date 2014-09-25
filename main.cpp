@@ -245,7 +245,7 @@ void main_wiggle(VideoCapture & capture)
 void main_wobble(VideoCapture & capture)
 {
     cout << "main_wobble" << endl;
-    Mat frame, back, fore;
+    Mat frame, frame_old, back, fore;
     
     BackgroundSubtractorMOG2 bg;
     //bg.nmixtures = 3;
@@ -255,18 +255,21 @@ void main_wobble(VideoCapture & capture)
     // Create a window
     namedWindow("Background", WINDOW_AUTOSIZE);
     
+    capture >> frame_old;
+    int pixels;
     // Loop
     while (true)
     {
 
         capture >> frame;
+        pixels = sidescroll_right_gray(frame_old, frame);
+        cout << "The image has advanced " << pixels << " pixels." << endl;
         bg.operator ()(frame,fore);
         bg.getBackgroundImage(back);
         erode(fore,fore,Mat());
-        dilate(fore,fore,cv::Mat());
+        dilate(fore,fore,Mat());
         //findContours(fore,contours,CV_RETR_EXTERNAL,CV_CHAIN_APPROX_NONE);
         //drawContours(frame,contours,-1,cv::Scalar(0,0,255),2);
-        imshow("Background",back);
-        waitKey(1);
+        IMSHOW("Background",back);
     }
 }   
