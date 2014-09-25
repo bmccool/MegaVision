@@ -267,7 +267,7 @@ void main_wobble(VideoCapture & capture)
         if (pixels > 0)
         {
             cout << "The image has advanced " << pixels << " pixels." << endl;
-            //frame_old = shiftFrame(frame_old, pixels, ShiftLeft);
+            frame_old = shiftFrame(frame_old, pixels, ShiftLeft);
         }
         else if (pixels == -1)
         {
