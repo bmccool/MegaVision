@@ -18,7 +18,7 @@ using namespace cv;
 #define MIN_LINE_LENGTH 10
 #define MAX_LINE_GAP 5
 #define THRESHOLD_VAR 35
-
+#define SHIFT_AMOUNT 7
 
 
 // Local Function Prototypes
@@ -311,7 +311,7 @@ void main_wobble(VideoCapture & capture)
         if (pixels > 0)
         {
             cout << "The image has advanced " << pixels << " pixels." << endl;
-            frame_old = shiftFrame(frame_old, pixels, ShiftLeft);
+            frame_old = shiftFrame(frame_old, SHIFT_AMOUNT, ShiftLeft);
         }
         else if (pixels == -1)
         {
