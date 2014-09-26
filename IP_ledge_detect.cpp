@@ -327,3 +327,34 @@ Mat get_fore(Mat & old_mat, Mat & new_mat)
     
     return fore; // Return the foreground calculated.
 }
+
+Mat get_fore_mine(Mat & old_mat, Mat & new_mat)
+{
+
+    // Convert images to gray
+    Mat old_gray;
+    Mat new_gray;
+    cvtColor(old_mat, old_gray, CV_BGR2GRAY);
+    cvtColor(new_mat, new_gray, CV_BGR2GRAY);
+    Mat fore = Mat::zeros(new_mat.size(), new_gray.type()); // Foreground Mat
+
+    for (int row_index = 0; row_index < new_gray.rows; row_index++)
+    {
+        // For each row in the new matrix
+        for (int col_index = 0; col_index < new_mat.cols; col_index++)
+        {
+            // For each column in the new matrix
+            if ((abs(old_gray.at<uchar>(i,j) - new_gray.at<uchar>(i,j) > EQUALISH) ||
+                (abs(old_gray.at<uchar>(i,j) - new_gray.at<uchar>(i,j)) < 0)) // Needed to be inclusive and protect from wraparound, should never get here due to abs()
+            {
+                fore.at<uchar>(i,j) = 255;
+            }
+            else
+            {
+                fore.at<uchar>(i.j) = 0;
+            }
+        }
+    }    
+    
+    return fore; // Return the foreground calculated.
+}

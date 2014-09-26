@@ -26,8 +26,8 @@ void main_polling(VideoCapture & capture);
 int main_looping(VideoCapture & capture, string filename);
 void main_continuous(VideoCapture & capture);
 void main_wiggle(VideoCapture & capture);
+void main_wobble_old(VideoCapture & capture);
 void main_wobble(VideoCapture & capture);
-
 int main(int argc, char* argv[])
 {
     VideoCapture cap;  // Capture Object
@@ -242,7 +242,7 @@ void main_wiggle(VideoCapture & capture)
     }
 }
     
-void main_wobble(VideoCapture & capture)
+void main_wobble_old(VideoCapture & capture)
 {
     cout << "main_wobble" << endl;
     Mat frame, frame_old, back, fore;
@@ -283,6 +283,50 @@ void main_wobble(VideoCapture & capture)
         fore = get_fore(frame_old, frame);
         erode(fore,fore,Mat());
         dilate(fore,fore,Mat());
+        //findContours(fore,contours,CV_RETR_EXTERNAL,CV_CHAIN_APPROX_NONE);
+        //drawContours(frame,contours,-1,cv::Scalar(0,0,255),2);
+        IMSHOW("Foreground",fore);
+    }
+}   
+
+void main_wobble(VideoCapture & capture)
+{
+    cout << "main_wobble" << endl;
+    Mat frame, frame_old, back, fore;
+    
+    contours_t contours;
+
+    // Create a window
+    namedWindow("Foreground", WINDOW_AUTOSIZE);
+    
+    capture >> frame;
+    int pixels;
+    // Loop
+    while (true)
+    {
+
+        frame.copyTo(frame_old);
+        capture >> frame;
+        pixels = sidescroll_right_gray(frame_old, frame);
+        if (pixels > 0)
+        {
+            cout << "The image has advanced " << pixels << " pixels." << endl;
+            frame_old = shiftFrame(frame_old, pixels, ShiftLeft);
+        }
+        else if (pixels == -1)
+        {
+            cout << "no matches found." << endl;
+        }
+        else if (pixels < -1)
+        {
+            cout << "something went wrong." << endl;
+        }
+        //bg.operator ()(frame_old, fore);
+        //bg.operator ()(frame,fore);
+        //bg.getBackgroundImage(back);
+        fore = get_fore_mine(frame_old, frame);
+        //erode(fore,fore,Mat());
+        //dilate(fore,fore,Mat());
         //findContours(fore,contours,CV_RETR_EXTERNAL,CV_CHAIN_APPROX_NONE);
         //drawContours(frame,contours,-1,cv::Scalar(0,0,255),2);
         IMSHOW("Foreground",fore);
