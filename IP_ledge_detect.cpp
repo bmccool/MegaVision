@@ -344,7 +344,7 @@ Mat get_fore_mine(Mat & old_mat, Mat & new_mat)
         for (int col_index = 0; col_index < new_mat.cols; col_index++)
         {
             // For each column in the new matrix
-            if ((abs(old_gray.at<uchar>(row_index, col_index) - new_gray.at<uchar>(row_index, col_index) > EQUALISH) ||
+            if ((abs(old_gray.at<uchar>(row_index, col_index) - new_gray.at<uchar>(row_index, col_index)) > EQAULISH) ||
                 (abs(old_gray.at<uchar>(row_index, col_index) - new_gray.at<uchar>(row_index, col_index)) < 0)) // Needed to be inclusive and protect from wraparound, should never get here due to abs()
             {
                 fore.at<uchar>(row_index, col_index) = 255;
