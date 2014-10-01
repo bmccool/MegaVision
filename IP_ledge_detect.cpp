@@ -182,10 +182,11 @@ bool contour_match(contour_t c1, contour_t c2)
     return true;
 }
 
-// This function does NOT use hierarchy, if it is to use hierarchy, we need
-// to take a look at find contours so that we are returning hierarchy somehow.
 void draw_contours(Mat input_mat, Mat & output_mat, contours_t contours)
 {
+    // This function does NOT use hierarchy, if it is to use hierarchy, we need
+    // to take a look at find contours so that we are returning hierarchy somehow.
+
     RNG rng(12345);
     
     // Draw contours
@@ -368,3 +369,69 @@ Mat get_foreground(Mat & old_mat, Mat & new_mat, int threshold_val)
     
     return fore; // Return the foreground calculated.
 }
+
+points_t get_foreground_points(Mat & old_mat, Mat & new_mat, int threshold_val)
+{
+
+    // Convert images to gray
+    Mat old_gray;
+    Mat new_gray;
+    cvtColor(old_mat, old_gray, CV_BGR2GRAY);
+    cvtColor(new_mat, new_gray, CV_BGR2GRAY);
+    points_t output; 
+    int output_index = 0;
+    
+    // The output vector can at most be the size of the input matrices
+    output.resize(old_mat.rows * old_mat.cols);
+    
+    
+    for (int row_index = 0; row_index < new_gray.rows; row_index++)
+    {
+        // For each row in the new matrix
+        for (int col_index = 0; col_index < new_mat.cols; col_index++)
+        {
+            // For each column in the new matrix
+            // We are using a threshold.  If the difference of the pixels is less than the threshold value, color it white
+            if ((abs(old_gray.at<uchar>(row_index, col_index) - new_gray.at<uchar>(row_index, col_index)) > threshold_val) ||
+                (abs(old_gray.at<uchar>(row_index, col_index) - new_gray.at<uchar>(row_index, col_index)) < 0)) // Needed to be inclusive and protect from wraparound, should never get here due to abs()
+
+            {
+                // We have found a point in the foreground, put it in the output
+                output[output_index].x = row_index;
+                output[output_index].y = col_index;
+                output_index++;
+            }
+        }
+    }    
+
+    // Resize the output vector since we should have fewer than each pixel represented    
+    output.resize(output_index + 1); // +1 since this index is zero-indexed
+    return output; // Return the foreground calculated.
+}
+
+void draw_box_on_foreground(Mat & input_mat, points_t points)
+{
+    // The plan for this function is to cycle through the points once.  We
+    // will maintain a list of rectangles and single points.  For each point,
+    // we pick one of the options below, starting with the first, and advancing
+    // down the line if that step is not appropriate.
+    // 1. If a point is close enough to another rectangle, we check to see if
+    //    the point is inside the rectangle.  If it is inside the rectangle,
+    //    we are done with this point.  If it is not inside the rectangle, we
+    //    expand the rectangle to include it in both the x and y directions if
+    //    necessary. 
+    // 2. If a point is close enough to another point, we 
+    //    a. draw a rectangle using the two points as opposite corners
+    //    b. remove the first point from the "Single Points" list.
+    //    c. add the rectangle to the "Rectangles" list.    
+    // 3. If a point is not close enough to another point or a rectangle,
+    //    we put it in the "Single Points" list.
+    
+    // What is the maximum distance a pixel can be from another pixel
+    // before it is considered a different object?
+    int max_distance = 20; // I'm calling it max_distance
+    
+    
+    
+}
+

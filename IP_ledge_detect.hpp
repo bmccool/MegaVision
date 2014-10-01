@@ -31,7 +31,7 @@ enum Direction{
 // Types
 typedef std::vector<cv::Point> contour_t;
 typedef std::vector<contour_t> contours_t;
-
+typedef std::vector<cv::Point> points_t;
 
 // Exported function prototypes
 int detect_lines_hough_prob(cv::Mat src, int max_line_length, int max_line_gap, int threshold_var, cv::Mat& output_mat);
@@ -44,5 +44,6 @@ cv::Mat shiftFrame(cv::Mat frame, int pixels, Direction direction);
 void mark_line(cv::Mat & input, int value);
 cv::Mat get_fore(cv::Mat & old_mat, cv::Mat & new_mat);
 cv::Mat get_foreground(cv::Mat & old_mat, cv::Mat & new_mat, int threshold_value);
+points_t get_foreground_points(cv::Mat & old_mat, cv::Mat & new_mat, int threshold_val);
 
 #endif
