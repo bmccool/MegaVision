@@ -43,6 +43,6 @@ int sidescroll_right_gray(cv::Mat & old_image, cv::Mat & new_image);
 cv::Mat shiftFrame(cv::Mat frame, int pixels, Direction direction);
 void mark_line(cv::Mat & input, int value);
 cv::Mat get_fore(cv::Mat & old_mat, cv::Mat & new_mat);
-cv::Mat get_fore_mine(cv::Mat & old_mat, cv::Mat & new_mat);
+cv::Mat get_foreground(cv::Mat & old_mat, cv::Mat & new_mat, int threshold_value);
 
 #endif

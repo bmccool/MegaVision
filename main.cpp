@@ -19,6 +19,8 @@ using namespace cv;
 #define MAX_LINE_GAP 5
 #define THRESHOLD_VAR 35
 #define SHIFT_AMOUNT 7
+#define FOREGROUND_THRESHOLD 60
+
 
 
 // Local Function Prototypes
@@ -324,7 +326,7 @@ void main_wobble(VideoCapture & capture)
         //bg.operator ()(frame_old, fore);
         //bg.operator ()(frame,fore);
         //bg.getBackgroundImage(back);
-        fore = get_fore_mine(frame_old, frame);
+        fore = get_foreground(frame_old, frame, FOREGROUND_THRESHOLD);
         //erode(fore,fore,Mat());
         //dilate(fore,fore,Mat());
         //findContours(fore,contours,CV_RETR_EXTERNAL,CV_CHAIN_APPROX_NONE);
