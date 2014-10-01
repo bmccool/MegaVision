@@ -329,7 +329,7 @@ Mat get_fore(Mat & old_mat, Mat & new_mat)
     return fore; // Return the foreground calculated.
 }
 
-Mat get_fore_mine(Mat & old_mat, Mat & new_mat)
+Mat get_foreground(Mat & old_mat, Mat & new_mat, int threshold_val)
 {
 
     // Convert images to gray
@@ -345,18 +345,24 @@ Mat get_fore_mine(Mat & old_mat, Mat & new_mat)
         for (int col_index = 0; col_index < new_mat.cols; col_index++)
         {
             // For each column in the new matrix
-            #if(0)
-            if ((abs(old_gray.at<uchar>(row_index, col_index) - new_gray.at<uchar>(row_index, col_index)) > EQUALISH) ||
-                (abs(old_gray.at<uchar>(row_index, col_index) - new_gray.at<uchar>(row_index, col_index)) < 0)) // Needed to be inclusive and protect from wraparound, should never get here due to abs()
+            if (threshold_val != -1)
             {
-                fore.at<uchar>(row_index, col_index) = 255;
+                // We are using a threshold.  If the difference of the pixels is less than the threshold value, color it white
+                if ((abs(old_gray.at<uchar>(row_index, col_index) - new_gray.at<uchar>(row_index, col_index)) > threshold_val) ||
+                    (abs(old_gray.at<uchar>(row_index, col_index) - new_gray.at<uchar>(row_index, col_index)) < 0)) // Needed to be inclusive and protect from wraparound, should never get here due to abs()
+                {
+                    fore.at<uchar>(row_index, col_index) = 255;
+                }
+                else
+                {
+                    fore.at<uchar>(row_index, col_index) = 0;
+                }
             }
             else
             {
-                fore.at<uchar>(row_index, col_index) = 0;
+                // we are not using threshold.  Just make each output pixel the difference of the two input pixels
+                fore.at<uchar>(row_index, col_index) = abs(old_gray.at<uchar>(row_index, col_index) - new_gray.at<uchar>(row_index, col_index));
             }
-            #endif
-            fore.at<uchar>(row_index, col_index) = abs(old_gray.at<uchar>(row_index, col_index) - new_gray.at<uchar>(row_index, col_index));
         }
     }    
     
