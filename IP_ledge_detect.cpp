@@ -430,7 +430,51 @@ void draw_box_on_foreground(Mat & input_mat, points_t points)
     // What is the maximum distance a pixel can be from another pixel
     // before it is considered a different object?
     int max_distance = 20; // I'm calling it max_distance
+    #define CLOSE_ENOUGH 20
     
+    boxes_t boxes;
+    boxes_index = 0;
+    points_t single_points;
+    single_points_index = 0;
+    
+    bool point_done = false;
+    for (int i = 0; i < points.size(); i++)
+    {
+        // For each point in the input points_t...
+        // Check to see if this point is close enough to another rectangle
+        for (int j = 0; (j < boxes_index) && (!point_done); j++)
+        {
+            // TODO: Check to see if the point is CLOSE_ENOUGH to the box
+            // TODO: If it is, 
+            //    expand the box to include the point,
+            //    set point_done to true to indicate we are done with this point
+            // else, continue looking
+        }
+        // Check to see if this point is close enough to another point
+        for (int j = 0; (j < points_index) && (!point_done); j++)
+        {
+            // TODO: Check to see if this point is CLOSE_ENOUGH to our point
+            // TODO: If it is,
+            //    create a box with these two points as the opposite corners
+            //    Push that box to the boxes vector
+            //    erase this point from the points vector
+            //    Set point_done to true to indicate we are done with this point
+            //  else, continue looking
+        }
+        // This point is not close enough to anything else
+        if (!point_done)
+        {
+            // If we have not found a box to put our point in, or another single
+            // point with which to make a box, this point is a single point. 
+            // Put it in the single points vector
+            // TODO: Push this point in the single points vector
+        }
+    }
+    
+    
+    
+    
+
     
     
 }
