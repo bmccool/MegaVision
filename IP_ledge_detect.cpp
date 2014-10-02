@@ -479,3 +479,75 @@ void draw_box_on_foreground(Mat & input_mat, points_t points)
     
 }
 
+bool point_is_close_to_box(Point point_val, points_t box, int close)
+{
+    // There are two possible cases we can encounter here.
+    // The point can be inside (or on) the box, or the point can
+    // be in any of the eight directions away from the box (think #).
+    
+    // First we should check to see if the point is inside the box.
+    // We can do this by getting the four bounds of the box and checking
+    // if the point is less than the max bound and greater than the min
+    // bound.
+    
+    // TODO: Define MIN MAX
+    int left_bound   = MIN(box[0].x, box[1].x);
+    int right_bound  = MAX(box[0].x, box[1].x);
+    int top_bound    = MAX(box[0].y, box[1].y);
+    int bottom_bound = MIN(box[0].y, box[1].y);   
+    
+    // Next we need to check if we are close to the box.
+    // We need to find where the point is in relationship to the box and its
+    // corners before we can figure this out.
+    
+    if (point_val.x < left_bound)
+    {
+        // We are on the left side of the box
+        if (point_val.y < bottom_bound)
+        {
+            // We are in the bottom left corner.
+        }
+        else if (point_val.y <= top_bound)
+        {
+            // We are on the left side.
+        }
+        else
+        {
+            // We are in the top left corner.
+        }
+    }
+    else if (point_val.x <= right_bound)
+    {
+        // We are in the box, on top of the box, or below the box.
+        // Find out if we are in the box, or to the left or right
+        if (point_val.y < bottom_bound)
+        {
+            // We are below the box.
+        }
+        else if (point_val.y <= top_bound)
+        {
+            // We are in the box.
+            return true;
+        }
+        else
+        {
+            // We are above the box.
+        }
+    }
+    else
+    {
+        // We are on the right side of the box.
+        if (point_val.y < bottom_bound)
+        {
+            // We are in the borrom right corner.
+        }
+        else if (point_val.y <= top_bound)
+        {
+             // We are on the right side.
+        }
+        else
+        {
+            // We are in the top right corner.
+        }
+    }
+}
