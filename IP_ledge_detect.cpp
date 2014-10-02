@@ -444,22 +444,34 @@ void draw_box_on_foreground(Mat & input_mat, points_t points)
         // Check to see if this point is close enough to another rectangle
         for (int j = 0; (j < boxes_index) && (!point_done); j++)
         {
-            // TODO: Check to see if the point is CLOSE_ENOUGH to the box
-            // TODO: If it is, 
-            //    expand the box to include the point,
-            //    set point_done to true to indicate we are done with this point
-            // else, continue looking
+            // Check to see if the point is CLOSE_ENOUGH to the box
+            if (point_is_close_to_box(points[i], boxes[boxes_index], CLOSE_ENOUGH)
+            {
+                // If it is, 
+                // expand the box to include the point,
+                expand_box(points[i], boxes[boxes_index]);
+
+                // set point_done to true to indicate we are done with this point
+                point_done = true;
+            }
         }
         // Check to see if this point is close enough to another point
-        for (int j = 0; (j < points_index) && (!point_done); j++)
+        for (int j = 0; (j < single_points_index) && (!point_done); j++)
         {
-            // TODO: Check to see if this point is CLOSE_ENOUGH to our point
-            // TODO: If it is,
-            //    create a box with these two points as the opposite corners
-            //    Push that box to the boxes vector
-            //    erase this point from the points vector
-            //    Set point_done to true to indicate we are done with this point
-            //  else, continue looking
+            // Check to see if this point is CLOSE_ENOUGH to our point
+            if (distance_between(points[i], single_points[single_points_index] < CLOSE_ENOUGH)
+            {
+                // If it is,
+                // create a box with these two points as the opposite corners
+                // Push that box to the boxes vector
+                boxes.push_back(Rect(points[i], single_points[single_points_index]));
+                
+                // erase this point from the points vector
+                single_points.erase(single_points_index);
+                
+                // Set point_done to true to indicate we are done with this point
+                point_done = true;
+            }
         }
         // This point is not close enough to anything else
         if (!point_done)
@@ -467,19 +479,18 @@ void draw_box_on_foreground(Mat & input_mat, points_t points)
             // If we have not found a box to put our point in, or another single
             // point with which to make a box, this point is a single point. 
             // Put it in the single points vector
-            // TODO: Push this point in the single points vector
+            
+            // Push this point in the single points vector
+            single_points.push_back(points[i]);
+            single_points_index++;
         }
     }
     
-    
-    
-    
-
-    
-    
+    // Now that we have found the boxes, draw the boxes on the input image
+    draw_boxes(boxes, input_mat);
 }
 
-bool point_is_close_to_box(Point point_val, points_t box, int close)
+bool point_is_close_to_box(Point point_val, Rect box, int close)
 {
     // There are two possible cases we can encounter here.
     // The point can be inside (or on) the box, or the point can
@@ -490,11 +501,12 @@ bool point_is_close_to_box(Point point_val, points_t box, int close)
     // if the point is less than the max bound and greater than the min
     // bound.
     
-    // TODO: Define MIN MAX
-    int left_bound   = MIN(box[0].x, box[1].x);
-    int right_bound  = MAX(box[0].x, box[1].x);
-    int top_bound    = MAX(box[0].y, box[1].y);
-    int bottom_bound = MIN(box[0].y, box[1].y);   
+    // Rect holds x,y referring to the top left corner, and heigh
+    // and width fields.  With the above in mind, these are the bounds.
+    int left_bound   = box.x;
+    int right_bound  = box.x + box.width);
+    int top_bound    = box.y;
+    int bottom_bound = box.y - box.height;
     
     // Next we need to check if we are close to the box.
     // We need to find where the point is in relationship to the box and its
@@ -506,14 +518,17 @@ bool point_is_close_to_box(Point point_val, points_t box, int close)
         if (point_val.y < bottom_bound)
         {
             // We are in the bottom left corner.
+            if (distance_between(point_val, Point(left_bound, bottom_bound)) < close) return true;
         }
         else if (point_val.y <= top_bound)
         {
             // We are on the left side.
+            if (distance_between(point_val, Point(left_bound, point_val.y)) < close) return true;
         }
         else
         {
             // We are in the top left corner.
+            if (distance_between(point_val, Point(left_bound, top_bound)) < close) return true;
         }
     }
     else if (point_val.x <= right_bound)
@@ -523,6 +538,7 @@ bool point_is_close_to_box(Point point_val, points_t box, int close)
         if (point_val.y < bottom_bound)
         {
             // We are below the box.
+            if (distance_between(point_val, Point(point_val.x, bottom_bound)) < close) return true;
         }
         else if (point_val.y <= top_bound)
         {
@@ -532,6 +548,7 @@ bool point_is_close_to_box(Point point_val, points_t box, int close)
         else
         {
             // We are above the box.
+            if (distance_between(point_val, Point(point_val.x, top_bound)) < close) return true;
         }
     }
     else
@@ -540,14 +557,61 @@ bool point_is_close_to_box(Point point_val, points_t box, int close)
         if (point_val.y < bottom_bound)
         {
             // We are in the borrom right corner.
+            if (distance_between(point_val, Point(right_bound, bottom_bound)) < close) return true;
         }
         else if (point_val.y <= top_bound)
         {
              // We are on the right side.
+             if (distance_between(point_val, Point(right_bound, point_val.y)) < close) return true;
         }
         else
         {
             // We are in the top right corner.
+            if (distance_between(point_val, Point(right_bound, top_bound)) < close) return true;
         }
     }
+    return false;
 }
+
+int distance_between(Point p1, Point p2)
+{
+    return sqrt((p2.x - p1.x) * (p2.x - p1.x)
+              + (p2.y - p1.y) * (p2.y - p1.y));
+}
+
+void expand_box(Point point_val, Rect & box)
+{
+    // Rect.x, Rect.y - Top left corner of box
+    // Rect.height - Height of box
+    // Rect.width - Width of box
+    
+    if (point_val.x < box.x)
+    {
+        box.width += (box.x - point_val.x);
+        box.x = point_val.x;
+    }
+    else if (point_val.x > (box.x + box.width))
+    {
+        box.width += (point_val.x - (box.x + box.width));
+    }
+    
+    if (point_val.y < (box.y - box.height))
+    {
+        box.height += (box.y - box.height) - point_val.y;
+    }
+    else if (point_val.y > box.y)
+    {
+        box.height += (point_val.y - box.y);
+        box.y = point_val.y;
+    }
+}
+
+void draw_boxes(boxes_t boxes, Mat & mat)
+{
+    for (int i = 0; i < boxes.size(); i++)
+    {
+        rectangle(mat,(boxes[i].x,boxes[i].y),(boxes[i].x + boxes[i].width, boxes[i].y - boxes[i].height), (0,255,0) ,3)
+    }
+}
+
+

@@ -24,6 +24,9 @@
     waitKey(1);\
 }
 
+#define MIN(X,Y) ((X) < (Y) ? (X) : (Y))
+#define MAX(X,Y) ((X) > (Y) ? (X) : (Y))
+
 enum Direction{
     ShiftUp=1, ShiftRight, ShiftDown, ShiftLeft
    };
@@ -32,7 +35,7 @@ enum Direction{
 typedef std::vector<cv::Point> contour_t;
 typedef std::vector<contour_t> contours_t;
 typedef std::vector<cv::Point> points_t;
-typedef std::vector<points_t> boxes_t;
+typedef std::vector<cv::Rect> boxes_t;
 
 // Exported function prototypes
 int detect_lines_hough_prob(cv::Mat src, int max_line_length, int max_line_gap, int threshold_var, cv::Mat& output_mat);
@@ -46,5 +49,11 @@ void mark_line(cv::Mat & input, int value);
 cv::Mat get_fore(cv::Mat & old_mat, cv::Mat & new_mat);
 cv::Mat get_foreground(cv::Mat & old_mat, cv::Mat & new_mat, int threshold_value);
 points_t get_foreground_points(cv::Mat & old_mat, cv::Mat & new_mat, int threshold_val);
+void draw_box_on_foreground(cv::Mat & input_mat, points_t points);
+bool point_is_close_to_box(cv::Point point_val, cv::Rect box, int close);
+int distance_between(cv::Point p1, cv::Point p2);
+void expand_box(cv::Point point_val, cv::Rect & box);
+void draw_boxes(boxes_t boxes, cv::Mat & mat);
+
 
 #endif
