@@ -11,6 +11,8 @@ This repository is for the BeagleVision project.  The goals of this project are 
 
 The setup requires a BeagleBoneBlack Rev C, a compatible webcam (Playstation Eye), and an internet connection.  To get started, simple clone the project to the BeagleBone, run make, and run the executable BeagleVision.  The BeagleBone is currently using the pre-installed Debian OS, which includes the OpenCV libraries.
 
+edit: To facilitate debugging and faster development, the project is currently being used on an Ubuntu Desktop installation.  This is done so that we have more robust display capabilities and faster compile time.
+
 ### Helpful Links ###
 [Notebook](https://onedrive.live.com/redir?resid=39227574E31A4574!675&authkey=!AOqkbbqrZhCvqdE&ithint=onenote%2c)
 
