@@ -429,23 +429,22 @@ void draw_box_on_foreground(Mat & input_mat, points_t points)
     
     // What is the maximum distance a pixel can be from another pixel
     // before it is considered a different object?
-    int max_distance = 20; // I'm calling it max_distance
-    #define CLOSE_ENOUGH 20
+    #define CLOSE_ENOUGH 20 // I'm calling it max_distance
     
     boxes_t boxes;
-    boxes_index = 0;
+    int boxes_index = 0;
     points_t single_points;
-    single_points_index = 0;
+    int single_points_index = 0;
     
     bool point_done = false;
-    for (int i = 0; i < points.size(); i++)
+    for (unsigned int i = 0; i < points.size(); i++)
     {
         // For each point in the input points_t...
         // Check to see if this point is close enough to another rectangle
         for (int j = 0; (j < boxes_index) && (!point_done); j++)
         {
             // Check to see if the point is CLOSE_ENOUGH to the box
-            if (point_is_close_to_box(points[i], boxes[boxes_index], CLOSE_ENOUGH)
+            if (point_is_close_to_box(points[i], boxes[boxes_index], CLOSE_ENOUGH))
             {
                 // If it is, 
                 // expand the box to include the point,
@@ -459,7 +458,7 @@ void draw_box_on_foreground(Mat & input_mat, points_t points)
         for (int j = 0; (j < single_points_index) && (!point_done); j++)
         {
             // Check to see if this point is CLOSE_ENOUGH to our point
-            if (distance_between(points[i], single_points[single_points_index] < CLOSE_ENOUGH)
+            if (distance_between(points[i], single_points[single_points_index]) < CLOSE_ENOUGH)
             {
                 // If it is,
                 // create a box with these two points as the opposite corners
@@ -467,7 +466,7 @@ void draw_box_on_foreground(Mat & input_mat, points_t points)
                 boxes.push_back(Rect(points[i], single_points[single_points_index]));
                 
                 // erase this point from the points vector
-                single_points.erase(single_points_index);
+                single_points.erase(single_points.begin() + single_points_index);
                 
                 // Set point_done to true to indicate we are done with this point
                 point_done = true;
@@ -504,7 +503,7 @@ bool point_is_close_to_box(Point point_val, Rect box, int close)
     // Rect holds x,y referring to the top left corner, and heigh
     // and width fields.  With the above in mind, these are the bounds.
     int left_bound   = box.x;
-    int right_bound  = box.x + box.width);
+    int right_bound  = box.x + box.width;
     int top_bound    = box.y;
     int bottom_bound = box.y - box.height;
     
@@ -608,9 +607,13 @@ void expand_box(Point point_val, Rect & box)
 
 void draw_boxes(boxes_t boxes, Mat & mat)
 {
-    for (int i = 0; i < boxes.size(); i++)
+    for (unsigned int i = 0; i < boxes.size(); i++)
     {
-        rectangle(mat,(boxes[i].x,boxes[i].y),(boxes[i].x + boxes[i].width, boxes[i].y - boxes[i].height), (0,255,0) ,3)
+        rectangle(mat, 
+        Point(boxes[i].x,boxes[i].y), 
+        Point(boxes[i].x + boxes[i].width, boxes[i].y - boxes[i].height), 
+        Scalar(0,255,0),
+        3);
     }
 }
 
