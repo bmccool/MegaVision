@@ -295,6 +295,7 @@ void main_wobble(VideoCapture & capture)
 {
     cout << "main_wobble" << endl;
     Mat frame, frame_old, back, fore;
+    points_t points;
     
     contours_t contours;
 
@@ -327,10 +328,13 @@ void main_wobble(VideoCapture & capture)
         //bg.operator ()(frame,fore);
         //bg.getBackgroundImage(back);
         fore = get_foreground(frame_old, frame, FOREGROUND_THRESHOLD);
+        points = get_foreground_points(frame_old, frame, FOREGROUND_THRESHOLD);
         //erode(fore,fore,Mat());
         //dilate(fore,fore,Mat());
         //findContours(fore,contours,CV_RETR_EXTERNAL,CV_CHAIN_APPROX_NONE);
         //drawContours(frame,contours,-1,cv::Scalar(0,0,255),2);
+        
+        draw_box_on_foreground(fore, points);
         IMSHOW("Foreground",fore);
     }
 }   
