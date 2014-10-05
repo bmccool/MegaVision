@@ -612,7 +612,7 @@ void draw_boxes(boxes_t boxes, Mat & mat)
         rectangle(mat, 
         Point(boxes[i].x,boxes[i].y), 
         Point(boxes[i].x + boxes[i].width, boxes[i].y - boxes[i].height), 
-        Scalar(0,255,0),
+        Scalar(255,255,255),
         3);
     }
 }
