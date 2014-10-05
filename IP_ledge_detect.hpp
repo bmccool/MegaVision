@@ -24,9 +24,6 @@
     waitKey(1);\
 }
 
-#define MIN(X,Y) ((X) < (Y) ? (X) : (Y))
-#define MAX(X,Y) ((X) > (Y) ? (X) : (Y))
-
 enum Direction{
     ShiftUp=1, ShiftRight, ShiftDown, ShiftLeft
    };

@@ -1,6 +1,6 @@
 CC = g++
 CFLAGS = -c -Wall `pkg-config --cflags opencv`
-LDFLAGS = `pkg-config --libs opencv`
+LDFLAGS = `pkg-config --libs opencv` -lX11
 SOURCES = main.cpp HW_camera.cpp IP_ledge_detect.cpp CS_time.cpp CT_window_manager.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 EXECUTABLE = BeagleVision
