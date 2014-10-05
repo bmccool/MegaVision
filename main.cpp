@@ -19,7 +19,7 @@ using namespace cv;
 #define MAX_LINE_GAP 5
 #define THRESHOLD_VAR 35
 #define SHIFT_AMOUNT 7
-#define FOREGROUND_THRESHOLD 60
+#define FOREGROUND_THRESHOLD 40
 
 
 
