@@ -639,6 +639,9 @@ void creating_boxes_test(Mat mat)
     // Boxes vector    
     boxes_t boxes;
     
+    // Temporary mat for displaying boxes
+    Mat temp;
+    
     // Outer loop goes from top to bottom
     // Inner loop goes from left to right
     // We are assuming Point(0, 0) is the bottom left corner
@@ -649,17 +652,20 @@ void creating_boxes_test(Mat mat)
             // Add the box to the vector
             boxes.push_back(Rect(Point(0, mat.rows), Point(i, j)));
             
+            // Copy Mat
+            mat.copyTo(temp);
+            
             // Draw the box
-            draw_boxes(boxes, mat);
+            draw_boxes(boxes, temp);
             
             // Show the drawn box
-            IMSHOW("Boxes Test", mat);
+            IMSHOW("Boxes Test", temp);
             
             // Remove the box from the vector
             boxes.pop_back();
             
             // Wait for 1ms
-            sleep_for_milliseconds(1);
+            //sleep_for_milliseconds(1);
         }
     }
 }
