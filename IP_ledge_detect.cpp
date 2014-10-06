@@ -618,7 +618,7 @@ void draw_boxes(boxes_t boxes, Mat & mat)
     }
 }
 
-void creating_boxes_test(Mat & mat)
+void creating_boxes_test(Mat mat)
 {
     // This is a test function used to test the creation and drawign
     // of boxes on a Mat image.
@@ -641,8 +641,8 @@ void creating_boxes_test(Mat & mat)
     
     // Outer loop goes from top to bottom
     // Inner loop goes from left to right
-    // We are assuming Point(0, 0) is the top left corner
-    for (int j = mat.rows; j >= 0; j--)
+    // We are assuming Point(0, 0) is the bottom left corner
+    for (int j = 0; j < mat.rows; j++)
     {
         for (int i = 0; i < mat.cols; i++)
         {
@@ -658,8 +658,8 @@ void creating_boxes_test(Mat & mat)
             // Remove the box from the vector
             boxes.pop_back();
             
-            // Wait for 5ms
-            sleep_for_milliseconds(5);
+            // Wait for 1ms
+            sleep_for_milliseconds(1);
         }
     }
 }
