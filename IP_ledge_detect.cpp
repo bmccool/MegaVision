@@ -10,6 +10,7 @@
 
 /////////////////////////// PROJECT INCLUDES   ////////////////////////////////
 #include "IP_ledge_detect.hpp"
+#include "CS_time.hpp"
 
 #define EQAULISH 60
 #define EQUALISH 150
