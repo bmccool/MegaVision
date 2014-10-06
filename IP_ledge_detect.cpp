@@ -617,4 +617,48 @@ void draw_boxes(boxes_t boxes, Mat & mat)
     }
 }
 
+void creating_boxes_test(Mat & mat)
+{
+    // This is a test function used to test the creation and drawign
+    // of boxes on a Mat image.
+    
+    // The main form of this test is to start with the top left point
+    // of the input matrix, then sweep the box width out until it hits
+    // the right edge of the Mat.  Then we will increase the box height
+    // by one, and repeat until we hit the bottom right corner of the
+    // Mat.
+    
+    // If we insert a delay into this process after drawing the box,
+    // we should be able to see the sweeping progresion of the box
+    // as it is drawn left to right, top to bottom.
+    
+    // Create a window
+    namedWindow("Boxes Test", WINDOW_AUTOSIZE);
 
+    // Boxes vector    
+    boxes_t boxes;
+    
+    // Outer loop goes from top to bottom
+    // Inner loop goes from left to right
+    // We are assuming Point(0, 0) is the top left corner
+    for (int j = mat.rows; j >= 0; j--)
+    {
+        for (int i = 0; i < mat.cols; i++)
+        {
+            // Add the box to the vector
+            boxes.push_back(Rect(Point(0, mat.rows), Point(i, j)));
+            
+            // Draw the box
+            draw_boxes(boxes, mat);
+            
+            // Show the drawn box
+            IMSHOW("Boxes Test", mat);
+            
+            // Remove the box from the vector
+            boxes.pop_back();
+            
+            // Wait for 5ms
+            sleep_for_milliseconds(5);
+        }
+    }
+}
