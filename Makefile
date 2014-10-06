@@ -12,3 +12,6 @@ $(EXECUTABLE): $(OBJECTS)
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) $< -o $@
+
+clean:
+	$(RM) EXECUTABLE *.o *~
