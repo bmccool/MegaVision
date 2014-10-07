@@ -612,7 +612,7 @@ void draw_boxes(boxes_t boxes, Mat & mat)
     {
         rectangle(mat, 
         Point(boxes[i].x,boxes[i].y), 
-        Point(boxes[i].x + boxes[i].width, boxes[i].y - boxes[i].height), 
+        Point(boxes[i].x + boxes[i].width, boxes[i].y + boxes[i].height), 
         Scalar(255,255,255),
         3);
     }
@@ -650,7 +650,10 @@ void creating_boxes_test(Mat mat)
         for (int i = 0; i < mat.cols; i++)
         {
             // Add the box to the vector
-            boxes.push_back(Rect(Point(0, mat.rows), Point(i, j)));
+            //boxes.push_back(Rect(Point(0, mat.rows), Point(i, j)));
+            boxes.push_back(Rect(Point(i,j), Point(0,0)));
+            cout << "(0, " << mat.rows << ")  ";
+            cout << "(" << i << ", " << j << ")" << endl;
             
             // Copy Mat
             mat.copyTo(temp);
