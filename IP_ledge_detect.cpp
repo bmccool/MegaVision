@@ -587,11 +587,13 @@ void expand_box(Point point_val, Rect & box)
     
     if (point_val.x < box.x)
     {
+        // Point is to the left of the current box
         box.width += (box.x - point_val.x);
         box.x = point_val.x;
     }
     else if (point_val.x > (box.x + box.width))
     {
+        // Point is to the right of the current box
         box.width += (point_val.x - (box.x + box.width));
     }
     
@@ -620,7 +622,7 @@ void draw_boxes(boxes_t boxes, Mat & mat)
 
 void creating_boxes_test(Mat mat)
 {
-    // This is a test function used to test the creation and drawign
+    // This is a test function used to test the creation and drawing
     // of boxes on a Mat image.
     
     // The main form of this test is to start with the top left point
@@ -644,7 +646,7 @@ void creating_boxes_test(Mat mat)
     
     // Outer loop goes from top to bottom
     // Inner loop goes from left to right
-    // We are assuming Point(0, 0) is the bottom left corner
+    // We are assuming Point(0, 0) is the top left corner
     for (int j = 0; j < mat.rows; j++)
     {
         for (int i = 0; i < mat.cols; i++)
