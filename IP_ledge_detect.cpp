@@ -597,14 +597,16 @@ void expand_box(Point point_val, Rect & box)
         box.width += (point_val.x - (box.x + box.width));
     }
     
-    if (point_val.y < (box.y - box.height))
+    if (point_val.y < box.y)
     {
-        box.height += (box.y - box.height) - point_val.y;
+        // Point is above the current box
+        box.height += (box.y - point_val.y);
+        box.y = point_val.y;
     }
     else if (point_val.y > box.y)
     {
-        box.height += (point_val.y - box.y);
-        box.y = point_val.y;
+        // Point is below the current box
+        box.height += (point_val.y - (box.y + box.height));
     }
 }
 
