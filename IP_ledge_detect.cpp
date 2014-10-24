@@ -652,10 +652,12 @@ void creating_boxes_test(Mat mat)
         for (int i = 0; i < mat.cols; i++)
         {
             // Add the box to the vector
-            //boxes.push_back(Rect(Point(0, mat.rows), Point(i, j)));
-            boxes.push_back(Rect(Point(i,j), Point(0,0)));
-            cout << "(0, " << mat.rows << ")  ";
-            cout << "(" << i << ", " << j << ")" << endl;
+            // This is what we are trying to do
+            //      boxes.push_back(Rect(Point(i,j), Point(0,0)));
+            boxes.push_back(Rect(Point(0,0), Point(1,1)));
+            expand_box(Point(i,j), boxes[0]);
+            cout << "(" << boxes[0].x << ", " << boxes[0].y << ")  ";
+            cout << "(" << boxes[0].x + boxes[0].width << ", " << boxes[0].y + boxes[0].height << ")" << endl;
             
             // Copy Mat
             mat.copyTo(temp);
