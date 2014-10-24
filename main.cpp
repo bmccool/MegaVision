@@ -336,6 +336,6 @@ void main_wobble(VideoCapture & capture)
         
         draw_box_on_foreground(fore, points);
         IMSHOW("Foreground",fore);
-        
+        creating_boxes_test(fore);
     }
 }   
