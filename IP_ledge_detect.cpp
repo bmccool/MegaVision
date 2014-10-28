@@ -398,8 +398,8 @@ points_t get_foreground_points(Mat & old_mat, Mat & new_mat, int threshold_val)
 
             {
                 // We have found a point in the foreground, put it in the output
-                output[output_index].x = row_index;
-                output[output_index].y = col_index;
+                output[output_index].x = col_index;
+                output[output_index].y = row_index;
                 output_index++;
             }
         }
