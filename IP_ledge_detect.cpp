@@ -417,6 +417,7 @@ Mat draw_points(points_t points, Mat & input_mat)
     {
         // For each point in the input points_t...
         // Draw the point in the output
+        cout << "Drawing point[ " << i << "]/" << points.size() << " at (" << points[i].x << ", " << points[i].y << ")" << endl;
         output.at<uchar>(points[i].x, points[i].y) = 255;
     }
     
