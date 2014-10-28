@@ -410,6 +410,19 @@ points_t get_foreground_points(Mat & old_mat, Mat & new_mat, int threshold_val)
     return output; // Return the foreground calculated.
 }
 
+Mat draw_points(points_t points, Mat & input_mat)
+{
+    Mat output = Mat::zeros(input_mat.size(), input_mat.type()); // Create Output Mat
+    for (unsigned int i = 0; i < points.size(); i++)
+    {
+        // For each point in the input points_t...
+        // Draw the point in the output
+        output.at<uchar>(points[i].x, points[i].y) = 255;
+    }
+    
+    return output;
+    
+}
 void draw_box_on_foreground(Mat & input_mat, points_t points)
 {
     // The plan for this function is to cycle through the points once.  We

@@ -52,6 +52,7 @@ int distance_between(cv::Point p1, cv::Point p2);
 void expand_box(cv::Point point_val, cv::Rect & box);
 void draw_boxes(boxes_t boxes, cv::Mat & mat);
 void creating_boxes_test(cv::Mat mat);
+Mat draw_points(points_t points, cv::Mat & input_mat)
 
 
 #endif
