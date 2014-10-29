@@ -1,6 +1,3 @@
-// Build with:
-// g++ -O2 `pkg-config --cflags --libs opencv` imagegrabber.cpp -o imagegrabber
-
 #include <iostream>
 #include <opencv2/opencv.hpp>
 #include <opencv2/video/background_segm.hpp>
@@ -81,7 +78,6 @@ int main(int argc, char* argv[])
 
     // DONE
     return 0;
-
 }
 
 void main_polling(VideoCapture & capture)
@@ -202,9 +198,9 @@ void main_wiggle(VideoCapture & capture)
         if (last_pressed_button == "Right")
         {
             // Press left 
-            send_key_down(Left, nes_window);
+            send_key(Left, KEY_PRESS, nes_window);
             sleep_for_milliseconds(test_length);
-            send_key_up(Left, nes_window);
+            send_key(Left, KEY_RELEASE, nes_window);
         
             // Pause
             sleep_for_milliseconds(test_length);
@@ -223,9 +219,9 @@ void main_wiggle(VideoCapture & capture)
         else if (last_pressed_button == "Left")
         {
             // Press right for 20 mils
-            send_key_down(Right, nes_window);
+            send_key(Right, KEY_PRESS, nes_window);
             sleep_for_milliseconds(test_length);
-            send_key_up(Right, nes_window);
+            send_key(Right, KEY_RELEASE, nes_window);
         
             // Pause
             sleep_for_milliseconds(test_length);
@@ -324,9 +320,7 @@ void main_wobble(VideoCapture & capture)
         {
             cout << "something went wrong." << endl;
         }
-        //bg.operator ()(frame_old, fore);
-        //bg.operator ()(frame,fore);
-        //bg.getBackgroundImage(back);
+
         //fore = get_foreground(frame_old, frame, FOREGROUND_THRESHOLD);
         points = get_foreground_points(frame_old, frame, FOREGROUND_THRESHOLD);
         cout << points.size() << "points were found" << endl;

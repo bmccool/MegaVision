@@ -101,7 +101,7 @@ unsigned long int get_nes_window(void)
     return wlist[nes_index];
 }
 
-int send_key_down(char* keycode, unsigned long int window_id)
+int send_key(char* keycode, key_action_t action, unsigned long int window_id)
 {
     char buffer[50];
     
@@ -109,38 +109,22 @@ int send_key_down(char* keycode, unsigned long int window_id)
     sprintf(buffer, "xdotool windowfocus --sync %lu", window_id);
     system(buffer);
     
-    // Send the keypress
-    sprintf(buffer, "xdotool keydown %s", keycode);
-    system(buffer);
-    
-    return 0;
-}
+    // Send the key action
+    switch (action) 
+    {
+        case KEY_PRESS:
+            sprintf(buffer, "xdotool keydown %s", keycode);
+            break;
+        case KEY_RELEASE:
+            sprintf(buffer, "xdotool keyup %s", keycode);
+            break;
+        case KEY_PRESS_RELEASE:
+            sprintf(buffer, "xdotool key %s", keycode);
+            break;
+        default:
+            return CT_ERROR;  // The command was not sent a valid key action!
+    }
 
-int send_key_up(char* keycode, unsigned long int window_id)
-{
-    char buffer[50];
-    
-    // Grab focus of the window
-    sprintf(buffer, "xdotool windowfocus --sync %lu", window_id);
-    system(buffer);
-    
-    // Send the key release
-    sprintf(buffer, "xdotool keyup %s", keycode);
-    system(buffer);
-    
-    return 0;
-}
-
-int send_key(char* keycode, unsigned long int window_id)
-{
-    char buffer[50];
-    
-    // Grab focus of the window
-    sprintf(buffer, "xdotool windowfocus --sync %lu", window_id);
-    system(buffer);
-    
-    // Send the key release
-    sprintf(buffer, "xdotool key %s", keycode);
     system(buffer);
     
     return 0;
