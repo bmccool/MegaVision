@@ -333,7 +333,7 @@ Mat get_fore(Mat & old_mat, Mat & new_mat)
 
 Mat get_foreground(Mat & old_mat, Mat & new_mat, int threshold_val)
 {
-
+    // NOTE: ROW:Y::COL:X
     // Convert images to gray
     Mat old_gray;
     Mat new_gray;
@@ -350,20 +350,20 @@ Mat get_foreground(Mat & old_mat, Mat & new_mat, int threshold_val)
             if (threshold_val != -1)
             {
                 // We are using a threshold.  If the difference of the pixels is less than the threshold value, color it white
-                if ((abs(old_gray.at<uchar>(row_index, col_index) - new_gray.at<uchar>(row_index, col_index)) > threshold_val) ||
-                    (abs(old_gray.at<uchar>(row_index, col_index) - new_gray.at<uchar>(row_index, col_index)) < 0)) // Needed to be inclusive and protect from wraparound, should never get here due to abs()
+                if ((abs(old_gray.at<uchar>(col_index, row_index) - new_gray.at<uchar>(col_index, row_index)) > threshold_val) ||
+                    (abs(old_gray.at<uchar>(col_index, row_index) - new_gray.at<uchar>(col_index, row_index)) < 0)) // Needed to be inclusive and protect from wraparound, should never get here due to abs()
                 {
-                    fore.at<uchar>(row_index, col_index) = 255;
+                    fore.at<uchar>(col_index, row_index) = 255;
                 }
                 else
                 {
-                    fore.at<uchar>(row_index, col_index) = 0;
+                    fore.at<uchar>(col_index, row_index) = 0;
                 }
             }
             else
             {
                 // we are not using threshold.  Just make each output pixel the difference of the two input pixels
-                fore.at<uchar>(row_index, col_index) = abs(old_gray.at<uchar>(row_index, col_index) - new_gray.at<uchar>(row_index, col_index));
+                fore.at<uchar>(col_index, row_index) = abs(old_gray.at<uchar>(col_index, row_index) - new_gray.at<uchar>(col_index, row_index));
             }
         }
     }    
@@ -373,7 +373,7 @@ Mat get_foreground(Mat & old_mat, Mat & new_mat, int threshold_val)
 
 points_t get_foreground_points(Mat & old_mat, Mat & new_mat, int threshold_val)
 {
-
+    // NOTE: ROW:Y::COL:X
     // Convert images to gray
     Mat old_gray;
     Mat new_gray;
@@ -393,8 +393,8 @@ points_t get_foreground_points(Mat & old_mat, Mat & new_mat, int threshold_val)
         {
             // For each column in the new matrix
             // We are using a threshold.  If the difference of the pixels is less than the threshold value, color it white
-            if ((abs(old_gray.at<uchar>(row_index, col_index) - new_gray.at<uchar>(row_index, col_index)) > threshold_val) ||
-                (abs(old_gray.at<uchar>(row_index, col_index) - new_gray.at<uchar>(row_index, col_index)) < 0)) // Needed to be inclusive and protect from wraparound, should never get here due to abs()
+            if ((abs(old_gray.at<uchar>(col_index, row_index) - new_gray.at<uchar>(col_index, row_index)) > threshold_val) ||
+                (abs(old_gray.at<uchar>(col_index, row_index) - new_gray.at<uchar>(col_index, row_index)) < 0)) // Needed to be inclusive and protect from wraparound, should never get here due to abs()
 
             {
                 // We have found a point in the foreground, put it in the output
