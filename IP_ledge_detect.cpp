@@ -350,20 +350,20 @@ Mat get_foreground(Mat & old_mat, Mat & new_mat, int threshold_val)
             if (threshold_val != -1)
             {
                 // We are using a threshold.  If the difference of the pixels is less than the threshold value, color it white
-                if ((abs(old_gray.at<uchar>(row_index, col_index) - new_gray.at<uchar>(row_index, col_index)) > threshold_val) ||
-                    (abs(old_gray.at<uchar>(row_index, col_index) - new_gray.at<uchar>(row_index, col_index)) < 0)) // Needed to be inclusive and protect from wraparound, should never get here due to abs()
+                if ((abs(old_gray.at<uchar>(col_index, row_index) - new_gray.at<uchar>(col_index, row_index)) > threshold_val) ||
+                    (abs(old_gray.at<uchar>(col_index, row_index) - new_gray.at<uchar>(col_index, row_index)) < 0)) // Needed to be inclusive and protect from wraparound, should never get here due to abs()
                 {
-                    fore.at<uchar>(row_index, col_index) = 255;
+                    fore.at<uchar>(col_index, row_index) = 255;
                 }
                 else
                 {
-                    fore.at<uchar>(row_index, col_index) = 0;
+                    fore.at<uchar>(col_index, row_index) = 0;
                 }
             }
             else
             {
                 // we are not using threshold.  Just make each output pixel the difference of the two input pixels
-                fore.at<uchar>(row_index, col_index) = abs(old_gray.at<uchar>(row_index, col_index) - new_gray.at<uchar>(row_index, col_index));
+                fore.at<uchar>(col_index, row_index) = abs(old_gray.at<uchar>(col_index, row_index) - new_gray.at<uchar>(col_index, row_index));
             }
         }
     }    
@@ -382,10 +382,6 @@ points_t get_foreground_points(Mat & old_mat, Mat & new_mat, int threshold_val)
     points_t output; 
     int output_index = 0;
     
-    // The output vector can at most be the size of the input matrices
-    output.resize(old_mat.rows * old_mat.cols);
-    
-    
     for (int row_index = 0; row_index < new_gray.rows; row_index++)
     {
         // For each row in the new matrix
@@ -393,32 +389,31 @@ points_t get_foreground_points(Mat & old_mat, Mat & new_mat, int threshold_val)
         {
             // For each column in the new matrix
             // We are using a threshold.  If the difference of the pixels is less than the threshold value, color it white
-            if ((abs(old_gray.at<uchar>(row_index, col_index) - new_gray.at<uchar>(row_index, col_index)) > threshold_val) ||
-                (abs(old_gray.at<uchar>(row_index, col_index) - new_gray.at<uchar>(row_index, col_index)) < 0)) // Needed to be inclusive and protect from wraparound, should never get here due to abs()
-
+            if (abs(old_gray.at<uchar>(col_index, row_index) - new_gray.at<uchar>(col_index, row_index)) > threshold_val)
             {
                 // We have found a point in the foreground, put it in the output
-                output[output_index].x = col_index;
-                output[output_index].y = row_index;
+                output.push_back(Point(col_index, row_index));
                 output_index++;
             }
         }
     }    
 
-    // Resize the output vector since we should have fewer than each pixel represented    
-    output.resize(output_index + 1); // +1 since this index is zero-indexed
     return output; // Return the foreground calculated.
 }
 
-Mat draw_points(points_t points, Mat & input_mat)
+Mat draw_points(points_t points, Mat & input_matrix)
 {
+    Mat input_mat;
+    cvtColor(input_matrix, input_mat, CV_BGR2GRAY);
+    Point point_val;
     Mat output = Mat::zeros(input_mat.size(), input_mat.type()); // Create Output Mat
     for (unsigned int i = 0; i < points.size(); i++)
     {
         // For each point in the input points_t...
         // Draw the point in the output
-        cout << "Drawing point[ " << i << "]/" << points.size() << " at (" << points[i].x << ", " << points[i].y << ")" << endl;
-        output.at<uchar>(points[i].x, points[i].y) = 255;
+        point_val = points.back();
+        output.at<uchar>(point_val.x, point_val.y) = 255;
+        points.pop_back();
     }
     
     return output;
@@ -515,12 +510,14 @@ bool point_is_close_to_box(Point point_val, Rect box, int close)
     // if the point is less than the max bound and greater than the min
     // bound.
     
-    // Rect holds x,y referring to the top left corner, and heigh
+    // Rect holds x,y referring to the top left corner, and height
     // and width fields.  With the above in mind, these are the bounds.
+    // NOTE: Origin is in the top left, x increases to the right, y increases
+    // to the bottom.
     int left_bound   = box.x;
     int right_bound  = box.x + box.width;
     int top_bound    = box.y;
-    int bottom_bound = box.y - box.height;
+    int bottom_bound = box.y + box.height;
     
     // Next we need to check if we are close to the box.
     // We need to find where the point is in relationship to the box and its
@@ -529,12 +526,12 @@ bool point_is_close_to_box(Point point_val, Rect box, int close)
     if (point_val.x < left_bound)
     {
         // We are on the left side of the box
-        if (point_val.y < bottom_bound)
+        if (point_val.y > bottom_bound)
         {
             // We are in the bottom left corner.
             if (distance_between(point_val, Point(left_bound, bottom_bound)) < close) return true;
         }
-        else if (point_val.y <= top_bound)
+        else if (point_val.y >= top_bound)
         {
             // We are on the left side.
             if (distance_between(point_val, Point(left_bound, point_val.y)) < close) return true;
@@ -549,12 +546,12 @@ bool point_is_close_to_box(Point point_val, Rect box, int close)
     {
         // We are in the box, on top of the box, or below the box.
         // Find out if we are in the box, or to the left or right
-        if (point_val.y < bottom_bound)
+        if (point_val.y > bottom_bound)
         {
             // We are below the box.
             if (distance_between(point_val, Point(point_val.x, bottom_bound)) < close) return true;
         }
-        else if (point_val.y <= top_bound)
+        else if (point_val.y >= top_bound)
         {
             // We are in the box.
             return true;
@@ -568,12 +565,12 @@ bool point_is_close_to_box(Point point_val, Rect box, int close)
     else
     {
         // We are on the right side of the box.
-        if (point_val.y < bottom_bound)
+        if (point_val.y > bottom_bound)
         {
             // We are in the borrom right corner.
             if (distance_between(point_val, Point(right_bound, bottom_bound)) < close) return true;
         }
-        else if (point_val.y <= top_bound)
+        else if (point_val.y >= top_bound)
         {
              // We are on the right side.
              if (distance_between(point_val, Point(right_bound, point_val.y)) < close) return true;
@@ -598,6 +595,8 @@ void expand_box(Point point_val, Rect & box)
     // Rect.x, Rect.y - Top left corner of box
     // Rect.height - Height of box
     // Rect.width - Width of box
+    // NOTE: Origing is top left, x increases to the right, y increases to the
+    // bottom.
     
     if (point_val.x < box.x)
     {
@@ -617,7 +616,7 @@ void expand_box(Point point_val, Rect & box)
         box.height += (box.y - point_val.y);
         box.y = point_val.y;
     }
-    else if (point_val.y > box.y)
+    else if (point_val.y > (box.y + box.height))
     {
         // Point is below the current box
         box.height += (point_val.y - (box.y + box.height));
