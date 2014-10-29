@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo "Pulling latest changes..."
+hg pull
+
+echo "Merging latest changes..."
+hg update --clean
+
+echo "Building..."
+make
+
+chmod 777 build
