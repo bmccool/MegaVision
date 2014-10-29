@@ -1,8 +1,8 @@
-/******************************************************************************
-* IP_ledge_detect.cpp
-* This file contains functions that deal with detecting ledges.
-*
-******************************************************************************/
+///////////////////////////////////////////////////////////////////////////////
+/// @file IP_ledge_detect.cpp
+/// This file contains functions that deal with detecting ledges.
+///
+///////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////// STANDARD INCLUDES  ////////////////////////////////
 #include<opencv2/opencv.hpp>
@@ -410,6 +410,21 @@ points_t get_foreground_points(Mat & old_mat, Mat & new_mat, int threshold_val)
     return output; // Return the foreground calculated.
 }
 
+
+///////////////////////////////////////////////////////////////////////////////
+/// draw_points will take in a points_t and source mat, then draw each of the
+/// points in a new mat, of the same type and size as the source mat.  The new
+/// mat is returned.
+///
+/// @param[in]      points      A points_t containing each of the points we 
+///                             want to draw
+/// @param[in]      input_mat   A Mat that will be used to get the type and
+///                             size of the output.
+/// @return             A Mat type is returned that is the same type and size
+///                     as the input_mat with each of the points colored at 255
+///                     and everything else left black at 0.
+///
+///////////////////////////////////////////////////////////////////////////////
 Mat draw_points(points_t points, Mat & input_mat)
 {
     Mat output = Mat::zeros(input_mat.size(), input_mat.type()); // Create Output Mat
