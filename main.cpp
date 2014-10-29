@@ -334,7 +334,7 @@ void main_wobble(VideoCapture & capture)
         //findContours(fore,contours,CV_RETR_EXTERNAL,CV_CHAIN_APPROX_NONE);
         //drawContours(frame,contours,-1,cv::Scalar(0,0,255),2);
         fore = draw_points(points, frame);
-        //draw_box_on_foreground(fore, points);
+        draw_box_on_foreground(fore, points);
         IMSHOW("Foreground",fore);
         //creating_boxes_test(fore);
     }

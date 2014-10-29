@@ -392,6 +392,12 @@ points_t get_foreground_points(Mat & old_mat, Mat & new_mat, int threshold_val)
             if (abs(old_gray.at<uchar>(col_index, row_index) - new_gray.at<uchar>(col_index, row_index)) > threshold_val)
             {
                 // We have found a point in the foreground, put it in the output
+                if (output_index == 65535)
+                {
+                    // We don't have any more space in the vector; exit early
+                    /// @todo return some sort of error
+                    return output;
+                }
                 output.push_back(Point(col_index, row_index));
                 output_index++;
             }
