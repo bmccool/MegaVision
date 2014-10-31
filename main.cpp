@@ -323,8 +323,6 @@ void main_wobble(VideoCapture & capture)
 
         //fore = get_foreground(frame_old, frame, FOREGROUND_THRESHOLD);
         points = get_foreground_points(frame_old, frame, FOREGROUND_THRESHOLD);
-        cout << points.size() << "points were found" << endl;
-        cout << fore.rows << fore.cols << endl;
         //erode(fore,fore,Mat());
         //dilate(fore,fore,Mat());
         //findContours(fore,contours,CV_RETR_EXTERNAL,CV_CHAIN_APPROX_NONE);
