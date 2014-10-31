@@ -17,3 +17,5 @@ edit: To facilitate debugging and faster development, the project is currently b
 [Notebook](https://onedrive.live.com/redir?resid=39227574E31A4574!675&authkey=!AOqkbbqrZhCvqdE&ithint=onenote%2c)
 
 [Trello](https://trello.com/b/7KO2B9iP/beaglevision)
+
+[Doxygen](http://bmccool.bitbucket.org/BeagleVision/index.html)
