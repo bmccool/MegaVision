@@ -19,3 +19,5 @@ edit: To facilitate debugging and faster development, the project is currently b
 [Trello](https://trello.com/b/7KO2B9iP/beaglevision)
 
 [Doxygen](http://bmccool.bitbucket.org/BeagleVision/index.html)
+
+[Bitbucket](https://bitbucket.org/bmccool/beaglevision)
