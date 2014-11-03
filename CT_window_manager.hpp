@@ -16,10 +16,11 @@ enum key_action_t
     KEY_PRESS_RELEASE
 };
 
+#define CT_ERROR 2
 /////////////////////////// STANDARD INCLUDES  ////////////////////////////////
 /////////////////////////// PROJECT INCLUDES   ////////////////////////////////
 // Exported function prototypes
-int send_key(char* keycode, unsigned long int window_id);
+int send_key(char* keycode, key_action_t action, unsigned long int window_id);
 unsigned long int get_nes_window(void);
 
 #endif
