@@ -71,6 +71,10 @@ int main(int argc, char* argv[])
         {
             main_wobble(cap);
         }
+        else if (string(argv[1]) == "d")
+        {
+            main_detect(cap);
+        }        
     }
 
     // Close the default camera
@@ -331,5 +335,49 @@ void main_wobble(VideoCapture & capture)
         draw_box_on_foreground(fore, points);
         IMSHOW("Foreground",fore);
         //creating_boxes_test(fore);
+    }
+}   
+
+///////////////////////////////////////////////////////////////////////////////
+/// main_detect will attempt to draw a box around a single object moving on the
+/// screen.  At this point, we are only going for one item moving on the
+/// screen.  WIth more than one object, behavior is not defined.
+///
+/// @param[in]      cap        A VideoCapture objec that is opened and tied
+///                            to the webcam.
+///////////////////////////////////////////////////////////////////////////////
+void main_detect(VideoCapture & capture)
+{
+    cout << "main_detect" << endl;
+    Mat frame, frame_old; // Hold two successive frames for background subtraction
+    Mat fore;             // Holds the foreground (moving parts) of the image
+    points_t points;      // Stores the points that make up the foreground
+
+    // Create a window
+    namedWindow("Foreground", WINDOW_AUTOSIZE);
+    
+    // Grab the first frame so we have history inside the loop
+    capture >> frame;
+
+    // Loop
+    while (true)
+    {
+        // Copy the last frame to frame_old
+        frame.copyTo(frame_old);
+        
+        // Get a new frame to compare with frame_old
+        capture >> frame;
+        
+        // Get the points that make up the foreground
+        points = get_foreground_points(frame_old, frame, FOREGROUND_THRESHOLD);
+        
+        // Draw the foreground points to the foreground matrix
+        fore = draw_points(points, frame);
+        
+        // Draw a box fitting the foreground
+        draw_box_on_foreground(fore, points);
+        
+        // Display the foreground with the box around it
+        IMSHOW("Foreground",fore);
     }
 }   
