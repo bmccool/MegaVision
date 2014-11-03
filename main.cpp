@@ -27,6 +27,8 @@ void main_continuous(VideoCapture & capture);
 void main_wiggle(VideoCapture & capture);
 void main_wobble_old(VideoCapture & capture);
 void main_wobble(VideoCapture & capture);
+void main_detect(VideoCapture & capture);
+
 int main(int argc, char* argv[])
 {
     VideoCapture cap;  // Capture Object
