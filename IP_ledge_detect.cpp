@@ -422,12 +422,12 @@ points_t get_foreground_points(Mat & old_mat, Mat & new_mat, int threshold_val)
 ///                     and everything else left black at 0.
 ///
 ///////////////////////////////////////////////////////////////////////////////
-Mat draw_points(points_t points, Mat & input_mat)
+Mat draw_points(points_t points, Mat & input_matrix)
 {
-    Mat input_mat;
-    cvtColor(input_matrix, input_mat, CV_BGR2GRAY);
+    Mat input_gray;
+    cvtColor(input_matrix, input_gray, CV_BGR2GRAY);
     Point point_val;
-    Mat output = Mat::zeros(input_mat.size(), input_mat.type()); // Create Output Mat
+    Mat output = Mat::zeros(input_gray.size(), input_gray.type()); // Create Output Mat
     for (unsigned int i = 0; i < points.size(); i++)
     {
         // For each point in the input points_t...
