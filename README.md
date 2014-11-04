@@ -22,4 +22,4 @@ edit: To facilitate debugging and faster development, the project is currently b
 
 [Bitbucket](https://bitbucket.org/bmccool/beaglevision)
 
-[Doxygen errors](http://bmccool.bitbucket.org/BeagleVision/error_logfile.txt
+[Doxygen errors](http://bmccool.bitbucket.org/BeagleVision/error_logfile.txt)
