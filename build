@@ -12,7 +12,7 @@ make
 chmod 777 build
 
 echo "Puling latest documentation..."
-hg pull -R ./../bmccool.bitbucket.org
+hg pull -A -R ./../bmccool.bitbucket.org
 
 echo "Updating documentation..."
 doxygen ./Docs/Doxyfile-build
