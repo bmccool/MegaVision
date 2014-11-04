@@ -28,6 +28,7 @@ void main_wiggle(VideoCapture & capture);
 void main_wobble_old(VideoCapture & capture);
 void main_wobble(VideoCapture & capture);
 void main_detect(VideoCapture & capture);
+void main_box_test(VideoCapture & capture);
 void main_boxes_test(VideoCapture & capture);
 
 int main(int argc, char* argv[])
@@ -93,23 +94,41 @@ int main(int argc, char* argv[])
 
 
 ///////////////////////////////////////////////////////////////////////////////
-/// main_boxes_test will test the functions required to create and draw boxes
-/// by calling the function creating_boxes_test().
+/// main_box_test will test the functions required to create and draw boxes
+/// by calling the function creating_box_test().
 ///
-/// @param[in]      capture        A VideoCapture objec that is opened and tied
+/// @param[in]      capture    A VideoCapture objec that is opened and tied
 ///                            to the webcam.
 ///////////////////////////////////////////////////////////////////////////////
-void main_boxes_test(VideoCapture & capture)
+void main_box_test(VideoCapture & capture)
 {
     Mat frame;
     
     capture >> frame;
     while (true)
     {
-        creating_boxes_test(fore);
+        creating_box_test(fore);
     }
 }   
 
+///////////////////////////////////////////////////////////////////////////////
+/// main_boxes_test will test the functions required to create and draw boxes
+/// by calling the function creating_box_test().
+///
+/// @param[in]      capture    A VideoCapture objec that is opened and tied
+///                            to the webcam.
+///////////////////////////////////////////////////////////////////////////////
+void main_boxes_test(VideoCapture & capture)
+{
+    Mat frame;
+    int num_boxes_per_line = 5;  // This is the number of boxes in each
+                                 // vertical and horizontal line.
+    capture >> frame;
+    while (true)
+    {
+        creating_boxes_test(fore, num_boxes_per_line);
+    }
+}   
 
 
 void main_polling(VideoCapture & capture)
@@ -362,7 +381,7 @@ void main_wobble(VideoCapture & capture)
         fore = draw_points(points, frame);
         draw_box_on_foreground(fore, points);
         IMSHOW("Foreground",fore);
-        //creating_boxes_test(fore);
+        //creating_box_test(fore);
     }
 }   
 

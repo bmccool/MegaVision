@@ -656,7 +656,7 @@ void draw_boxes(boxes_t boxes, Mat & mat)
     }
 }
 
-void creating_boxes_test(Mat mat)
+void creating_box_test(Mat mat)
 {
     // This is a test function used to test the creation and drawing
     // of boxes on a Mat image.
@@ -709,6 +709,160 @@ void creating_boxes_test(Mat mat)
             
             // Wait for 1ms
             //sleep_for_milliseconds(1);
+        }
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+/// This is a test function used to test the creation and drawing
+/// of boxes on a Mat.
+/// 
+/// The main form of this test is to start with the top left point
+/// of the input matrix, and draw as many boxes as we can going 
+/// down and right.  After each draw, we will increase the size
+/// of the boxes and draw again until one box hits the bottom or
+/// right side of the Mat.  Once this happens, we will begin decreasing
+/// the size of the box in the direction that was hit.  We will continue
+/// until the other direction hits the edge, then continue until the box
+/// is too small to continue.
+///
+/// @param[in]  mat     A Mat object that is the same type and size of our
+///                     output.
+/// @param[in]  num_boxes_per_line  An int that stores the number of boxes
+///                                 in each vert and horiz line.
+///
+///////////////////////////////////////////////////////////////////////////////
+void creating_boxes_test(Mat mat, int num_boxes_per_line)
+{
+
+    
+    // Create a window
+    namedWindow("Boxes Test", WINDOW_AUTOSIZE);
+
+    // Boxes vector    
+    boxes_t boxes;
+    
+    // Box size
+    int box_x = 1;
+    int box_y = 1;
+    
+    // Box size direction
+    bool box_x_increasing true;
+    bool box_y_increasing true;
+    
+    // Temporary mat for displaying boxes
+    Mat temp;
+    
+    // Outer loop goes from top to bottom
+    // Inner loop goes from left to right
+    // We are assuming Point(0, 0) is the top left corner
+    while (true)
+    {
+        // check if the boxes will fit
+        // Check x direction
+        while ((box_x * num_boxes_per_line) > mat.cols)
+        {
+            // The box is too big in the x direction
+            // Check if we are already as small as can be
+            if (box_x < 2)
+            {
+                // The box is already as small as can be
+                cout << "too many boxes in x direction!" << endl;
+                break;
+            }
+            else
+            {
+                // The box can be smaller.
+                // Change the x direction to false.
+                box_x_increasing = false;
+                // decrease the size by and check again
+                box_x--;
+            }
+        }
+        // Check y direction
+        while ((box_y * num_boxes_per_line) > mat.rows)
+        {
+            // The box is too big in the y direction
+            // Check if we are already as small as can be
+            if (box_y < 2)
+            {
+                // The box is already as small as can be
+                cout << "too many boxes in y direction!" << endl;
+                break;
+            }
+            else
+            {
+                // The box can be smaller.
+                // Change the y direction to false.
+                box_y_increasing = false;
+                // decrease the size by and check again
+                box_y--;
+            }
+        }
+        
+        // Check if the boxes are too small
+        // check x direction
+        if (box_x == 0)
+        {
+            // Box is too small in x direction
+            // Change box direction
+            box_x_increasing = true;
+            // increase box size
+            box_x++;
+        }
+        // check y direction
+        if (box_y == 0)
+        {
+            // Box is too small in y direction
+            // Change box direction
+            box_y_increasing = true;
+            // increase box size
+            box_y++;
+        }
+            
+        // Draw boxes
+        for (int i = 0; i < num_boxes_per_line; i++)
+        {
+            for (int j = 0; j < num_boxes_per_line; j++)
+            {
+                // i is the x direction of boxes
+                // j is the y direction of boxes
+                boxes.push_back(Rect(Point(i * box_x, j * box_y), Point((i + 1) * box_x, (i+1) * box_y)));
+            }
+        }
+        
+        // Copy Mat
+        mat.copyTo(temp);
+            
+        // Draw the box
+        draw_boxes(boxes, temp);
+            
+        // Show the drawn box
+        IMSHOW("Boxes Test", temp);
+            
+        // Remove the box from the vector
+        for (int i = num_boxes_per_line * num_boxes_per_line; i > 0; i--)
+        {
+            boxes.pop_back();
+        }
+        
+        // Modify boxes        
+        if (box_x_increasing)
+        {
+            box_x++;
+        }
+        else
+        {
+            box_x--;
+        }
+        
+        if (box_y_increasing)
+        {
+            box_y++;
+        }
+        else
+        {
+            box_y--;
         }
     }
 }
