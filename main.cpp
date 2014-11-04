@@ -28,6 +28,7 @@ void main_wiggle(VideoCapture & capture);
 void main_wobble_old(VideoCapture & capture);
 void main_wobble(VideoCapture & capture);
 void main_detect(VideoCapture & capture);
+void main_boxes_test(VideoCapture & capture);
 
 int main(int argc, char* argv[])
 {
@@ -76,6 +77,10 @@ int main(int argc, char* argv[])
         else if (string(argv[1]) == "d")
         {
             main_detect(cap);
+        }
+        else if (string(argv[1]) == "boxes_test")
+        {
+            main_boxes_test(cap);
         }        
     }
 
@@ -85,6 +90,27 @@ int main(int argc, char* argv[])
     // DONE
     return 0;
 }
+
+
+///////////////////////////////////////////////////////////////////////////////
+/// main_boxes_test will test the functions required to create and draw boxes
+/// by calling the function creating_boxes_test().
+///
+/// @param[in]      capture        A VideoCapture objec that is opened and tied
+///                            to the webcam.
+///////////////////////////////////////////////////////////////////////////////
+void main_boxes_test(VideoCapture & capture)
+{
+    Mat frame;
+    
+    capture >> frame;
+    while (true)
+    {
+        creating_boxes_test(fore);
+    }
+}   
+
+
 
 void main_polling(VideoCapture & capture)
 {
@@ -345,7 +371,7 @@ void main_wobble(VideoCapture & capture)
 /// screen.  At this point, we are only going for one item moving on the
 /// screen.  WIth more than one object, behavior is not defined.
 ///
-/// @param[in]      cap        A VideoCapture objec that is opened and tied
+/// @param[in]      capture    A VideoCapture objec that is opened and tied
 ///                            to the webcam.
 ///////////////////////////////////////////////////////////////////////////////
 void main_detect(VideoCapture & capture)
