@@ -1,0 +1,24 @@
+#!/bin/bash
+
+echo "Pulling latest changes..."
+hg pull
+
+echo "Merging latest changes..."
+hg update --clean
+
+echo "Building..."
+make
+
+chmod 777 build
+
+echo "Puling latest documentation..."
+hg pull -R ./../bmccool.bitbucket.org
+
+echo "Updating documentation..."
+doxygen ./Docs/Doxyfile-build
+
+echo "Committing documentation..."
+hg commit -A -R ./../bmccool.bitbucket.org -m "Updating from build script."
+
+echo "Pushing documentation..."
+hg push -R ./../bmccool.bitbucket.org
