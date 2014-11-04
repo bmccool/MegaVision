@@ -18,7 +18,7 @@ echo "Updating documentation..."
 doxygen ./Docs/Doxyfile-build
 
 echo "Committing documentation..."
-hg commit -A -R ./../bmccool.bitbucket.org
+hg commit -A -R ./../bmccool.bitbucket.org -m Updating from build script.
 
 echo "Pushing documentation..."
 hg push -R ./../bmccool.bitbucket.org
