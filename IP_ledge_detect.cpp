@@ -415,7 +415,7 @@ points_t get_foreground_points(Mat & old_mat, Mat & new_mat, int threshold_val)
 ///
 /// @param[in]      points      A points_t containing each of the points we 
 ///                             want to draw
-/// @param[in]      input_mat   A Mat that will be used to get the type and
+/// @param[in]      input_matrix    A Mat that will be used to get the type and
 ///                             size of the output.
 /// @return             A Mat type is returned that is the same type and size
 ///                     as the input_mat with each of the points colored at 255
